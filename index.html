@@ -1,75 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pro 3D Sydney</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ultimate 3D - Sydney</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Pro 3D Sydney</h1>
-    <p>Precision 3D Printing. Based in Sydney.</p>
+  <header class="sticky-header">
+    <div class="header-container">
+      <div class="branding">
+        <h1>Ultimate 3D</h1>
+        <p class="subheading">Precision 3D Printing. Based in Sydney.</p>
+      </div>
+      <button class="contact-button" onclick="document.getElementById('contact').scrollIntoView()">Get in Touch</button>
+    </div>
   </header>
 
-  <section class="hero">
-    <h2>High-Quality 3D Printing for Designers, Engineers, and Innovators</h2>
-    <p>Ultra-fine precision up to <strong>0.06mm</strong> using industry-leading equipment.</p>
-  </section>
+  <main>
+    <section id="what-we-do" class="white-section">
+      <div class="content-container">
+        <div class="text">
+          <h2>What do we do?</h2>
+          <p>At Ultimate 3D, we leverage the most advanced 3D printers with both high-end and cost-effective materials to best suit your needs.
+          We stock material from all popular brands such as Bambu Lab, eSun, Polymaker, colorFabb and more. Whether you're prototyping a product, printing parts for a project, or just testing ideas, we’ve got the right filament and machine precision to get it done.
+          We also offer custom made designs, making it simple to make sure you get exactly the part you need without needing to know how to do 3D modeling yourself. Just get in touch by sending a message to 0410 937 558 or pro3dsydney@gmail.com to arrange your free consultation.</p>
+        </div>
+        <div class="image">
+          <img src="assets/image1.webp" alt="Ultimate 3D printing setup" />
+        </div>
+      </div>
+    </section>
 
-  <section class="about">
-    <h2>About Us</h2>
-    <p>
-      At Pro 3D Sydney, we specialize in delivering ultra-accurate, fast-turnaround 3D prints using the Bambu Lab X1 Carbon. Whether you're prototyping a product, printing mechanical components, or crafting artistic models — we’ve got you covered.
-    </p>
-    <p><strong>Turnaround:</strong> Most orders printed and shipped within 1–3 business days.</p>
-    <p><strong>Quote:</strong> Always free. Upload your model and we’ll get back to you ASAP.</p>
-  </section>
+    <section id="trusted-by" class="black-section">
+      <h2>Trusted by over 600 individuals and small businesses since 2018</h2>
+    </section>
 
-  <section class="materials">
-    <h2>Materials We Offer</h2>
-    <ul>
-      <li>PLA+ (Strong & easy to print)</li>
-      <li>ABS (Impact-resistant)</li>
-      <li>PETG (Durable, water-resistant)</li>
-      <li>ASA (UV-resistant for outdoor use)</li>
-      <li>TPU (Flexible/rubber-like)</li>
-      <li>PA-CF (Carbon fiber reinforced nylon)</li>
-    </ul>
-    <p>All prints are done on the <strong>Bambu Lab X1 Carbon</strong> for maximum speed and precision.</p>
-  </section>
+    <section id="materials-carousel" class="carousel-section">
+      <div class="carousel-container">
+        <!-- Placeholder for brand logos -->
+        <img src="assets/Filament_Images/logo1.webp" alt="Brand 1" />
+        <img src="assets/Filament_Images/logo2.webp" alt="Brand 2" />
+        <img src="assets/Filament_Images/logo3.webp" alt="Brand 3" />
+      </div>
+    </section>
 
-  <section class="quote-form">
-    <h2>Get a Free Quote</h2>
-    <form id="uploadForm" enctype="multipart/form-data">
-      <label>Upload Files (STL / OBJ / Images):</label>
-      <input type="file" name="files" multiple required />
+    <section id="materials" class="collapsible-section">
+      <button class="collapse-toggle" onclick="toggleMaterials()">Materials We Use ▼</button>
+      <div id="materials-table" class="hidden">
+        <table>
+          <thead>
+            <tr><th>Material</th><th>Properties</th><th>Use Cases</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PLA</td><td>Easy to print, biodegradable</td><td>General purpose, prototypes</td></tr>
+            <tr><td>PETG</td><td>Strong, slightly flexible, chemical-resistant</td><td>Mechanical parts, enclosures</td></tr>
+            <tr><td>ABS</td><td>Durable, heat-resistant</td><td>Functional parts, tools</td></tr>
+            <tr><td>TPU</td><td>Flexible, rubber-like</td><td>Gaskets, protective gear</td></tr>
+          </tbody>
+        </table>
+        <button class="show-more">Show More</button>
+      </div>
+    </section>
 
-      <label>Your Contact Info:</label>
-      <input type="text" name="contact" placeholder="Email or Phone" required />
+    <section id="contact" class="white-section">
+      <h2>Get a custom solution to suit your needs</h2>
+      <form>
+        <input type="text" placeholder="Name" required />
+        <input type="text" placeholder="Best contact" required />
+        <input type="file" />
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
 
-      <label>Optional Message:</label>
-      <textarea name="message" placeholder="Describe your project..."></textarea>
-
-      <button type="submit">Send</button>
-    </form>
-    <p id="response"></p>
-  </section>
-
-  <footer>
-    <p>© 2025 Pro 3D Sydney — Precision. Speed. Service.</p>
-  </footer>
-
-  <!-- Popup contact form -->
-  <div id="popup" class="popup hidden">
-    <div class="popup-content">
-      <h2>Want a Quote?</h2>
-      <p>Upload your file and we’ll respond shortly.</p>
-      <button onclick="scrollToForm()">Go to Quote Form</button>
-      <button onclick="closePopup()">Dismiss</button>
+    <div id="popup" class="popup hidden">
+      <p>Get a free quote</p>
+      <button onclick="document.getElementById('contact').scrollIntoView()">Open Form</button>
     </div>
-  </div>
+  </main>
 
-  <script src="script.js"></script>
+  <script>
+    setTimeout(() => {
+      document.getElementById('popup').classList.remove('hidden');
+    }, 10000);
+
+    function toggleMaterials() {
+      const table = document.getElementById('materials-table');
+      table.classList.toggle('hidden');
+    }
+  </script>
 </body>
 </html>
