@@ -16,7 +16,7 @@
 (() => {
   const REVIEWS = [
     {txt:'Faultless quality, ahead of schedule. Highly recommended!', stars:5, who:'Alex'},
-    {txt:'Excellent service and flawless finish on every part.',       stars:5, who:'Jordan'},
+    {txt:'Excellent service and flawless finish on every part. Will come back!',       stars:5, who:'Jordan'},
     {txt:'Print quality was superb — just a bit pricey for the exotic filament I chose.',
           stars:4, who:'Taylor'}
   ];
