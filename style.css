@@ -4,7 +4,7 @@
   --bg-light:#111;
   --text-light:#e5e5e5;
   --accent:#ff6600;
-  --grey:#d0d0d0;       /* Ultimate3D light grey */
+  --grey:#d8d8d8;
   font-family:'Inter',sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -13,79 +13,82 @@ body{background:var(--bg-dark);color:var(--text-light);line-height:1.6;}
 
 /* ---------- HEADER ---------- */
 header{
-  background:#1b1b1b;
+  background:#262626;               /* slightly lighter black */
   color:#fff;
-  width:100%;text-align:center;
-  padding:1.5rem 2rem 1.25rem;
-  border-top:2px solid #fff;          /* ← white line at top  */
-  border-bottom:2px solid #fff;       /* ← white line at bottom */
+  text-align:center;
+  padding:1.2rem 2rem 1rem;
+  border-top:2px solid #fff;
+  border-bottom:2px solid #fff;
 }
-header h1{font-size:3rem;color:#d0d0d0;margin-bottom:.25rem;}
-header span{color:#b5b5b5;font-size:1rem;font-weight:300;}
+header h1{font-size:2.8rem;color:var(--grey);margin-bottom:.15rem;}
+header span{font-size:1rem;font-weight:300;color:#c4c4c4;}
 @media(min-width:768px){header{position:sticky;top:0;z-index:100;}}
 
 /* ---------- SECTIONS ---------- */
-section{padding:4rem 2rem;max-width:1200px;margin:auto;}
-@media(min-width:992px){section{padding:6rem 2rem;}}
+section{padding:3rem 2rem;max-width:1200px;margin:auto;}     /* tighter */
+@media(min-width:992px){section{padding:4.5rem 2rem;}}       /* tighter desktop */
 .section-title{font-size:1.8rem;margin-bottom:1rem;color:var(--accent);}
 
 /* ---------- HERO ---------- */
-.hero{display:flex;flex-direction:column;gap:2rem;align-items:center;}
+.hero{
+  display:flex;flex-direction:column;gap:2rem;align-items:center;
+}
+.hero img{
+  width:100%;max-height:230px;object-fit:cover;border-radius:8px; /* limit height on mobile */
+}
+.hero .hero-text{display:flex;flex-direction:column;justify-content:center;text-align:left;}
 @media(min-width:768px){
-  .hero{flex-direction:row;gap:3rem;}
-  .hero img{max-width:42%;}
-  .hero .hero-text{height:100%;display:flex;flex-direction:column;justify-content:center;}
+  .hero{flex-direction:row;gap:2.5rem;}
+  .hero img{max-width:42%;max-height:none;}
 }
 
 /* ---------- TRUSTED ---------- */
-.trusted{text-align:center;margin-bottom:1rem;}
+.trusted{text-align:center;margin-bottom:.5rem;}
 
 /* ---------- BRAND MARQUEE ---------- */
-.carousel-wrapper{overflow:hidden;margin:3rem 0;}
-.logo-track{display:flex;gap:2.5rem;animation:scroll 18s linear infinite;}
+.carousel-wrapper{overflow:hidden;margin:2.5rem 0;}
+.logo-track{display:flex;gap:2rem;animation:scroll 18s linear infinite;}
 .logo-track img{height:70px;width:auto;object-fit:contain;filter:brightness(1.1);}
 @media(min-width:768px){.logo-track img{height:90px;}}
 @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* ---------- REVIEWS ---------- */
-.reviews{text-align:center;margin-top:2rem;}
+.reviews{text-align:center;margin-top:1.5rem;}
 .reviews-wrapper{position:relative;overflow:hidden;}
 .reviews-track{
-  display:flex;gap:1.5rem;
-  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  display:flex;gap:1.25rem;scroll-snap-type:x mandatory;overflow-x:auto;-webkit-overflow-scrolling:touch;
   padding-bottom:1rem;
 }
 .review-card{
   background:var(--bg-light);border-radius:8px;padding:1.25rem;
-  flex:0 0 100%;max-width:280px;margin:0 auto;scroll-snap-align:center;
+  flex:0 0 100%;max-width:280px;scroll-snap-align:center;margin:0 auto;
 }
-.review-card .stars{color:var(--accent);font-size:1.3rem;margin-bottom:.5rem;}
-.review-card .name{font-weight:600;font-size:.9rem;}
+.review-card .stars{color:var(--accent);font-size:1.25rem;margin-bottom:.4rem;letter-spacing:1px;}
+.review-card .name{font-weight:600;font-size:.9rem;margin-top:.4rem;}
 .reviews-wrapper button{
   position:absolute;top:50%;transform:translateY(-50%);
-  background:rgba(0,0,0,.6);color:#fff;border:none;
-  width:32px;height:32px;border-radius:50%;cursor:pointer;
+  background:rgba(0,0,0,.6);color:#fff;border:none;width:32px;height:32px;
+  border-radius:50%;cursor:pointer;
 }
 .rev-prev{left:.25rem;} .rev-next{right:.25rem;}
 @media(min-width:768px){
-  .review-card{flex:0 0 calc(33.333% - 1rem);}
+  .review-card{flex:0 0 calc(33.333% - .8rem);}
   .reviews-track{overflow-x:visible;}
   .reviews-wrapper button{display:none;}
 }
 
 /* ---------- ACCORDION / TABLE ---------- */
-.accordion{margin-top:2rem;}
 .accordion details{background:var(--bg-light);margin-bottom:.5rem;border-radius:6px;}
 .accordion summary{padding:1rem;cursor:pointer;font-weight:600;color:var(--text-light);}
 .table-wrapper{overflow-x:auto;}
 .accordion table{width:100%;min-width:600px;border-collapse:collapse;font-size:.9rem;}
-.accordion th,.accordion td{padding:.75rem;border-bottom:1px solid #333;text-align:left;}
+.accordion th,.accordion td{padding:.7rem;border-bottom:1px solid #333;text-align:left;}
 .accordion tbody tr:nth-child(odd){background:#181818;}
 
 /* ---------- CONTACT ---------- */
 .contact{background:var(--bg-light);border-radius:8px;}
-.contact form{display:flex;flex-direction:column;gap:1rem;}
-.contact input,.contact textarea{background:#222;color:var(--text-light);border:none;border-radius:4px;padding:.75rem;}
+.contact form{display:flex;flex-direction:column;gap:.9rem;}
+.contact input,.contact textarea{background:#222;color:var(--text-light);border:none;border-radius:4px;padding:.7rem;}
 .contact label{font-weight:600;}
 .contact button{padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;}
 .contact button:disabled{opacity:.6;cursor:not-allowed;}
@@ -93,9 +96,9 @@ section{padding:4rem 2rem;max-width:1200px;margin:auto;}
 /* ---------- POP-UP ---------- */
 #popup{
   position:fixed;bottom:1rem;right:1rem;z-index:101;
-  background:var(--bg-light);border-radius:10px;padding:1.5rem;box-shadow:0 0 12px rgba(0,0,0,.6);
-  width:300px;text-align:center;
+  background:var(--bg-light);border-radius:10px;padding:1.4rem;box-shadow:0 0 12px rgba(0,0,0,.6);
+  width:290px;text-align:center;
 }
-#popup button{margin-top:.75rem;padding:.5rem 1rem;border:none;border-radius:4px;cursor:pointer;}
+#popup button{margin-top:.6rem;padding:.45rem 1rem;border:none;border-radius:4px;cursor:pointer;}
 #popup .primary{background:var(--accent);color:#fff;}
 #popup .secondary{background:#222;color:#fff;}
