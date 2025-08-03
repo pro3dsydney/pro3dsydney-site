@@ -3,70 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ultimate3D | Precision 3D Printing Sydney</title>
+  <title>Ultimate3D | Precision 3D Printing – Sydney</title>
 
-  <!-- External stylesheet & script -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- ---------- DESKTOP-ONLY HEADER ---------- -->
+  <!-- Desktop header, hidden on mobile -->
   <header>
     <h1>Ultimate3D</h1>
     <span>Precision 3D Printing – Based in Sydney</span>
   </header>
 
-  <!-- ---------- HERO ---------- -->
+  <!-- HERO -->
   <section class="hero">
     <img src="assets/image1.webp" alt="Showcase print" />
     <div class="hero-text">
       <h2 class="section-title">What we do</h2>
       <p>
-        Since <strong>2017</strong> we have combined top-of-the-line additive-manufacturing
-        hardware with engineering-grade expertise to deliver
-        <strong>beautiful, accurate and cost-effective</strong> parts—whether it’s a one-off
-        showpiece or a production run of a thousand. From concept sketches to
-        ready-to-print CAD, we design, optimise and fabricate so you can focus on inventing
-        the next big thing.
+        Since <strong>2017</strong> we’ve paired <em>top-tier industrial hardware</em> with engineering know-how to deliver
+        <strong>beautiful, precise and cost-effective</strong> parts—whether it’s one flagship model
+        or a thousand functional components. From sketch to finished part, we design, optimise and fabricate so you can
+        focus on innovation.
       </p>
     </div>
   </section>
 
-  <!-- ---------- TRUSTED ---------- -->
+  <!-- TRUSTED -->
   <section class="trusted">
-    <h2 class="section-title">Trusted by over 600 individuals & businesses</h2>
-    <p>Creators and entrepreneurs across Australia rely on us to turn imagination into reality.</p>
+    <h2 class="section-title">Trusted by over 600 individuals&nbsp;&amp;&nbsp;businesses</h2>
+    <p>Serving Australian makers, startups and corporates with dependable quality since 2017.</p>
   </section>
 
-  <!-- ---------- MATERIALS ---------- -->
+  <!-- REVIEWS -->
+  <section class="reviews">
+    <div class="reviews-track" id="reviewsTrack"></div>
+  </section>
+
+  <!-- MATERIALS -->
   <section class="materials">
-    <!-- Brand marquee FIRST -->
-    <div class="carousel-wrapper">
-      <div class="logo-track" id="logoTrack"></div>
-    </div>
+    <!-- Brand marquee -->
+    <div class="carousel-wrapper"><div class="logo-track" id="logoTrack"></div></div>
 
     <h2 class="section-title">Materials we use</h2>
 
-    <!-- Responsive accordion table -->
     <div class="accordion">
       <details>
         <summary>Filament comparison table</summary>
         <div class="table-wrapper">
           <table>
-            <thead>
-              <tr><th>Material</th><th>Best for</th><th>Notes</th><th>Cost</th></tr>
-            </thead>
+            <thead><tr><th>Material</th><th>Best for</th><th>Notes</th><th>Cost</th></tr></thead>
             <tbody>
               <tr><td>PLA</td><td>Display models</td><td>Easy, vibrant</td><td>$</td></tr>
-              <tr><td>PETG</td><td>Functional prototypes</td><td>Tough, chemical-resistant</td><td>$$</td></tr>
+              <tr><td>PETG</td><td>Prototypes</td><td>Tough, chem-resistant</td><td>$$</td></tr>
               <tr><td>ABS</td><td>Engineering parts</td><td>Heat-tolerant</td><td>$$</td></tr>
-              <tr><td>ASA</td><td>Outdoor components</td><td>UV-resistant</td><td>$$$</td></tr>
-              <tr><td>TPU 95A</td><td>Flexible gaskets</td><td>Shock-absorbing</td><td>$$$</td></tr>
-              <tr><td>Nylon PA12</td><td>Structural parts</td><td>High strength</td><td>$$$$</td></tr>
-              <tr><td>Polycarbonate</td><td>Enclosures</td><td>Heat-resistant, clear</td><td>$$$$</td></tr>
-              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-fibre reinforced</td><td>$$$$</td></tr>
-              <tr><td>WoodFill PLA</td><td>Cosmetic pieces</td><td>Real wood fibres</td><td>$$</td></tr>
-              <tr><td>Glow PLA</td><td>Novelty items</td><td>Photoluminescent</td><td>$</td></tr>
+              <tr><td>ASA</td><td>Outdoor use</td><td>UV-resistant</td><td>$$$</td></tr>
+              <tr><td>TPU 95A</td><td>Flexibles</td><td>Shock-absorbing</td><td>$$$</td></tr>
+              <tr><td>PA-12</td><td>Structural</td><td>High strength</td><td>$$$$</td></tr>
+              <tr><td>Poly-Carb.</td><td>Enclosures</td><td>Clear, heat-proof</td><td>$$$$</td></tr>
+              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-fibre filled</td><td>$$$$</td></tr>
+              <tr><td>Wood-PLA</td><td>Display</td><td>Real wood fibres</td><td>$$</td></tr>
+              <tr><td>Glow-PLA</td><td>Novelty</td><td>Photoluminescent</td><td>$</td></tr>
             </tbody>
           </table>
         </div>
@@ -74,27 +71,30 @@
     </div>
   </section>
 
-  <!-- ---------- CONTACT ---------- -->
+  <!-- CONTACT -->
   <section class="contact quote-form">
-    <h2 class="section-title">Get a custom solution</h2>
-    <p>No matter the stage of your project, we’ll tailor a path from idea to reality—fast, simple, and obligation-free.</p>
+    <h2 class="section-title">Request a custom quote</h2>
+    <p>Tell us your requirements and—if relevant—attach design files. Our engineers will respond within one business day.</p>
 
     <form id="uploadForm">
-      <label for="email">Email (preferred)</label>
+      <label for="email">Email <small>(preferred)</small></label>
       <input type="email" id="email" name="email" placeholder="you@example.com" />
 
-      <label for="phone">Phone (optional)</label>
+      <label for="phone">Phone <small>(optional)</small></label>
       <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" />
 
-      <label for="message">Message (optional)</label>
-      <textarea id="message" name="message" rows="5" placeholder="Tell us about your project"></textarea>
+      <label for="files">Upload files <small>(STL/STEP optional)</small></label>
+      <input type="file" id="files" name="files" multiple />
+
+      <label for="message">Message <small>(optional)</small></label>
+      <textarea id="message" name="message" rows="5" placeholder="Project details, dimensions, deadlines…"></textarea>
 
       <button type="submit">Send</button>
       <span id="response"></span>
     </form>
   </section>
 
-  <!-- ---------- POP-UP ---------- -->
+  <!-- POP-UP -->
   <div id="popup" class="hidden">
     <p>Need a <strong>free quote</strong>?</p>
     <button class="primary" onclick="scrollToForm()">Request now</button>

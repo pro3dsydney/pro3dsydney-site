@@ -28,11 +28,19 @@ section{padding:4rem 2rem;max-width:1200px;margin:auto;}
 .section-title{font-size:1.6rem;margin-bottom:1rem;color:var(--accent);}
 
 /* ---------- HERO ---------- */
-.hero{display:flex;flex-direction:column-reverse;gap:1.5rem;}
-.hero img{width:100%;border-radius:8px;}
+.hero{
+  display:flex;
+  flex-direction:column;
+  gap:2rem;          /* mobile gap */
+}
 @media(min-width:768px){
-  .hero{flex-direction:row;align-items:center;}
-  .hero img{max-width:50%;}
+  .hero{
+    flex-direction:row;
+    gap:3rem;        /* bigger desktop gap */
+  }
+  .hero img{
+    max-width:42%;   /* smaller desktop image */
+  }
 }
 
 /* ---------- TRUSTED ---------- */
