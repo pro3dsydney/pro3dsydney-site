@@ -9,35 +9,36 @@ const logos=['logo1.webp','logo2.webp','logo3.webp','logo4.webp','logo5.webp','l
   track.appendChild(frag);
 })();
 
-/* ---------- REVIEWS (2 × 5★, 1 × 4★) ---------- */
+/* ---------- REVIEWS (2×5★, 1×4★, dd/mm/yy 2017-24) ---------- */
 (() => {
-  const data=[
-    {q:'Faultless quality, ahead of schedule. Highly recommended!',star:5},
-    {q:'Excellent service and flawless finish on every part.',star:5},
-    {q:'Print quality was superb — just a bit pricey for the exotic filament I chose.',star:4}
+  const reviews = [
+    {text:'Faultless quality, ahead of schedule. Highly recommended!', stars:5, name:'Alex'},
+    {text:'Excellent service and flawless finish on every part.',        stars:5, name:'Jordan'},
+    {text:'Print quality was superb — just a bit pricey for the exotic filament I chose.',
+      stars:4, name:'Taylor'}
   ];
-  const names=['Alex','Jordan','Taylor'];
-  const track=document.getElementById('reviewsTrack'); if(!track) return;
+  const track = document.getElementById('reviewsTrack'); if(!track) return;
 
-  data.forEach((r,i)=>{
-    const yr = 2017+Math.floor(Math.random()*8);  /* 2017-2024 */
+  reviews.forEach(r=>{
+    const yr = 2017 + Math.floor(Math.random()*8);          // 2017-24
     const mm = String(Math.floor(Math.random()*12)+1).padStart(2,'0');
     const dd = String(Math.floor(Math.random()*28)+1).padStart(2,'0');
+    const filled = '★'.repeat(r.stars);
+    const empty  = '☆'.repeat(5 - r.stars);
     const card = document.createElement('div'); card.className='review-card';
-    const starStr = '★'.repeat(r.star)+'☆'.repeat(5-r.star);
     card.innerHTML = `
-      <div class="stars">${starStr} 4.8</div>
-      <p>${r.q}</p>
-      <div class="name">— ${names[i]} <span>(${dd}/${mm}/${String(yr).slice(2)})</span></div>`;
+      <div class="stars">${filled}${empty}  4.8</div>
+      <p>${r.text}</p>
+      <div class="name">— ${r.name} <span>(${dd}/${mm}/${String(yr).slice(2)})</span></div>`;
     track.appendChild(card);
   });
 
-  /* simple arrows on narrow screens */
+  /* mobile arrow nav */
   const prev=document.querySelector('.rev-prev'), next=document.querySelector('.rev-next');
   if(prev && next){
-    const w = () => track.querySelector('.review-card').offsetWidth + 24;
-    prev.onclick = () => track.scrollBy({left:-w(),behavior:'smooth'});
-    next.onclick = () => track.scrollBy({left: w(),behavior:'smooth'});
+    const scrollAmount = () => track.querySelector('.review-card').offsetWidth + 24;
+    prev.onclick = () => track.scrollBy({left:-scrollAmount(),behavior:'smooth'});
+    next.onclick = () => track.scrollBy({left: scrollAmount(),behavior:'smooth'});
   }
 })();
 

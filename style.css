@@ -16,14 +16,13 @@ header{
   background:#1b1b1b;
   color:#fff;
   width:100%;text-align:center;
-  padding:1.5rem 2rem 1.25rem;          /* bottom pad hides the faint line */
-  border-top:4px solid var(--accent);   /* orange bar on top */
+  padding:1.5rem 2rem 1.25rem;
+  border-top:2px solid #fff;          /* ← white line at top  */
+  border-bottom:2px solid #fff;       /* ← white line at bottom */
 }
-header h1{font-size:3rem;color:var(--grey);margin-bottom:.25rem;}
+header h1{font-size:3rem;color:#d0d0d0;margin-bottom:.25rem;}
 header span{color:#b5b5b5;font-size:1rem;font-weight:300;}
-@media(min-width:768px){
-  header{position:sticky;top:0;z-index:100;}
-}
+@media(min-width:768px){header{position:sticky;top:0;z-index:100;}}
 
 /* ---------- SECTIONS ---------- */
 section{padding:4rem 2rem;max-width:1200px;margin:auto;}
@@ -31,15 +30,11 @@ section{padding:4rem 2rem;max-width:1200px;margin:auto;}
 .section-title{font-size:1.8rem;margin-bottom:1rem;color:var(--accent);}
 
 /* ---------- HERO ---------- */
-.hero{
-  display:flex;flex-direction:column;gap:2rem;
-  align-items:center;justify-content:center;
-}
-.hero img{width:100%;border-radius:8px;}
-.hero .hero-text{display:flex;flex-direction:column;justify-content:center;}
+.hero{display:flex;flex-direction:column;gap:2rem;align-items:center;}
 @media(min-width:768px){
   .hero{flex-direction:row;gap:3rem;}
   .hero img{max-width:42%;}
+  .hero .hero-text{height:100%;display:flex;flex-direction:column;justify-content:center;}
 }
 
 /* ---------- TRUSTED ---------- */
