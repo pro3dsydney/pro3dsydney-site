@@ -4,372 +4,101 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ultimate3D | Precision 3D Printing Sydney</title>
-  <style>
-    :root {
-      --bg-dark: #000;
-      --bg-light: #111;
-      --text-light: #e5e5e5;
-      --accent: #ff6600;
-      --grey: #8c8c8c; /* bambulab grey approximation */
-      font-family: 'Inter', sans-serif;
-    }
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-
-    /* ---------- HEADER ---------- */
-    header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background: var(--bg-dark);
-      z-index: 100;
-      border-bottom: 1px solid #222;
-      padding: 1rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      color: var(--grey);
-      font-weight: 700;
-    }
-    header span {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--text-light);
-    }
-
-    /* ---------- SECTIONS ---------- */
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
-    }
-
-    /* ---------- HERO ---------- */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      text-align: left;
-    }
-    .hero img {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    @media (min-width: 768px) {
-      .hero {
-        flex-direction: row;
-        align-items: center;
-      }
-      .hero img {
-        max-width: 50%;
-      }
-    }
-
-    /* ---------- TRUSTED ---------- */
-    .trusted {
-      text-align: center;
-    }
-
-    /* ---------- BRAND CAROUSEL ---------- */
-    .carousel-wrapper {
-      overflow: hidden;
-      margin: 2rem 0;
-    }
-    .logo-track {
-      display: flex;
-      gap: 2rem;
-      animation: scroll 20s linear infinite;
-    }
-    .logo-track img {
-      height: 60px;
-      width: auto;
-      object-fit: contain;
-      filter: grayscale(1) brightness(1.2);
-      opacity: 0.8;
-    }
-    @media (min-width: 768px) {
-      .logo-track img {
-        height: 80px;
-      }
-    }
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* ---------- ACCORDION / TABLE ---------- */
-    .accordion {
-      width: 100%;
-      margin-top: 2rem;
-    }
-    .accordion details {
-      background: var(--bg-light);
-      margin-bottom: 0.5rem;
-      border-radius: 6px;
-    }
-    .accordion summary {
-      padding: 1rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .accordion table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .accordion th,
-    .accordion td {
-      padding: 0.75rem;
-      border-bottom: 1px solid #333;
-    }
-
-    /* ---------- CONTACT ---------- */
-    .contact {
-      background: var(--bg-light);
-      border-radius: 8px;
-    }
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .contact label {
-      font-weight: 600;
-    }
-    .contact input,
-    .contact textarea {
-      padding: 0.75rem;
-      border: none;
-      border-radius: 4px;
-      background: #222;
-      color: var(--text-light);
-    }
-    .contact a {
-      color: var(--accent);
-      text-decoration: underline;
-      margin-bottom: 0.25rem;
-    }
-    .contact button {
-      padding: 0.75rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .contact button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* ---------- POPUP ---------- */
-    #quotePopup {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      background: var(--bg-light);
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      width: 250px;
-      display: none;
-    }
-    #quotePopup button {
-      margin-top: 0.5rem;
-    }
-  </style>
+  <!-- External stylesheet & script -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!---------- HEADER ---------->
+  <!-- ---------- DESKTOP-ONLY HEADER ---------- -->
   <header>
     <h1>Ultimate3D</h1>
     <span>Precision 3D Printing – Based in Sydney</span>
   </header>
 
-  <!---------- HERO ---------->
+  <!-- ---------- HERO ---------- -->
   <section class="hero">
+    <img src="assets/image1.webp" alt="Showcase print" />
     <div class="hero-text">
       <h2 class="section-title">What we do</h2>
       <p>
-        At Ultimate3D we combine top-of-the-line additive manufacturing hardware with
-        engineering-grade expertise to deliver
-        <strong>beautiful, accurate and cost-effective</strong> parts—whether it’s a
-        one-off showpiece or a production run of a thousand. From concept sketches to
-        ready-to-print CAD, we design, optimise and fabricate so you can focus on
-        inventing the next big thing.
+        Since <strong>2017</strong> we have combined top-of-the-line additive-manufacturing
+        hardware with engineering-grade expertise to deliver
+        <strong>beautiful, accurate and cost-effective</strong> parts—whether it’s a one-off
+        showpiece or a production run of a thousand. From concept sketches to
+        ready-to-print CAD, we design, optimise and fabricate so you can focus on inventing
+        the next big thing.
       </p>
     </div>
-    <img src="assets/image1.webp" alt="Showcase print" />
   </section>
 
-  <!---------- TRUSTED ---------->
+  <!-- ---------- TRUSTED ---------- -->
   <section class="trusted">
-    <h2 class="section-title">Trusted by over 600 creators & small businesses</h2>
-    <p>
-      No project is too small and no idea too ambitious. Join hundreds of innovators
-      who rely on us to transform imagination into tangible prototypes and final-use
-      parts.
-    </p>
+    <h2 class="section-title">Trusted by over 600 individuals & businesses</h2>
+    <p>Creators and entrepreneurs across Australia rely on us to turn imagination into reality.</p>
   </section>
 
-  <!---------- MATERIALS ---------->
+  <!-- ---------- MATERIALS ---------- -->
   <section class="materials">
-    <h2 class="section-title">Materials we use</h2>
-
-    <!-- BRAND CAROUSEL -->
+    <!-- Brand marquee FIRST -->
     <div class="carousel-wrapper">
       <div class="logo-track" id="logoTrack"></div>
     </div>
 
-    <!-- ACCORDION WITH FILAMENT TABLE -->
+    <h2 class="section-title">Materials we use</h2>
+
+    <!-- Responsive accordion table -->
     <div class="accordion">
       <details>
         <summary>Filament comparison table</summary>
-        <table>
-          <thead>
-            <tr>
-              <th>Material</th>
-              <th>Best for</th>
-              <th>Notes</th>
-              <th>Indicative cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>PLA</td><td>Display models</td><td>Easy to print, vibrant</td><td>$</td></tr>
-            <tr><td>PETG</td><td>Functional prototypes</td><td>Tough, chemical-resistant</td><td>$$</td></tr>
-            <tr><td>ABS</td><td>Engineering parts</td><td>Heat tolerant, post-processable</td><td>$$</td></tr>
-            <tr><td>ASA</td><td>Outdoor components</td><td>UV-resistant</td><td>$$$</td></tr>
-            <tr><td>TPU 95A</td><td>Flexible gaskets</td><td>Rubbery, shock-absorbent</td><td>$$$</td></tr>
-            <tr><td>Nylon PA12</td><td>Structural parts</td><td>Exceptional strength</td><td>$$$$</td></tr>
-            <tr><td>Polycarbonate</td><td>High-strength enclosures</td><td>Heat-resistant, clear</td><td>$$$$</td></tr>
-            <tr><td>CF-PETG</td><td>Stiff, lightweight fixtures</td><td>Carbon-fiber reinforced</td><td>$$$$</td></tr>
-            <tr><td>WoodFill PLA</td><td>Cosmetic pieces</td><td>Real wood fibres</td><td>$$</td></tr>
-            <tr><td>Glow-in-the-dark PLA</td><td>Novelty items</td><td>Photoluminescent pigment</td><td>$</td></tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>Material</th><th>Best for</th><th>Notes</th><th>Cost</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>PLA</td><td>Display models</td><td>Easy, vibrant</td><td>$</td></tr>
+              <tr><td>PETG</td><td>Functional prototypes</td><td>Tough, chemical-resistant</td><td>$$</td></tr>
+              <tr><td>ABS</td><td>Engineering parts</td><td>Heat-tolerant</td><td>$$</td></tr>
+              <tr><td>ASA</td><td>Outdoor components</td><td>UV-resistant</td><td>$$$</td></tr>
+              <tr><td>TPU 95A</td><td>Flexible gaskets</td><td>Shock-absorbing</td><td>$$$</td></tr>
+              <tr><td>Nylon PA12</td><td>Structural parts</td><td>High strength</td><td>$$$$</td></tr>
+              <tr><td>Polycarbonate</td><td>Enclosures</td><td>Heat-resistant, clear</td><td>$$$$</td></tr>
+              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-fibre reinforced</td><td>$$$$</td></tr>
+              <tr><td>WoodFill PLA</td><td>Cosmetic pieces</td><td>Real wood fibres</td><td>$$</td></tr>
+              <tr><td>Glow PLA</td><td>Novelty items</td><td>Photoluminescent</td><td>$</td></tr>
+            </tbody>
+          </table>
+        </div>
       </details>
     </div>
   </section>
 
-  <!---------- CONTACT ---------->
-  <section class="contact">
+  <!-- ---------- CONTACT ---------- -->
+  <section class="contact quote-form">
     <h2 class="section-title">Get a custom solution</h2>
-    <p>
-      Wherever you are on the journey—from napkin sketch to production—we’re here to help.
-      Upload your files using the secure link below, paste the download URL, and we’ll
-      come back with a free, no-obligation quote.
-    </p>
+    <p>No matter the stage of your project, we’ll tailor a path from idea to reality—fast, simple, and obligation-free.</p>
 
-    <form id="inquiryForm" action="https://formspree.io/f/mvgqbbdk" method="POST">
-      <label for="name">Name / Best contact</label>
-      <input type="text" id="name" name="name" required />
+    <form id="uploadForm">
+      <label for="email">Email (preferred)</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" />
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="_replyto" required />
+      <label for="phone">Phone (optional)</label>
+      <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" />
 
-      <label>Upload your files</label>
-      <a href="https://filetransfer.io/" target="_blank" rel="noopener">Open secure upload (new tab)</a>
-      <small>After the upload finishes, copy the share link and paste it below.</small>
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" rows="5" placeholder="Tell us about your project"></textarea>
 
-      <label for="filelink">Paste download link</label>
-      <input type="url" id="filelink" name="filelink" placeholder="https://…" required />
-
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit" id="submitBtn">Send</button>
-      <span id="status" style="display: none;"></span>
+      <button type="submit">Send</button>
+      <span id="response"></span>
     </form>
   </section>
 
-  <!-- ---------- POPUP ---------- -->
-  <div id="quotePopup">
+  <!-- ---------- POP-UP ---------- -->
+  <div id="popup" class="hidden">
     <p>Need a <strong>free quote</strong>?</p>
-    <button id="openContact">Request now</button>
-    <button id="dismissPopup">Dismiss</button>
+    <button class="primary" onclick="scrollToForm()">Request now</button>
+    <button class="secondary" onclick="closePopup()">Dismiss</button>
   </div>
-
-  <script>
-    /* ---------- BRAND LOGO CAROUSEL ---------- */
-    const logos = [
-      'logo1.webp','logo2.webp','logo3.webp','logo4.webp','logo5.webp','logo6.webp','logo7.webp'
-    ];
-    const track = document.getElementById('logoTrack');
-    (() => {
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < 2; i++) {
-        logos.forEach(src => {
-          const img = document.createElement('img');
-          img.src = 'assets/Filament_images/' + src;
-          img.loading = 'lazy';
-          fragment.appendChild(img);
-        });
-      }
-      track.appendChild(fragment);
-    })();
-
-    /* ---------- QUOTE POPUP ---------- */
-    const popup = document.getElementById('quotePopup');
-    setTimeout(() => popup.style.display = 'block', 10000);
-    document.getElementById('dismissPopup').onclick = () => popup.style.display = 'none';
-    document.getElementById('openContact').onclick = () => {
-      popup.style.display = 'none';
-      window.scrollTo({ top: document.querySelector('.contact').offsetTop - 80, behavior: 'smooth' });
-    };
-
-    /* ---------- AJAX FORM SUBMIT VIA FORMSPREE ---------- */
-    const form = document.getElementById('inquiryForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const status = document.getElementById('status');
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      status.style.display = 'inline';
-      status.textContent = 'Sending…';
-
-      const data = new FormData(form);
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          status.textContent = 'Sent! We\u2019ll get back to you shortly.';
-          form.reset();
-        } else {
-          status.textContent = 'Oops, there was a problem.';
-        }
-      } catch (err) {
-        status.textContent = 'Network error.';
-      } finally {
-        btn.disabled = false;
-      }
-    });
-  </script>
 </body>
 </html>
