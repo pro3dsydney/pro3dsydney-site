@@ -9,35 +9,41 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Desktop header, hidden on mobile -->
+  <!-- HEADER – now dark, bigger logo, visible everywhere, sticky only on ≥ 768 px -->
   <header>
     <h1>Ultimate3D</h1>
     <span>Precision 3D Printing – Based in Sydney</span>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO – image first on all viewports -->
   <section class="hero">
     <img src="assets/image1.webp" alt="Showcase print" />
     <div class="hero-text">
       <h2 class="section-title">What we do</h2>
       <p>
-        Since <strong>2017</strong> we’ve paired <em>top-tier industrial hardware</em> with engineering know-how to deliver
-        <strong>beautiful, precise and cost-effective</strong> parts—whether it’s one flagship model
-        or a thousand functional components. From sketch to finished part, we design, optimise and fabricate so you can
-        focus on innovation.
+        Since <strong>2017</strong> we’ve paired <em>industrial-grade hardware</em> with engineering
+        expertise to deliver <strong>beautiful, precise and cost-effective</strong> parts —
+        from one flagship model to a full production run. We handle design, optimisation and
+        fabrication so you can focus on innovation.
       </p>
     </div>
   </section>
 
   <!-- TRUSTED -->
   <section class="trusted">
-    <h2 class="section-title">Trusted by over 600 individuals&nbsp;&amp;&nbsp;businesses</h2>
-    <p>Serving Australian makers, startups and corporates with dependable quality since 2017.</p>
+    <h2 class="section-title">Trusted by over 600 individuals &amp; businesses</h2>
+    <p>Serving Australian makers, start-ups and corporates with dependable quality since 2017.</p>
   </section>
 
-  <!-- REVIEWS -->
+  <!-- REVIEWS – average 4.8 ★, slider on mobile -->
   <section class="reviews">
-    <div class="reviews-track" id="reviewsTrack"></div>
+    <h2 class="section-title">Rated 4.8 ★ by our clients</h2>
+
+    <div class="reviews-wrapper">
+      <button class="rev-prev">‹</button>
+      <div class="reviews-track" id="reviewsTrack"></div>
+      <button class="rev-next">›</button>
+    </div>
   </section>
 
   <!-- MATERIALS -->
@@ -52,7 +58,7 @@
         <summary>Filament comparison table</summary>
         <div class="table-wrapper">
           <table>
-            <thead><tr><th>Material</th><th>Best for</th><th>Notes</th><th>Cost</th></tr></thead>
+            <thead><tr><th>Material</th><th>Best&nbsp;for</th><th>Notes</th><th>Cost</th></tr></thead>
             <tbody>
               <tr><td>PLA</td><td>Display models</td><td>Easy, vibrant</td><td>$</td></tr>
               <tr><td>PETG</td><td>Prototypes</td><td>Tough, chem-resistant</td><td>$$</td></tr>
@@ -60,9 +66,9 @@
               <tr><td>ASA</td><td>Outdoor use</td><td>UV-resistant</td><td>$$$</td></tr>
               <tr><td>TPU 95A</td><td>Flexibles</td><td>Shock-absorbing</td><td>$$$</td></tr>
               <tr><td>PA-12</td><td>Structural</td><td>High strength</td><td>$$$$</td></tr>
-              <tr><td>Poly-Carb.</td><td>Enclosures</td><td>Clear, heat-proof</td><td>$$$$</td></tr>
-              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-fibre filled</td><td>$$$$</td></tr>
-              <tr><td>Wood-PLA</td><td>Display</td><td>Real wood fibres</td><td>$$</td></tr>
+              <tr><td>Poly-carbonate</td><td>Enclosures</td><td>Clear, heat-proof</td><td>$$$$</td></tr>
+              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-filled</td><td>$$$$</td></tr>
+              <tr><td>Wood-PLA</td><td>Decorative</td><td>Real wood fibres</td><td>$$</td></tr>
               <tr><td>Glow-PLA</td><td>Novelty</td><td>Photoluminescent</td><td>$</td></tr>
             </tbody>
           </table>
@@ -74,7 +80,7 @@
   <!-- CONTACT -->
   <section class="contact quote-form">
     <h2 class="section-title">Request a custom quote</h2>
-    <p>Tell us your requirements and—if relevant—attach design files. Our engineers will respond within one business day.</p>
+    <p>Attach design files if available — our engineers reply within one business day.</p>
 
     <form id="uploadForm">
       <label for="email">Email <small>(preferred)</small></label>
@@ -83,11 +89,12 @@
       <label for="phone">Phone <small>(optional)</small></label>
       <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" />
 
-      <label for="files">Upload files <small>(STL/STEP optional)</small></label>
+      <label for="files">Upload files <small>(optional)</small></label>
       <input type="file" id="files" name="files" multiple />
 
       <label for="message">Message <small>(optional)</small></label>
-      <textarea id="message" name="message" rows="5" placeholder="Project details, dimensions, deadlines…"></textarea>
+      <textarea id="message" name="message" rows="5"
+                placeholder="Project details, dimensions, deadlines…"></textarea>
 
       <button type="submit">Send</button>
       <span id="response"></span>
@@ -96,7 +103,7 @@
 
   <!-- POP-UP -->
   <div id="popup" class="hidden">
-    <p>Need a <strong>free quote</strong>?</p>
+    <p>Need a <strong>free&nbsp;quote</strong>?</p>
     <button class="primary" onclick="scrollToForm()">Request now</button>
     <button class="secondary" onclick="closePopup()">Dismiss</button>
   </div>
