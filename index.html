@@ -1,287 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ultimate3D — Premium FDM 3D Printing in Sydney</title>
-  <meta name="description" content="Sydney-based 3D printing studio. Premium FDM/FFF prints with layer heights down to 0.06 mm. Fast turnaround, DFM support, and small-batch production." />
-  <link rel="icon" href="assets/favicon.svg">
-  <link rel="preload" href="assets/image1.webp" as="image">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body class="theme-light">
-  <a class="skip" href="#quote">Skip to quote form</a>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate3D | Precision 3D Printing – Sydney</title>
 
-  <!-- Header -->
-  <header class="site">
-    <div class="container">
-      <div class="brand">
-        <span class="logo" aria-hidden="true"></span>
-        <span>Ultimate3D</span>
-      </div>
-      <nav id="nav" aria-label="Primary">
-        <a href="#services">Services</a>
-        <a href="#materials">Materials</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#pricing">Estimator</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#faq">FAQ</a>
-        <a href="#quote" class="btn nav-cta">Get a Quote</a>
-      </nav>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- ── HEADER ──────────────────────────────────────────────── -->
+  <header>
+    <h1>Ultimate3D</h1>
+    <span>Precision 3D Printing – Based in Sydney</span>
   </header>
 
-  <!-- Hero -->
+  <!-- ── HERO ────────────────────────────────────────────────── -->
   <section class="hero">
-    <div class="container wrap">
-      <div class="hero-copy">
-        <h1>Premium FDM printing with <span class="hl">0.06&nbsp;mm</span> layers.</h1>
-        <p>Since <strong>2017</strong>, Ultimate3D has helped Sydney makers, startups and engineers turn CAD into production‑ready parts. Get expert DFM feedback and consistent results, fast.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="#quote">Get a same‑day quote</a>
-          <a class="btn btn-soft" href="#gallery">See real projects</a>
+    <img src="assets/image1.webp" alt="Showcase print" />
+    <div class="hero-text">
+      <h2 class="section-title">What we do</h2>
+      <p>
+        Since <strong>2017</strong> we’ve paired
+        <em>industrial-grade hardware</em> with engineering expertise to deliver
+        <strong>beautiful, precise and cost-effective</strong> parts — from one
+        flagship model to a full production run. We handle design, optimisation
+        and fabrication so you can focus on innovation.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── TRUSTED ─────────────────────────────────────────────── -->
+<section class="trusted">
+  <h2 class="section-title">Trusted by over 600 individuals &amp; businesses</h2>
+  <p>
+    Serving Australian makers, start-ups, and corporates with dependable quality since 2017.<br>
+    We help transform bold ideas into real-world solutions, from rapid prototypes to production parts.<br>
+    Trusted for precision, value, and service at every step of your project.
+  </p>
+</section>
+  <!-- ── REVIEWS (avg 4.8★) ─────────────────────────────────── -->
+  <section class="reviews">
+    <h2 class="section-title">Rated 4.8 ★ by our clients</h2>
+
+    <div class="reviews-wrapper">
+      <button class="rev-prev">‹</button>
+      <div class="reviews-track" id="reviewsTrack"></div>
+      <button class="rev-next">›</button>
+    </div>
+  </section>
+
+  <!-- ── MATERIALS ───────────────────────────────────────────── -->
+  <section class="materials">
+    <div class="carousel-wrapper">
+      <div class="logo-track" id="logoTrack"></div>
+    </div>
+
+    <h2 class="section-title">Materials we use</h2>
+
+    <div class="accordion">
+      <details>
+        <summary>Filament comparison table</summary>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>Material</th><th>Best for</th><th>Notes</th><th>Cost</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>PLA</td><td>Display models</td><td>Easy, vibrant</td><td>$</td></tr>
+              <tr><td>PETG</td><td>Prototypes</td><td>Tough, chem-resistant</td><td>$$</td></tr>
+              <tr><td>ABS</td><td>Engineering parts</td><td>Heat-tolerant</td><td>$$</td></tr>
+              <tr><td>ASA</td><td>Outdoor use</td><td>UV-resistant</td><td>$$$</td></tr>
+              <tr><td>TPU 95A</td><td>Flexibles</td><td>Shock-absorbing</td><td>$$$</td></tr>
+              <tr><td>PA-12</td><td>Structural</td><td>High strength</td><td>$$$$</td></tr>
+              <tr><td>Poly-carbonate</td><td>Enclosures</td><td>Clear, heat-proof</td><td>$$$$</td></tr>
+              <tr><td>CF-PETG</td><td>Stiff fixtures</td><td>Carbon-filled</td><td>$$$$</td></tr>
+              <tr><td>Wood-PLA</td><td>Decorative</td><td>Real wood fibres</td><td>$$</td></tr>
+              <tr><td>Glow-PLA</td><td>Novelty</td><td>Photoluminescent</td><td>$</td></tr>
+            </tbody>
+          </table>
         </div>
-        <ul class="stats" aria-label="Key stats">
-          <li><div class="v">600+ clients</div><div class="muted">Individuals & businesses</div></li>
-          <li><div class="v">24–72h</div><div class="muted">Typical turnaround</div></li>
-        </ul>
-      </div>
-      <figure class="hero-visual" aria-label="Sample print gallery">
-        <img src="assets/image1.webp" alt="Premium 3D printed parts on a white background" loading="eager" decoding="async" />
-      </figure>
-    </div>
-  </section>
-
-  <!-- Trust logos (color + marquee) -->
-  <section class="trust">
-    <div class="container">
-      <div class="logos-marquee" aria-label="Filament brands we use">
-        <div class="logos-track">
-          <img src="assets/Filament_Images/Logo1.webp" alt="All3DP">
-          <img src="assets/Filament_Images/Logo2.webp" alt="Sunlu">
-          <img src="assets/Filament_Images/Logo3.webp" alt="Bambu Lab">
-          <img src="assets/Filament_Images/Logo4.webp" alt="colorFabb">
-          <img src="assets/Filament_Images/Logo5.webp" alt="eSUN">
-          <img src="assets/Filament_Images/Logo6.webp" alt="Phrozen">
-          <img src="assets/Filament_Images/Logo7.webp" alt="Polymaker">
-          <img src="assets/Filament_Images/Logo1.webp" alt="All3DP">
-          <img src="assets/Filament_Images/Logo2.webp" alt="Sunlu">
-          <img src="assets/Filament_Images/Logo3.webp" alt="Bambu Lab">
-          <img src="assets/Filament_Images/Logo4.webp" alt="colorFabb">
-          <img src="assets/Filament_Images/Logo5.webp" alt="eSUN">
-          <img src="assets/Filament_Images/Logo6.webp" alt="Phrozen">
-          <img src="assets/Filament_Images/Logo7.webp" alt="Polymaker">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="section">
-    <div class="container">
-      <h2>What we do</h2>
-      <p class="lead">From rapid prototypes to small‑batch production, we handle printing, finishing and fit‑for‑purpose guidance so your parts work first time.</p>
-      <div class="cards">
-        <article class="card">
-          <div class="icon">🧱</div>
-          <h3 class="title">FDM/FFF Printing</h3>
-          <p class="desc">Reliable, high‑quality parts in PLA, PETG, ABS/ASA, TPU, PC and carbon‑filled blends. Layer heights from 0.06–0.28&nbsp;mm.</p>
-        </article>
-        <article class="card">
-          <div class="icon">🛠️</div>
-          <h3 class="title">Design‑for‑Print (DFM)</h3>
-          <p class="desc">We review your model and suggest tweaks to improve strength, surface finish and cost before printing.</p>
-        </article>
-        <article class="card">
-          <div class="icon">🎯</div>
-          <h3 class="title">Post‑processing</h3>
-          <p class="desc">Sanding, vapor‑smooth for ABS, inserts, tapping, dyeing and basic assembly — delivered ready to use.</p>
-        </article>
-        <article class="card">
-          <div class="icon">📦</div>
-          <h3 class="title">Small‑batch runs</h3>
-          <p class="desc">Consistent results for fixtures, enclosures and jigs. Batch QC and labeling included.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Materials -->
-  <section id="materials" class="section">
-    <div class="container">
-      <h2>Materials we stock</h2>
-      <p class="lead">We’ll recommend the right filament for your use‑case. Need something special? Ask — we can source on request.</p>
-      <div class="materials">
-        <div class="mat"><h4>PLA</h4><div class="tag">Display, concept models</div><p>Easy to print, good detail, many colours.</p></div>
-        <div class="mat"><h4>PETG</h4><div class="tag">General‑purpose prototypes</div><p>Strong, tough and chemical‑resistant.</p></div>
-        <div class="mat"><h4>ABS / ASA</h4><div class="tag">Heat & outdoor use</div><p>Higher temp resistance; ASA adds UV stability.</p></div>
-        <div class="mat"><h4>TPU 95A</h4><div class="tag">Flexible parts</div><p>Shock‑absorbing and grippy, great for gaskets.</p></div>
-        <div class="mat"><h4>Polycarbonate</h4><div class="tag">Enclosures & fixtures</div><p>Very tough with improved heat resistance.</p></div>
-        <div class="mat"><h4>CF‑PETG / CF blends</h4><div class="tag">Stiff, lightweight</div><p>Carbon‑filled filaments for rigidity and pro look.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Estimator / Pricing -->
-  <section id="pricing" class="section">
-    <div class="container">
-      <h2>Ballpark estimator</h2>
-      <p class="lead">Curious about budget? Use this quick, non‑binding calculator. We’ll confirm final pricing with your model and requirements.</p>
-      <div class="estimator card">
-        <label>Part size (longest dimension) <span><output id="sizeOut">80</output> mm</span></label>
-        <input type="range" min="20" max="300" value="80" id="sizeRange" aria-label="Part size"/>
-        <label>Quantity <span><output id="qtyOut">1</output></span></label>
-        <input type="range" min="1" max="50" value="1" id="qtyRange" aria-label="Quantity"/>
-        <label>Material
-          <select id="matSelect" aria-label="Material">
-            <option value="pla" selected>PLA</option>
-            <option value="petg">PETG</option>
-            <option value="abs">ABS/ASA</option>
-            <option value="tpu">TPU 95A</option>
-            <option value="pc">Polycarbonate</option>
-            <option value="cf">CF‑PETG</option>
-          </select>
-        </label>
-        <p class="muted">Estimate assumes moderate infill and standard finish. For tight tolerances, special finishes, or large parts, request a custom quote.</p>
-        <div class="price" aria-live="polite">$—</div>
-        <div class="cta"><a class="btn btn-primary" href="#quote">Request custom quote →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery" class="section">
-    <div class="container">
-      <h2>Recent work</h2>
-      <p class="lead">A peek at prototypes, enclosures, fixtures and architectural models we’ve delivered.</p>
-      <div class="gallery" aria-label="Project images">
-        <figure class="shot"><img loading="lazy" alt="Textured black bracket" src="assets/work-1.webp"/></figure>
-        <figure class="shot"><img loading="lazy" alt="Custom enclosure" src="assets/work-2.webp"/></figure>
-        <figure class="shot"><img loading="lazy" alt="Functional prototype" src="assets/work-3.webp"/></figure>
-        <figure class="shot"><img loading="lazy" alt="ABS vapor smoothed part" src="assets/work-4.webp"/></figure>
-        <figure class="shot"><img loading="lazy" alt="TPU gasket" src="assets/work-5.webp"/></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process -->
-  <section class="section">
-    <div class="container">
-      <h2>How it works</h2>
-      <div class="steps">
-        <div class="step card"><h4>1) Share your model</h4><p>Attach your STL/STEP/3MF file and tell us quantity, material and deadlines.</p></div>
-        <div class="step card"><h4>2) Design review</h4><p>We’ll check for printability and propose tweaks (if any) to hit your goals.</p></div>
-        <div class="step card"><h4>3) Print & finish</h4><p>Your parts are printed, QC’d and finished as requested.</p></div>
-        <div class="step card"><h4>4) Pickup or courier</h4><p>Collect in Sydney or we’ll arrange delivery.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reviews -->
-  <section id="reviews" class="section">
-    <div class="container">
-      <h2>Loved by Sydney makers & teams</h2>
-      <div class="reviews">
-        <button class="carousel-btn prev" aria-label="Previous">‹</button>
-        <div class="track" id="revTrack" aria-live="polite"></div>
-        <button class="carousel-btn next" aria-label="Next">›</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section">
-    <div class="container">
-      <h2>FAQ</h2>
-      <details>
-        <summary>What file formats do you accept?</summary>
-        <p>STL, 3MF for printing; STEP/IGES if you want DFM review. Include units and preferred material.</p>
-      </details>
-      <details>
-        <summary>How fast can you print?</summary>
-        <p>Most jobs are ready within 24–72 hours depending on size, quantity and finish. Larger batches may take longer.</p>
-      </details>
-      <details>
-        <summary>Do you ship?</summary>
-        <p>Yes — local pickup in Sydney or we can arrange courier delivery.</p>
-      </details>
-      <details>
-        <summary>Do you offer resin or SLS?</summary>
-        <p>We focus on FDM/FFF in‑house. For specialty processes we can advise options or arrange through partners on request.</p>
       </details>
     </div>
   </section>
 
-  <!-- Quote / Contact with Dropbox File Request -->
-  <section id="quote" class="section">
-    <div class="container">
-      <h2>Request a custom quote</h2>
-      <p class="lead">We reply within one business day. Upload your model files via our secure upload portal — you don’t need an account. We’ll receive the files and your form details.</p>
+  <!-- ── CONTACT ─────────────────────────────────────────────── -->
+  <section class="contact quote-form">
+    <h2 class="section-title">Request a custom quote</h2>
+    <p>Send us your requirements — our engineers reply within one business day.</p>
 
-      <form class="quote" id="quoteForm">
-        <div class="grid">
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required>
-          </div>
-          <div class="field">
-            <label for="phone">Phone <span class="muted">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx">
-          </div>
-        </div>
+    <form id="uploadForm">
+      <label for="email">Email <small>(preferred)</small></label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" />
 
-        <div class="grid">
-          <div class="field">
-            <label for="material">Material</label>
-            <select id="material" name="material">
-              <option selected>PLA</option><option>PETG</option><option>ABS/ASA</option><option>TPU 95A</option><option>Polycarbonate</option><option>CF‑PETG</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="qty">Quantity</label>
-            <input type="number" min="1" value="1" id="qty" name="quantity">
-          </div>
-        </div>
+      <label for="phone">Phone <small>(optional)</small></label>
+      <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" />
 
-        <div class="upload card" id="uploadZone">
-          <div class="upload-ui">
-            <div class="icon">⬆︎</div>
-            <div>
-              <strong>Upload your files</strong> via our secure portal<br>
-              <span class="muted">Opens in a new tab. No account needed.</span>
-            </div>
-          </div>
-          <div class="actions">
-            <a class="btn btn-soft" href="https://www.dropbox.com/request/fkSiA27baj2yQ9Jmptqu" target="_blank" rel="noopener" id="openUpload">Open upload portal</a>
-          </div>
-          <p class="help">Tip: the upload portal may ask for your name & email so we can match files to this form.</p>
-        </div>
+      <label for="message">Message <small>(optional)</small></label>
+      <textarea id="message" name="message" rows="5"
+        placeholder="Project details, dimensions, deadlines…"></textarea>
 
-        <div class="field">
-          <label for="message">Notes</label>
-          <textarea id="message" name="message" rows="5" placeholder="Project details, dimensions, tolerances, deadline…"></textarea>
-        </div>
-
-        <div class="actions">
-          <button class="btn btn-primary" id="submitBtn" type="submit">Send request</button>
-          <span id="formStatus" class="help" role="status" aria-live="polite"></span>
-        </div>
-      </form>
-    </div>
+      <button type="submit">Send</button>
+      <span id="response"></span>
+    </form>
   </section>
 
-  <footer>
-    <div class="container foot">
-      <div>© <span id="year"></span> Ultimate3D — Sydney, NSW</div>
-      <div class="muted">ABN/Company details on request • Terms available on quote</div>
-    </div>
-  </footer>
-
-  <div class="float-cta"><a class="btn btn-primary" href="#quote">Get a Quote</a></div>
-
-  <script src="script.js"></script>
+  <!-- ── POP-UP ──────────────────────────────────────────────── -->
+  <div id="popup" class="hidden">
+    <p>Need a <strong>free quote</strong>?</p>
+    <button class="primary" onclick="scrollToForm()">Request now</button>
+    <button class="secondary" onclick="closePopup()">Dismiss</button>
+  </div>
 </body>
 </html>

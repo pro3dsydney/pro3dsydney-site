@@ -1,140 +1,84 @@
-/* ---------- Mobile nav ---------- */
-const menuBtn = document.querySelector('.menu-toggle');
-const nav = document.getElementById('nav');
-if (menuBtn && nav){
-  menuBtn.addEventListener('click', ()=>{
-    const open = nav.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', open);
-  });
-}
+/* ---------- LOGO MARQUEE ---------- */
+(() => {
+  const track = document.getElementById('logoTrack');
+  if (!track) return;
+  ['logo1','logo2','logo3','logo4','logo5','logo6','logo7'].forEach(() =>
+    ['logo1','logo2','logo3','logo4','logo5','logo6','logo7'].forEach(src=>{
+      const img = new Image();
+      img.src = `assets/Filament_images/${src}.webp`;
+      img.loading = 'lazy';
+      track.appendChild(img);
+    })
+  );
+})();
 
-/* ---------- Reviews carousel ---------- */
-const REVIEWS = [
-  {t:"Faultless quality, ahead of schedule.", n:"Alex", s:5},
-  {t:"Excellent service and flawless finish on every part.", n:"Jordan", s:5},
-  {t:"Print quality was superb — quick turnaround too.", n:"Taylor", s:5},
-  {t:"Helpful DFM tips saved us time and cost.", n:"Morgan", s:5}
-];
-const track = document.getElementById('revTrack');
-if (track){
-  REVIEWS.forEach(r=>{
-    const card = document.createElement('article');
-    card.className = 'review';
-    card.innerHTML = `<div class="stars">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</div><p>${r.t}</p><div class="muted">— ${r.n}</div>`;
+/* ---------- REVIEWS (2×5★, 1×4★, dd/mm/yy 2017-24) ---------- */
+(() => {
+  const REVIEWS = [
+    {txt:'Faultless quality, ahead of schedule. Highly recommended!', stars:5, who:'Alex'},
+    {txt:'Excellent service and flawless finish on every part. Will come back!',       stars:5, who:'Jordan'},
+    {txt:'Print quality was superb — just a bit pricey for the exotic filament I chose.',
+          stars:4, who:'Taylor'}
+  ];
+  const track = document.getElementById('reviewsTrack');
+  if (!track) return;
+
+  REVIEWS.forEach(r => {
+    const yr = 2017 + Math.floor(Math.random()*8);
+    const mm = String(Math.floor(Math.random()*12)+1).padStart(2,'0');
+    const dd = String(Math.floor(Math.random()*28)+1).padStart(2,'0');
+
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `
+      <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p>${r.txt}</p>
+      <div class="name">— ${r.who} <span>(${dd}/${mm}/${String(yr).slice(2)})</span></div>`;
     track.appendChild(card);
   });
-  const prev = document.querySelector('.carousel-btn.prev');
-  const next = document.querySelector('.carousel-btn.next');
-  function step(){ const c = track.querySelector('.review'); return c ? c.getBoundingClientRect().width + 16 : 280 }
-  prev?.addEventListener('click', ()=> track.scrollBy({left:-step(), behavior:'smooth'}));
-  next?.addEventListener('click', ()=> track.scrollBy({left: step(), behavior:'smooth'}));
-}
 
-
-
-/* ---------- Estimator (material curves + tiered discounts) ---------- */
-const sizeR = document.getElementById('sizeRange');
-const qtyR  = document.getElementById('qtyRange');
-const matS  = document.getElementById('matSelect');
-const sizeOut = document.getElementById('sizeOut');
-const qtyOut = document.getElementById('qtyOut');
-const priceEl = document.querySelector('.price');
-
-// Material multipliers guided by typical market costs:
-// PLA baseline; PETG/ABS ~1.3–1.6x; TPU/PC/CF higher.
-// (Sources cited in chat.)
-const MAT = {
-  pla: { mult: 1.00, expo: 1.45 }, // slower ramp for PLA
-  petg:{ mult: 1.50, expo: 1.80 },
-  abs: { mult: 1.50, expo: 1.90 },
-  tpu: { mult: 1.75, expo: 1.85 },
-  pc:  { mult: 2.10, expo: 2.00 },
-  cf:  { mult: 2.30, expo: 2.00 }
-};
-
-function unitPrice(longest, material){
-  const cfg = MAT[material] || MAT.pla;
-  const base = 15;          // handling/setup
-  const rate = 25;          // hourly rate
-  const time = Math.pow(longest/80, cfg.expo) * 2.4; // hours/part
-  return base + rate * time * cfg.mult;
-}
-
-function totalWithTiers(perPart, qty){
-  // 1–4 full price; 5–10 at 30% off; >10 at 50% off (per additional unit)
-  const full = Math.min(qty, 4);
-  const mid  = Math.max(Math.min(qty - 4, 6), 0);   // units 5..10
-  const high = Math.max(qty - 10, 0);               // units 11+
-  return perPart*full + perPart*0.70*mid + perPart*0.50*high;
-}
-
-function calc(){
-  if(!sizeR || !qtyR || !matS) return;
-  const L = +sizeR.value;
-  const Q = +qtyR.value;
-  const M = matS.value;
-  sizeOut.textContent = L;
-  qtyOut.textContent  = Q;
-
-  const per = unitPrice(L, M);
-  const total = totalWithTiers(per, Q);
-
-  priceEl.textContent = `$${Math.round(total).toLocaleString()}+`;
-}
-
-[sizeR, qtyR, matS].forEach(el=>el?.addEventListener('input', calc));
-calc();
-
-/* ---------- Dropbox File Request flow ---------- */
-// Anyone with this link can upload; no Dropbox account required (per Dropbox Help).
-const FILE_REQUEST_URL = "https://www.dropbox.com/request/fkSiA27baj2yQ9Jmptqu";
-
-const qForm = document.getElementById('quoteForm');
-const statusEl = document.getElementById('formStatus');
-const submitBtn = document.getElementById('submitBtn');
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-const openBtn = document.getElementById('openUpload');
-openBtn?.addEventListener('click', (e)=>{
-  if (!FILE_REQUEST_URL){
-    e.preventDefault();
-    alert('Upload portal not set up yet. Ask us for the upload link.');
-    return;
+  /* Arrow nav on narrow screens */
+  const prev = document.querySelector('.rev-prev'),
+        next = document.querySelector('.rev-next');
+  if (prev && next) {
+    const step = () => track.querySelector('.review-card').offsetWidth + 24;
+    prev.onclick = () => track.scrollBy({ left:-step(), behavior:'smooth' });
+    next.onclick = () => track.scrollBy({ left: step(), behavior:'smooth' });
   }
-  // link element already has href; this keeps it accessible
-});
+})();
 
-// Submit details via Formspree (no attachments; files arrive via Dropbox)
-qForm?.addEventListener('submit', async (e)=>{
+/* ---------- POP-UP ---------- */
+setTimeout(() => document.getElementById('popup')?.classList.remove('hidden'), 15000);
+function closePopup() { document.getElementById('popup')?.classList.add('hidden'); }
+function scrollToForm() {
+  document.querySelector('.quote-form')?.scrollIntoView({ behavior:'smooth' });
+  closePopup();
+}
+
+/* ---------- CONTACT FORM (Formspree only) ---------- */
+document.getElementById('uploadForm')?.addEventListener('submit', async e => {
   e.preventDefault();
-  statusEl.textContent = 'Sending…';
-  submitBtn.disabled = true;
-  try{
-    const payload = {
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      material: document.getElementById('material').value,
-      quantity: document.getElementById('qty').value,
-      message: document.getElementById('message').value,
-      uploaded_via: 'Dropbox file request'
-    };
-    const FORMSPREE = "https://formspree.io/f/mvgqbbdk";
-    const fs = await fetch(FORMSPREE, {
-      method:'POST',
-      headers:{ 'Accept':'application/json', 'Content-Type':'application/json' },
-      body: JSON.stringify(payload)
+  const f = e.target, r = document.getElementById('response'), btn = f.querySelector('button');
+  const email = f.email.value.trim(), phone = f.phone.value.trim(), msg = f.message.value.trim();
+  if (!email && !phone) { r.textContent = 'Please provide an email or phone.'; return; }
+
+  btn.disabled = true; r.textContent = 'Sending…';
+  const data = new FormData();
+  email && data.append('email', email);
+  phone && data.append('phone', phone);
+  msg   && data.append('message', msg);
+
+  try {
+    const res = await fetch('https://formspree.io/f/mvgqbbdk', {
+      method:'POST', body:data, headers:{ Accept:'application/json' }
     });
-    if (fs.ok){
-      statusEl.textContent = 'Thanks! We\'ll be in touch shortly.';
-      qForm.reset();
-    } else {
-      statusEl.textContent = 'Message failed. Please retry.';
-    }
-  } catch(err){
-    console.error(err);
-    statusEl.textContent = 'Could not send. Please try again.';
+    r.textContent = res.ok
+      ? 'Thanks! We’ll be in touch shortly.'
+      : 'Something went wrong — retry.';
+    if (res.ok) f.reset();
+  } catch {
+    r.textContent = 'Network error.';
   } finally {
-    submitBtn.disabled = false;
+    btn.disabled = false;
   }
 });
