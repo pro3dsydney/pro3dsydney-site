@@ -38,8 +38,8 @@
   <section class="hero">
     <div class="container wrap">
       <div class="hero-copy reveal">
-        <h1>Premium FDM printing with <span class="hl">0.06&nbsp;mm</span> layers.</h1>
-        <p>Since <strong>2017</strong>, Ultimate3D has helped Sydney makers, startups and engineers turn CAD into production-ready parts. Get expert DFM feedback and consistent results, fast.</p>
+        <h1>Premium FDM printing with <span class="hl">0.06&nbsp;mm</span> layers</h1>
+        <p>Since <strong>2017</strong>, Ultimate3D has helped Sydney makers, startups and engineers turn CAD into production-ready parts. Get expert DFM feedback and consistent results, <strong>fast</strong>.</p>
         <div class="cta">
           <a class="btn btn-primary" href="#quote">Get a same-day quote</a>
           <a class="btn btn-soft" href="#gallery">See real projects</a>
@@ -110,9 +110,9 @@
 
   <!-- Materials -->
   <section id="materials" class="section">
-    <div class="container">
-      <h2 class="reveal">Materials we stock</h2>
-      <p class="lead reveal">We’ll recommend the right filament for your use-case. Need something special? Ask — we can source on request.</p>
+    <div class="container"><details class="materials-dd reveal" open>
+  <summary><h2 class="reveal">Materials we stock</h2></summary>
+<p class="lead reveal">We’ll recommend the right filament for your use-case. Need something special? Ask — we can source on request.</p>
       <div class="materials">
         <div class="mat reveal"><h4>PLA</h4><div class="tag">Display, concept models</div><p>Easy to print, good detail, many colours.</p></div>
         <div class="mat reveal"><h4>PETG</h4><div class="tag">General-purpose prototypes</div><p>Strong, tough and chemical-resistant.</p></div>
@@ -121,7 +121,8 @@
         <div class="mat reveal"><h4>Polycarbonate</h4><div class="tag">Enclosures & fixtures</div><p>Very tough with improved heat resistance.</p></div>
         <div class="mat reveal"><h4>CF-PETG / CF blends</h4><div class="tag">Stiff, lightweight</div><p>Carbon-filled filaments for rigidity and pro look.</p></div>
       </div>
-    </div>
+      </details>
+      </div>
   </section>
 
   <!-- Estimator / Pricing -->
@@ -154,8 +155,7 @@
   <!-- Gallery -->
   <section id="gallery" class="section">
     <div class="container">
-      <h2 class="reveal">Recent work</h2>
-      <p class="lead reveal">Examples printed in-house.</p>
+      <h2 class="reveal">Selected projects</h2>
       <div class="gallery" aria-label="Project images">
         <figure class="shot reveal"><img loading="lazy" alt="Decorative PLA vase" src="assets/Example_Images/Vase.webp"/></figure>
         <figure class="shot reveal"><img loading="lazy" alt="Architectural temple model" src="assets/Example_Images/Temple.jpg"/></figure>
@@ -189,28 +189,7 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="section">
-    <div class="container">
-      <h2 class="reveal">FAQ</h2>
-      <details class="reveal">
-        <summary>What file formats do you accept?</summary>
-        <p>STL, 3MF for printing; STEP/IGES if you want DFM review. Include units and preferred material.</p>
-      </details>
-      <details class="reveal">
-        <summary>How fast can you print?</summary>
-        <p>Most jobs are ready within 24–72 hours depending on size, quantity and finish. Larger batches may take longer.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do you ship?</summary>
-        <p>Yes — local pickup in Sydney or we can arrange courier delivery.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do you offer resin or SLS?</summary>
-        <p>We focus on FDM/FFF in-house. For specialty processes we can advise options or arrange through partners on request.</p>
-      </details>
-    </div>
-  </section>
+  
 
   <!-- Quote -->
   <section id="quote" class="section">
@@ -269,15 +248,36 @@
     </div>
   </section>
 
+  <section id="faq" class="section">
+    <div class="container">
+      <h2 class="reveal">FAQ</h2>
+      <details class="reveal">
+        <summary>What file formats do you accept?</summary>
+        <p>STL, 3MF for printing; STEP/IGES if you want DFM review. Include units and preferred material.</p>
+      </details>
+      <details class="reveal">
+        <summary>How fast can you print?</summary>
+        <p>Most jobs are ready within 24–72 hours depending on size, quantity and finish. Larger batches may take longer.</p>
+      </details>
+      <details class="reveal">
+        <summary>Do you ship?</summary>
+        <p>Yes — local pickup in Sydney or we can arrange courier delivery.</p>
+      </details>
+      <details class="reveal">
+        <summary>Do you offer resin or SLS?</summary>
+        <p>We focus on FDM/FFF in-house. For specialty processes we can advise options or arrange through partners on request.</p>
+      </details>
+    </div>
+  </section>
+
+  
+
   <footer>
     <div class="container foot">
       <div>© <span id="year"></span> Ultimate3D — Sydney, NSW</div>
       <div class="muted">ABN/Company details on request • Terms available on quote</div>
     </div>
   </footer>
-
-  <div class="float-cta"><a class="btn btn-primary" href="#quote">Get a Quote</a></div>
-
-  <script src="script.js?v=2025-08-08-2"></script>
+<script src="script.js?v=2025-08-08-2"></script>
 </body>
 </html>

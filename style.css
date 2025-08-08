@@ -176,3 +176,60 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
   .logos-track{animation:none}
   .reveal{transition:none;opacity:1;translate:0}
 }
+
+/* --- Adjust hero CTA / stats alignment --- */
+.hero .cta{justify-content:center}
+.hero .stats{justify-content:center}
+.stats li{text-align:center}
+
+
+/* --- Professional reviews styling upgrade --- */
+.reviews{position:relative}
+.track{scroll-snap-type:x mandatory;padding-bottom:6px}
+.review{
+  position:relative;scroll-snap-align:start;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;padding:18px 18px 16px;box-shadow:var(--shadow)
+}
+.review::before{
+  content:"“";position:absolute;left:14px;top:6px;font-size:48px;line-height:1;
+  color:#e5e7eb;pointer-events:none
+}
+.review p{margin:10px 0 8px 0;font-size:1.05rem}
+.review .muted{font-weight:600;color:#111827}
+.stars{font-size:1rem;letter-spacing:1px}
+
+
+/* --- Refined FAQ accordion --- */
+#faq details{background:#fff;border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:14px 16px;box-shadow:var(--shadow)}
+#faq summary{list-style:none;cursor:pointer;font-weight:700;display:flex;align-items:center;gap:8px}
+#faq summary::-webkit-details-marker{display:none}
+#faq details[open]{box-shadow:0 10px 24px rgba(0,0,0,.06)}
+#faq p{margin:8px 0 0;color:#4b5563}
+
+
+/* --- Timed Get in touch button + contact popover --- */
+.contact-fab{position:fixed;right:14px;bottom:14px;z-index:60;display:none}
+.contact-fab.show{display:block}
+.contact-popover{
+  position:fixed;right:14px;bottom:72px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow);padding:16px;display:none;min-width:240px
+}
+.contact-popover.show{display:block}
+.contact-popover .row{display:flex;align-items:center;justify-content:space-between;margin:6px 0}
+.contact-popover a{font-weight:700}
+
+
+/* --- Mobile marquee speed-up --- */
+@media(max-width:600px){
+  .logos-track{animation-duration:18s}
+}
+
+
+/* --- Materials dropdown on mobile --- */
+.materials-dd summary {display:none}
+@media (max-width: 880px){
+  #materials h2{display:none}
+  .materials-dd summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+  .materials-dd{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+}
