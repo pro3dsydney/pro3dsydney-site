@@ -82,7 +82,7 @@ nav a:hover{background:#f3f4f6;text-decoration:none}
 @keyframes logos-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* Sections */
-.section{padding:56px 0}
+.section{padding:45px 0}
 .section h2{font-size:clamp(24px, 3vw, 36px);margin:0 0 12px;letter-spacing:-.01em}
 .lead{color:#4b5563;max-width:820px}
 
@@ -185,3 +185,25 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
 #faq details[open] summary::after{transform:rotate(-180deg)}
 #faq details[open]{box-shadow:0 10px 24px rgba(0,0,0,.06)}
 #faq p{margin:8px 0 0;color:#4b5563}
+
+.hero-copy .cta{justify-content:flex-start}
+.hero-copy .stats{justify-content:flex-start;margin-left:0;padding-left:0}
+
+
+/* --- Get in touch FAB + Contact card --- */
+.contact-fab{position:fixed;right:14px;bottom:14px;z-index:70;display:none}
+.contact-fab.show{display:inline-flex}
+.contact-card{
+  position:fixed;right:14px;bottom:72px;z-index:69;display:none;
+  background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+  padding:16px;min-width:260px
+}
+.contact-card.show{display:block}
+.contact-card h4{margin:0 0 8px;font-size:1.05rem;letter-spacing:-.01em}
+.contact-card .row{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+.contact-card .label{color:#374151}
+.contact-card a{font-weight:800}
+@media (max-width: 520px){
+  .contact-card, .contact-fab{right:12px;bottom:12px}
+  .contact-card{bottom:68px}
+}
