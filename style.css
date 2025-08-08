@@ -176,3 +176,12 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
   .logos-track{animation:none}
   .reveal{transition:none;opacity:1;translate:0}
 }
+
+/* Hero tiles */
+.hero-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.tile{display:grid;gap:6px;align-content:center;min-height:132px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);text-decoration:none;color:#111}
+.tile-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.tile-title{font-weight:800;font-size:1.25rem;line-height:1.15}
+.tile-stat{font-weight:900;font-size:1.6rem;letter-spacing:-.01em}
+.tile-sub{color:#6b7280}
+}
