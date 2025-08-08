@@ -178,74 +178,10 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
 }
 
 /* Hero tiles */
-.hero-tiles{
-  display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:14px;margin-top:18px
-}
-.tile{
-  display:grid;gap:6px;align-content:center;min-height:74px;
-  background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;
-  box-shadow:var(--shadow);text-decoration:none;color:#111
-}
-.tile:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 12px 24px rgba(0,0,0,.08)}
+.hero-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.tile{display:grid;gap:6px;align-content:center;min-height:140px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);text-decoration:none;color:#111}
 .tile-primary{background:var(--brand);border-color:var(--brand);color:#fff}
-.tile-title{font-weight:800;font-size:1.1rem}
-.tile-stat{font-weight:900;font-size:1.4rem;letter-spacing:-.01em}
+.tile-title{font-weight:800;font-size:1.25rem;line-height:1.15}
+.tile-stat{font-weight:900;font-size:1.6rem;letter-spacing:-.01em}
 .tile-sub{color:#6b7280}
-@media(min-width:900px){.hero-tiles{grid-template-columns:repeat(4, minmax(0,1fr))}}
-
-/* Designer quote */
-.design-quote{margin:6px 0 14px;padding:10px 14px;border-left:4px solid #d1d5db;color:#374151}
-.design-quote span{color:#6b7280}
-
-/* Premium quote section */
-.quote-premium{background:linear-gradient(180deg,#f8fafc, #ffffff)}
-.quote-premium .quote{max-width:760px;margin-inline:auto}
-.quote-premium .upload{background:rgba(255,255,255,.65);backdrop-filter:saturate(160%) blur(8px)}
-
-/* Reviews polish */
-.review{position:relative;padding:18px 18px 20px}
-.review:before{
-  content:'“';position:absolute;left:12px;top:-8px;font-size:44px;line-height:1;color:#e5e7eb;pointer-events:none
-}
-.review p{margin:6px 0 10px;font-size:1.05rem}
-.review .muted{font-weight:600}
-
-/* FAQ polish */
-#faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;box-shadow:var(--shadow)}
-#faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;align-items:center;gap:10px}
-#faq summary::marker{display:none}
-#faq summary:after{content:'+';margin-left:auto;border:1px solid var(--line);width:22px;height:22px;border-radius:999px;display:grid;place-items:center;color:#6b7280}
-#faq details[open] summary:after{content:'–'}
-#faq p{margin:.5rem 0 0}
-
-/* Floating CTA / contact */
-.float-cta{position:fixed;right:16px;bottom:16px;z-index:70;display:grid;gap:10px;opacity:0;transform:translateY(10px);transition:opacity .4s var(--ease), transform .4s var(--ease)}
-.float-cta.show{opacity:1;transform:none}
-.float-btn{font-size:1rem;padding:1rem 1.15rem;border-radius:14px}
-.contact-card{
-  display:none;position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.14);
-  padding:16px;min-width:240px
-}
-.contact-card.open{display:block}
-.contact-title{font-weight:800;margin-bottom:6px}
-.contact-row{display:block;padding:8px 0;color:#111}
-.contact-row:hover{text-decoration:underline}
-.contact-close{position:absolute;top:6px;right:8px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#6b7280}
-
-
-/* Gallery columns tweak + quote card */
-@media(min-width:900px){ .gallery{ columns:3; column-gap:16px } }
-.quote-card{display:block;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);}
-.gallery-quote{margin:0;text-align:right;color:#374151;font-weight:600}
-.gallery-quote span{color:#6b7280}
-
-/* Quote section sizing refinements */
-.quote-premium .quote{max-width:820px}
-.quote-premium .field input, .quote-premium .field select, .quote-premium textarea{max-width:100%}
-
-/* Mobile swipeable reviews */
-@media(max-width:720px){
-  .reviews .carousel-btn{display:none}
-  .track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;touch-action:pan-x;padding-bottom:6px}
-  .review{flex:0 0 85%;scroll-snap-align:start}
-}
+@media(min-width:900px){.hero-tiles{grid-template-columns:repeat(4,minmax(0,1fr))} .tile{min-height:160px}}
