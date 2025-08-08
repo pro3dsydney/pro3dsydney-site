@@ -207,3 +207,26 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
   .contact-card, .contact-fab{right:12px;bottom:12px}
   .contact-card{bottom:68px}
 }
+
+
+/* Hero CTA & stats alignment */
+.hero .cta{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:16px;align-items:stretch}
+.hero .cta .btn{width:100%}
+.hero .stats{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:16px;margin-top:18px;padding:0}
+.hero .stats li{width:100%}
+@media (max-width: 700px){
+  .hero .cta,.hero .stats{grid-template-columns:1fr}
+}
+
+
+/* Steps: equal-height cards and clean grid */
+.step{display:flex;flex-direction:column;height:100%}
+.steps{align-items:stretch}
+
+#quote .actions{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+
+
+/* Get in touch FAB mobile polish */
+@media (max-width:520px){
+  .contact-fab{font-size:.95rem;padding:.8rem 1rem;border-radius:14px}
+}
