@@ -177,59 +177,62 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
   .reveal{transition:none;opacity:1;translate:0}
 }
 
-/* --- Adjust hero CTA / stats alignment --- */
-.hero .cta{justify-content:center}
-.hero .stats{justify-content:center}
-.stats li{text-align:center}
-
-
-/* --- Professional reviews styling upgrade --- */
-.reviews{position:relative}
-.track{scroll-snap-type:x mandatory;padding-bottom:6px}
-.review{
-  position:relative;scroll-snap-align:start;
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:16px;padding:18px 18px 16px;box-shadow:var(--shadow)
+/* Hero box alignment (desktop) */
+@media(min-width: 900px){
+  .hero .cta{justify-content:center}
+  .hero .cta .btn{min-width:260px}
+  .hero .stats{justify-content:center}
+  .hero .stats li{min-width:260px;text-align:center}
 }
-.review::before{
-  content:"“";position:absolute;left:14px;top:6px;font-size:48px;line-height:1;
-  color:#e5e7eb;pointer-events:none
+
+/* Reviews: shadow-like background that follows card contours */
+.reviews .review{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:none
 }
-.review p{margin:10px 0 8px 0;font-size:1.05rem}
-.review .muted{font-weight:600;color:#111827}
-.stars{font-size:1rem;letter-spacing:1px}
+.reviews .review::after{
+  content:"";position:absolute;inset:-6px;z-index:-1;border-radius:18px;background:linear-gradient(180deg,#f3f4f6,#e5e7eb);
+  filter:blur(6px);opacity:.7
+}
+.reviews .track{display:flex;gap:16px;overflow:auto;scroll-snap-type:x mandatory;padding:6px 2px}
+.reviews .review{scroll-snap-align:start}
+.reviews .carousel-btn{top:50%;transform:translateY(-50%);}
 
+/* Estimator CTA visual placement */
+.estimator-cta{display:flex;justify-content:flex-start}
 
-/* --- Refined FAQ accordion --- */
-#faq details{background:#fff;border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:14px 16px;box-shadow:var(--shadow)}
-#faq summary{list-style:none;cursor:pointer;font-weight:700;display:flex;align-items:center;gap:8px}
-#faq summary::-webkit-details-marker{display:none}
-#faq details[open]{box-shadow:0 10px 24px rgba(0,0,0,.06)}
-#faq p{margin:8px 0 0;color:#4b5563}
+/* Quote form: align Send request button to the right */
+#quote .actions{justify-content:flex-end}
 
-
-/* --- Timed Get in touch button + contact popover --- */
+/* FAB & Popover */
 .contact-fab{position:fixed;right:14px;bottom:14px;z-index:60;display:none}
-.contact-fab.show{display:block}
+.contact-fab.show{display:inline-flex}
 .contact-popover{
   position:fixed;right:14px;bottom:72px;background:#fff;border:1px solid var(--line);
-  border-radius:16px;box-shadow:var(--shadow);padding:16px;display:none;min-width:240px
+  border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;display:none;min-width:260px
 }
 .contact-popover.show{display:block}
-.contact-popover .row{display:flex;align-items:center;justify-content:space-between;margin:6px 0}
-.contact-popover a{font-weight:700}
+.contact-popover .row{display:flex;align-items:center;justify-content:space-between;margin:8px 0;font-size:1.05rem}
+.contact-popover .row span{color:#374151}
+.contact-popover a{font-weight:800}
 
+/* FAQ: make dropdown cues obvious */
+#faq details{position:relative}
+#faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px}
+#faq summary::after{content:"▾";margin-left:auto;transition:transform var(--speed) var(--ease);font-weight:800}
+#faq details[open] summary::after{transform:rotate(-180deg)}
+#faq details{background:#fff;border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:14px 16px;box-shadow:var(--shadow)}
 
-/* --- Mobile marquee speed-up --- */
-@media(max-width:600px){
-  .logos-track{animation-duration:18s}
+/* Materials dropdown behaviour */
+.materials-dd summary{
+  display:none;
+  align-items:center;gap:10px;font-weight:800;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:#fff;
+}
+.materials-dd summary svg{flex:0 0 auto}
+@media(max-width:880px){
+  #materials h2, #materials .lead{display:none}
+  .materials-dd summary{display:flex}
+  .materials-dd:not([open]) .materials{display:none}
 }
 
-
-/* --- Materials dropdown on mobile --- */
-.materials-dd summary {display:none}
-@media (max-width: 880px){
-  #materials h2{display:none}
-  .materials-dd summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-  .materials-dd{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
-}
+/* Mobile marquee speed (icons) */
+@media(max-width:600px){ .logos-track{animation-duration:14s} }
