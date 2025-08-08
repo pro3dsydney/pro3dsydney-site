@@ -130,3 +130,52 @@ qForm?.addEventListener('submit', async (e)=>{
     submitBtn.disabled = false;
   }
 });
+
+/* ---------- Timed 'Get in touch' FAB ---------- */
+(function(){
+  const btn = document.createElement('button');
+  btn.className = 'btn btn-primary contact-fab';
+  btn.type = 'button';
+  btn.textContent = 'Get in touch';
+  const pop = document.createElement('div');
+  pop.className = 'contact-popover';
+  pop.setAttribute('role','dialog');
+  pop.setAttribute('aria-label','Contact details');
+  pop.innerHTML = `
+    <div class="row"><span>Call</span> <a href="tel:0410937558">0410 937 558</a></div>
+    <div class="row"><span>Email</span> <a href="mailto:pro3dsydney@gmail.com">pro3dsydney@gmail.com</a></div>
+  `;
+  document.body.appendChild(btn);
+  document.body.appendChild(pop);
+  setTimeout(()=>{ btn.classList.add('show'); }, 10000);
+  btn.addEventListener('click', ()=>{
+    pop.classList.toggle('show');
+  });
+})();
+
+
+/* ---------- Materials dropdown (mobile only) ---------- */
+(function(){
+  const dd = document.querySelector('.materials-dd');
+  if(!dd) return;
+  function sync(){
+    if (window.innerWidth > 880){
+      dd.setAttribute('open','');
+    } else {
+      dd.removeAttribute('open');
+    }
+  }
+  sync();
+  window.addEventListener('resize', ()=>{ clearTimeout(sync.t); sync.t = setTimeout(sync, 150); });
+})();
+
+/* Materials dropdown (helper) */
+(function(){
+  const dd = document.getElementById('materials-dd');
+  if(!dd) return;
+  function sync(){
+    if (window.innerWidth > 880){ dd.setAttribute('open',''); }
+  }
+  sync();
+  window.addEventListener('resize', ()=>{ clearTimeout(sync.t); sync.t=setTimeout(sync,150); });
+})();
