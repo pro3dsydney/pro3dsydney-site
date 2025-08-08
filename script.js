@@ -30,7 +30,9 @@ if (track){
   next?.addEventListener('click', ()=> track.scrollBy({left: step(), behavior:'smooth'}));
 }
 
-/* ---------- Estimator (HALVED pricing) ---------- */
+
+
+/* ---------- Estimator (material curves + tiered discounts) ---------- */
 const sizeR = document.getElementById('sizeRange');
 const qtyR  = document.getElementById('qtyRange');
 const matS  = document.getElementById('matSelect');
@@ -38,17 +40,48 @@ const sizeOut = document.getElementById('sizeOut');
 const qtyOut = document.getElementById('qtyOut');
 const priceEl = document.querySelector('.price');
 
+// Material multipliers guided by typical market costs:
+// PLA baseline; PETG/ABS ~1.3–1.6x; TPU/PC/CF higher.
+// (Sources cited in chat.)
+const MAT = {
+  pla: { mult: 1.00, expo: 1.45 }, // slower ramp for PLA
+  petg:{ mult: 1.50, expo: 1.80 },
+  abs: { mult: 1.50, expo: 1.90 },
+  tpu: { mult: 1.75, expo: 1.85 },
+  pc:  { mult: 2.10, expo: 2.00 },
+  cf:  { mult: 2.30, expo: 2.00 }
+};
+
+function unitPrice(longest, material){
+  const cfg = MAT[material] || MAT.pla;
+  const base = 15;          // handling/setup
+  const rate = 25;          // hourly rate
+  const time = Math.pow(longest/80, cfg.expo) * 2.4; // hours/part
+  return base + rate * time * cfg.mult;
+}
+
+function totalWithTiers(perPart, qty){
+  // 1–4 full price; 5–10 at 30% off; >10 at 50% off (per additional unit)
+  const full = Math.min(qty, 4);
+  const mid  = Math.max(Math.min(qty - 4, 6), 0);   // units 5..10
+  const high = Math.max(qty - 10, 0);               // units 11+
+  return perPart*full + perPart*0.70*mid + perPart*0.50*high;
+}
+
 function calc(){
-  if(!sizeR) return;
-  const L = +sizeR.value; const Q = +qtyR.value;
-  sizeOut.textContent = L; qtyOut.textContent = Q;
-  const time = Math.pow(L/80, 2) * 2.4; // hours per part baseline (illustrative)
-  const base = 15; const rate = 25;
-  const perPart = base + rate * time;
-  const bulk = Q>=10 ? 0.85 : Q>=5 ? 0.92 : 1;
-  const total = perPart * Q * bulk * 0.5; // halved for everything
+  if(!sizeR || !qtyR || !matS) return;
+  const L = +sizeR.value;
+  const Q = +qtyR.value;
+  const M = matS.value;
+  sizeOut.textContent = L;
+  qtyOut.textContent  = Q;
+
+  const per = unitPrice(L, M);
+  const total = totalWithTiers(per, Q);
+
   priceEl.textContent = `$${Math.round(total).toLocaleString()}+`;
 }
+
 [sizeR, qtyR, matS].forEach(el=>el?.addEventListener('input', calc));
 calc();
 
