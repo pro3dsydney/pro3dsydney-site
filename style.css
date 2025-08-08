@@ -183,3 +183,12 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
   .hero .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
   .hero .cta .btn, .hero .stats li{ text-align:center }
 }
+
+/* --- FAQ dropdown (clean + obvious) --- */
+#faq details{background:#fff;border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:14px 16px;box-shadow:var(--shadow)}
+#faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:800}
+#faq summary::-webkit-details-marker{display:none}
+#faq summary::after{content:"▾";margin-left:auto;transition:transform var(--speed) var(--ease);font-weight:900}
+#faq details[open] summary::after{transform:rotate(-180deg)}
+#faq details[open]{box-shadow:0 10px 24px rgba(0,0,0,.06)}
+#faq p{margin:8px 0 0;color:#4b5563}
