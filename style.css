@@ -193,6 +193,10 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
 .tile-sub{color:#6b7280}
 @media(min-width:900px){.hero-tiles{grid-template-columns:repeat(4, minmax(0,1fr))}}
 
+/* Designer quote */
+.design-quote{margin:6px 0 14px;padding:10px 14px;border-left:4px solid #d1d5db;color:#374151}
+.design-quote span{color:#6b7280}
+
 /* Premium quote section */
 .quote-premium{background:linear-gradient(180deg,#f8fafc, #ffffff)}
 .quote-premium .quote{max-width:760px;margin-inline:auto}
@@ -229,7 +233,19 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
 .contact-close{position:absolute;top:6px;right:8px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#6b7280}
 
 
+/* Gallery columns tweak + quote card */
+@media(min-width:900px){ .gallery{ columns:3; column-gap:16px } }
+.quote-card{display:block;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);}
+.gallery-quote{margin:0;text-align:right;color:#374151;font-weight:600}
+.gallery-quote span{color:#6b7280}
+
 /* Quote section sizing refinements */
-.quote-premium .quote{max-width:760px;margin-inline:auto}
+.quote-premium .quote{max-width:820px}
+.quote-premium .field input, .quote-premium .field select, .quote-premium textarea{max-width:100%}
 
-
+/* Mobile swipeable reviews */
+@media(max-width:720px){
+  .reviews .carousel-btn{display:none}
+  .track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;touch-action:pan-x;padding-bottom:6px}
+  .review{flex:0 0 85%;scroll-snap-align:start}
+}
