@@ -40,14 +40,22 @@
       <div class="hero-copy reveal">
         <h1>Premium FDM printing with <span class="hl">0.06&nbsp;mm</span> layers.</h1>
         <p>Since <strong>2017</strong>, Ultimate3D has helped Sydney makers, startups and engineers turn CAD into production-ready parts. Get expert DFM feedback and consistent results, fast.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="#quote">Get a same-day quote</a>
-          <a class="btn btn-soft" href="#gallery">See real projects</a>
-        </div>
-        <ul class="stats" aria-label="Key stats">
-          <li><div class="v">600+ clients</div><div class="muted">Individuals & businesses</div></li>
-          <li><div class="v">24–72h</div><div class="muted">Typical turnaround</div></li>
-        </ul>
+        <div class="hero-tiles">
+  <a class="tile tile-primary" href="#quote">
+    <div class="tile-title">Get a same-day quote</div>
+  </a>
+  <a class="tile" href="#gallery">
+    <div class="tile-title">See real projects</div>
+  </a>
+  <div class="tile">
+    <div class="tile-stat">600+ clients</div>
+    <div class="tile-sub">Individuals &amp; businesses</div>
+  </div>
+  <div class="tile">
+    <div class="tile-stat">24–72h</div>
+    <div class="tile-sub">Typical turnaround</div>
+  </div>
+</div>
       </div>
       <figure class="hero-visual reveal" aria-label="Printing timelapse">
         <video class="hero-video" autoplay muted loop playsinline preload="metadata">
@@ -154,9 +162,9 @@
   <!-- Gallery -->
   <section id="gallery" class="section">
     <div class="container">
-      <h2 class="reveal">Recent work</h2>
-      <p class="lead reveal">Examples printed in-house.</p>
-      <div class="gallery" aria-label="Project images">
+      <h2 class="reveal">Our work</h2>
+      <blockquote class="design-quote reveal">“Design is how it works.” <span>— Steve Jobs</span></blockquote>
+            <div class="gallery" aria-label="Project images">
         <figure class="shot reveal"><img loading="lazy" alt="Decorative PLA vase" src="assets/Example_Images/Vase.webp"/></figure>
         <figure class="shot reveal"><img loading="lazy" alt="Architectural temple model" src="assets/Example_Images/Temple.jpg"/></figure>
         <figure class="shot reveal"><img loading="lazy" alt="Assorted functional prototypes" src="assets/Example_Images/Prototypes.jpg"/></figure>
@@ -188,32 +196,8 @@
       </div>
     </div>
   </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section">
-    <div class="container">
-      <h2 class="reveal">FAQ</h2>
-      <details class="reveal">
-        <summary>What file formats do you accept?</summary>
-        <p>STL, 3MF for printing; STEP/IGES if you want DFM review. Include units and preferred material.</p>
-      </details>
-      <details class="reveal">
-        <summary>How fast can you print?</summary>
-        <p>Most jobs are ready within 24–72 hours depending on size, quantity and finish. Larger batches may take longer.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do you ship?</summary>
-        <p>Yes — local pickup in Sydney or we can arrange courier delivery.</p>
-      </details>
-      <details class="reveal">
-        <summary>Do you offer resin or SLS?</summary>
-        <p>We focus on FDM/FFF in-house. For specialty processes we can advise options or arrange through partners on request.</p>
-      </details>
-    </div>
-  </section>
-
   <!-- Quote -->
-  <section id="quote" class="section">
+  <section id="quote" class="section quote-premium">
     <div class="container">
       <h2 class="reveal">Request a custom quote</h2>
       <p class="lead reveal">We reply within one business day. Upload your model files via our secure upload portal — you don’t need an account.</p>
@@ -269,6 +253,30 @@
     </div>
   </section>
 
+  
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <h2 class="reveal">FAQ</h2>
+      <details class="reveal">
+        <summary>What file formats do you accept?</summary>
+        <p>STL, 3MF for printing; STEP/IGES if you want DFM review. Include units and preferred material.</p>
+      </details>
+      <details class="reveal">
+        <summary>How fast can you print?</summary>
+        <p>Most jobs are ready within 24–72 hours depending on size, quantity and finish. Larger batches may take longer.</p>
+      </details>
+      <details class="reveal">
+        <summary>Do you ship?</summary>
+        <p>Yes — local pickup in Sydney or we can arrange courier delivery.</p>
+      </details>
+      <details class="reveal">
+        <summary>Do you offer resin or SLS?</summary>
+        <p>We focus on FDM/FFF in-house. For specialty processes we can advise options or arrange through partners on request.</p>
+      </details>
+    </div>
+  </section>
   <footer>
     <div class="container foot">
       <div>© <span id="year"></span> Ultimate3D — Sydney, NSW</div>
@@ -276,7 +284,15 @@
     </div>
   </footer>
 
-  <div class="float-cta"><a class="btn btn-primary" href="#quote">Get a Quote</a></div>
+  <div class="float-cta" aria-live="polite">
+  <button class="btn btn-primary float-btn" id="contactToggle" aria-expanded="false">Get in contact</button>
+  <div class="contact-card" id="contactCard" role="dialog" aria-modal="false" aria-label="Contact details">
+    <button class="contact-close" id="contactClose" aria-label="Close">×</button>
+    <div class="contact-title">Let’s talk</div>
+    <a class="contact-row" href="tel:0410937558">0410 937 558</a>
+    <a class="contact-row" href="mailto:pro3dsydney@gmail.com">pro3dsydney@gmail.com</a>
+  </div>
+</div>
 
   <script src="script.js?v=2025-08-08-2"></script>
 </body>

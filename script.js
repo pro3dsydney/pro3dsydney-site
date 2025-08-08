@@ -65,7 +65,7 @@ function totalWithTiers(perPart, qty){
   const full = Math.min(qty, 4);
   const mid  = Math.max(Math.min(qty - 4, 6), 0);   // units 5..10
   const high = Math.max(qty - 10, 0);               // units 11+
-  return perPart*full + perPart*0.70*mid + perPart*0.50*high;
+  return perPart*full + perPart*0.85*mid + perPart*0.65*high;
 }
 function calc(){
   if(!sizeR || !qtyR || !matS) return;
@@ -129,4 +129,25 @@ qForm?.addEventListener('submit', async (e)=>{
   } finally {
     submitBtn.disabled = false;
   }
+});
+
+/* ---------- Floating contact CTA ---------- */
+const floatCta = document.querySelector('.float-cta');
+const toggleBtn = document.getElementById('contactToggle');
+const card = document.getElementById('contactCard');
+const closeBtn = document.getElementById('contactClose');
+
+// Reveal after 5 seconds
+setTimeout(()=>{ floatCta?.classList.add('show') }, 5000);
+
+function openCard(open){
+  if (!toggleBtn || !card) return;
+  card.classList.toggle('open', open);
+  toggleBtn.setAttribute('aria-expanded', String(open));
+}
+toggleBtn?.addEventListener('click', ()=> openCard(!card.classList.contains('open')));
+closeBtn?.addEventListener('click', ()=> openCard(false));
+document.addEventListener('click', (e)=>{
+  if (!card?.classList.contains('open')) return;
+  if (!floatCta.contains(e.target)) openCard(false);
 });
