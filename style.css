@@ -65,14 +65,12 @@ nav a:hover{background:#f3f4f6;text-decoration:none}
 .stats .v{font-weight:800;font-size:1.05rem}
 .hero-visual img{border-radius:16px;border:1px solid var(--line)}
 
-/* Logos */
-.trust{padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
-.logo-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;align-items:center;justify-items:center;margin:0;padding:10px 0}
-.logo-grid li{list-style:none;opacity:.85;filter:grayscale(100%) contrast(105%) brightness(95%);transition:filter .2s ease, opacity .2s ease}
-.logo-grid img{height:30px;object-fit:contain}
-.logo-grid li:hover{opacity:1;filter:none}
-@media(max-width:900px){.logo-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:560px){.logo-grid{grid-template-columns:repeat(3,1fr)}}
+/* Logos marquee */
+.trust{padding:0;background:#fff}
+.logos-marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:10px 0}
+.logos-track{display:flex;gap:60px;align-items:center;animation:logos-scroll 28s linear infinite;will-change:transform}
+.logos-track img{height:32px;object-fit:contain;opacity:.95;filter:none}
+@keyframes logos-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* Sections */
 .section{padding:72px 0}
@@ -146,6 +144,25 @@ footer{border-top:1px solid var(--line);margin-top:56px;background:#fff}
 
 /* Floating CTA */
 .float-cta{position:fixed;right:14px;bottom:14px;z-index:60}
+
+/* Mobile polish */
+@media (max-width: 880px){
+  .wrap{grid-template-columns:1fr;gap:20px}
+  .hero-copy{order:1}
+  .hero-visual{order:2}
+  .hero h1{font-size:clamp(28px, 9vw, 40px)}
+  .stats{margin-top:12px}
+  .stats li{flex:1 1 calc(50% - 8px)}
+}
+@media (max-width: 520px){
+  .container{padding:0 16px}
+  .btn{width:100%}
+  .hero p{font-size:1rem}
+  .cards{grid-template-columns:1fr}
+  .materials{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .gallery{columns:1}
+}
 
 /* Utilities */
 .muted{color:#6b7280}

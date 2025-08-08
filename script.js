@@ -42,7 +42,8 @@ function calc(){
   if(!sizeR) return;
   const L = +sizeR.value; const Q = +qtyR.value; const M = matS.value;
   sizeOut.textContent = L; qtyOut.textContent = Q;
-  const matK = {pla:1, petg:1.05, abs:1.15, tpu:1.25, pc:1.35, cf:1.45}[M] || 1;
+  // Pricing multipliers: PLA -60%, PETG/ABS -40%, others -30%
+  const matK = {pla:0.4, petg:0.6, abs:0.6, tpu:0.7, pc:0.7, cf:0.7}[M] || 1;
   const time = Math.pow(L/80, 2) * 2.4; // hours per part baseline (illustrative)
   const base = 15; const rate = 25;
   const perPart = base + rate * time * matK;
@@ -54,11 +55,7 @@ function calc(){
 calc();
 
 /* ---------- File upload to Google Apps Script (Drive) ---------- */
-/*
-  1) Deploy Apps Script web app (Execute as: Me • Access: Anyone)
-  2) Paste the Web App URL (ending with /exec) below.
-*/
-const UPLOAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzXv_50ODxxt8S6SOdi1yzD7_s8rzVJi0mXZ-arRER0bpwmCfzwjcPMK3OnPfMscVdT/exec";
+const UPLOAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbwphNAJ5uy4n_kjKE53x29v4M5zrn-IUqL2zHm2o8kDS5GTzxP6EVOPLqKsZZR0UjH7/exec";
 
 const qForm = document.getElementById('quoteForm');
 const fileInput = document.getElementById('files');
@@ -69,7 +66,7 @@ const submitBtn = document.getElementById('submitBtn');
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Show selected files
+// Selected files list
 function renderFiles(files){
   fileList.innerHTML = "";
   [...files].forEach(f=>{
@@ -80,7 +77,7 @@ function renderFiles(files){
 }
 fileInput?.addEventListener('change', (e)=> renderFiles(e.target.files));
 
-// Drag & drop styling
+// Drag & drop
 const zone = document.getElementById('uploadZone');
 if (zone){
   ['dragenter','dragover'].forEach(evt=> zone.addEventListener(evt, e=>{e.preventDefault(); zone.style.borderColor = '#c7d2fe';}));
@@ -132,7 +129,7 @@ qForm?.addEventListener('submit', async (e)=>{
       statusEl.textContent = 'Thanks! We\'ll be in touch shortly.';
       qForm.reset(); fileList.innerHTML = '';
     } else {
-      statusEl.textContent = 'Sent files. Couldn’t send details — please retry the form.';
+      statusEl.textContent = 'Sent files. Couldn\'t send details — please retry the form.';
     }
   } catch(err){
     console.error(err);
