@@ -8,7 +8,7 @@
   --shadow: 0 10px 30px rgba(0,0,0,.06);
 
   /* Brand */
-  --brand:#007aff;          /* iOS blue */
+  --brand:#007aff;
   --brand-ink:#0256b8;
   --radius:14px;
   --radius-sm:10px;
@@ -130,8 +130,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#c7d2fe;box-sh
 .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
 .upload{position:relative;display:grid;gap:12px;align-items:start}
-.upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-ui{display:flex;gap:14px;align-items:center;pointer-events:none}
+.upload-ui{display:flex;gap:14px;align-items:center}
 .upload .icon{width:42px;height:42px;border-radius:12px;border:1px dashed var(--line);display:grid;place-items:center;color:#6b7280;background:#fff}
 .upload .link{color:var(--brand);cursor:pointer}
 .file-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}

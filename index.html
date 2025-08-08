@@ -215,11 +215,11 @@
     </div>
   </section>
 
-  <!-- Quote / Contact with file upload -->
+  <!-- Quote / Contact with Dropbox File Request -->
   <section id="quote" class="section">
     <div class="container">
       <h2>Request a custom quote</h2>
-      <p class="lead">We reply within one business day. Upload your model files directly — they’ll be stored securely and we’ll receive links, not blocked email attachments.</p>
+      <p class="lead">We reply within one business day. Upload your model files via our secure upload portal — you don’t need an account. We’ll receive the files and your form details.</p>
 
       <form class="quote" id="quoteForm">
         <div class="grid">
@@ -247,16 +247,17 @@
         </div>
 
         <div class="upload card" id="uploadZone">
-          <input type="file" id="files" name="files" multiple accept=".stl,.3mf,.step,.stp,.iges,.igs,.zip,.rar,.7z,.obj,.dwg,.dxf" />
           <div class="upload-ui">
             <div class="icon">⬆︎</div>
             <div>
-              <strong>Drag & drop</strong> files here or <label for="files" class="link">browse</label><br>
-              <span class="muted">STL, STEP, 3MF, IGES, ZIP… up to 100&nbsp;MB each.</span>
+              <strong>Upload your files</strong> via our secure portal<br>
+              <span class="muted">Opens in a new tab. No account needed.</span>
             </div>
           </div>
-          <ul class="file-list" id="fileList"></ul>
-          <progress id="uploadProgress" value="0" max="100" hidden></progress>
+          <div class="actions">
+            <a class="btn btn-soft" href="https://www.dropbox.com/request/fkSiA27baj2yQ9Jmptqu" target="_blank" rel="noopener" id="openUpload">Open upload portal</a>
+          </div>
+          <p class="help">Tip: the upload portal may ask for your name & email so we can match files to this form.</p>
         </div>
 
         <div class="field">
@@ -269,7 +270,6 @@
           <span id="formStatus" class="help" role="status" aria-live="polite"></span>
         </div>
       </form>
-      <p class="help">Heads‑up: file uploads are stored privately in your drive; we’ll get links instead of email attachments.</p>
     </div>
   </section>
 
