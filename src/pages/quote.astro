@@ -1,0 +1,294 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { business } from '../config';
+
+const needs = [
+  { v: 'file', icon: 'cube', t: 'I have a 3D file', d: 'STL, 3MF, STEP… print it for me' },
+  { v: 'sketch', icon: 'pencil', t: 'I have a sketch or photo', d: 'Design the 3D model for me' },
+  { v: 'repair', icon: 'wrench', t: 'I need a replacement part', d: 'Copy or fix a broken piece' },
+  { v: 'idea', icon: 'bulb', t: 'I just have an idea', d: 'Help me figure it out' },
+];
+const materials = ['Not sure — recommend one', 'PLA', 'PETG', 'ASA', 'TPU (flexible)', 'Polycarbonate', 'PETG-CF (carbon fibre)'];
+---
+<Base
+  title="Start a 3D printing or design request"
+  description="Upload 3D files, photos or sketches and tell us what you need. Ultimate3D Sydney replies with a quote within one business day. No account, no payment until you approve."
+  hideMobileCta
+>
+  <section class="page-head dark layers">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / Start a request</div>
+      <h1>Tell us what you need.</h1>
+      <p class="lead">Files, photos, sketches or just a description. Everything goes in this one form, and we reply with a quote within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section tight soft">
+    <div class="container form-shell">
+      <div class="form-card" id="formCard">
+        <form id="inquiryForm" novalidate>
+          <!-- 1 -->
+          <div class="form-step">
+            <h2><span class="n">1</span>What do you need?</h2>
+            <p class="muted">Pick the closest. It helps us reply faster.</p>
+            <div class="choices" role="radiogroup" aria-label="What do you need">
+              {needs.map((n, i) => (
+                <label class="choice">
+                  <input type="radio" name="need" value={n.v} checked={i === 0} />
+                  <span><Icon name={n.icon} size={22} /><span><b>{n.t}</b><small>{n.d}</small></span></span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="form-step">
+            <h2><span class="n">2</span>Add files &amp; details</h2>
+            <p class="muted" id="needHint">3D files, photos, sketches or PDFs. Add as many as you like.</p>
+            <label class="dropzone" id="dropzone">
+              <input type="file" id="fileInput" multiple accept=".stl,.3mf,.obj,.step,.stp,.iges,.igs,.f3d,.skp,.dxf,.svg,.jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,.zip,image/*" />
+              <span class="dz-ico"><Icon name="upload" size={24} /></span>
+              <b>Drop files here or <span style="color:var(--brand)">browse</span></b>
+              <span class="muted">STL · 3MF · STEP · OBJ · photos · sketches · PDF · ZIP, up to 200 MB each</span>
+            </label>
+            <ul class="file-list" id="fileList" aria-live="polite"></ul>
+
+            <div class="fields" style="margin-top:20px">
+              <div class="field full" id="msgField">
+                <label for="message">Describe what you need <span class="opt" id="msgOpt">(optional with files)</span></label>
+                <textarea id="message" name="message" rows="5" maxlength="5000" placeholder="What is it for? Approximate size, how strong it needs to be, colour, anything important."></textarea>
+                <div class="err">Add a file, or describe what you need in a sentence or two.</div>
+              </div>
+              <div class="field">
+                <label for="material">Material</label>
+                <select id="material" name="material">{materials.map(m => <option>{m}</option>)}</select>
+              </div>
+              <div class="field">
+                <label for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" type="number" min="1" max="10000" value="1" inputmode="numeric" />
+              </div>
+              <div class="field full">
+                <label for="deadline">Needed by <span class="opt">(optional)</span></label>
+                <input id="deadline" name="deadline" type="date" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="form-step">
+            <h2><span class="n">3</span>Where should we send the quote?</h2>
+            <p class="muted">We only use this to reply about your request.</p>
+            <div class="fields">
+              <div class="field full" id="emailField">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+                <div class="err">Please enter a valid email so we can send your quote.</div>
+              </div>
+              <div class="field">
+                <label for="name">Name <span class="opt">(optional)</span></label>
+                <input id="name" name="name" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone <span class="opt">(optional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-error" id="formError" role="alert"></div>
+          <div class="form-foot">
+            <button class="btn btn-primary btn-lg" id="submitBtn" type="submit">Send request <span class="arrow">→</span></button>
+            <span class="muted" id="submitHint" style="font-size:.9rem">No payment now. You’ll approve the quote first.</span>
+          </div>
+        </form>
+      </div>
+
+      <aside class="aside-card">
+        <div class="card">
+          <h3>What happens next</h3>
+          <ul class="checklist">
+            <li><Icon name="mail" size={18} /><span>You get an email confirming we’ve received everything, with a link to track it.</span></li>
+            <li><Icon name="eye" size={18} /><span>A person reviews your files and details. We’ll ask if anything’s unclear.</span></li>
+            <li><Icon name="card" size={18} /><span>You get a quote within one business day. Approve and pay online.</span></li>
+            <li><Icon name="box" size={18} /><span>We print, check and finish it. Pickup in Coogee or delivery.</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Have a print-ready file?</h3>
+          <p class="muted" style="font-size:.93rem">Choose your own settings and get an exact price in seconds.</p>
+          <a class="btn btn-sm" href="/instant-quote/" data-track="path_chosen" data-label="quote_aside_instant">Instant quote →</a>
+        </div>
+        <div class="card">
+          <h3>Rather talk?</h3>
+          <p class="muted" style="font-size:.93rem;margin-bottom:8px">Call or text, or email us directly.</p>
+          <p style="margin:0;font-weight:600"><a href={`tel:${business.phoneIntl}`}>{business.phone}</a><br /><a href={`mailto:${business.email}`}>{business.email}</a></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    import { api, uploadFile, fmtBytes, esc, ApiError } from '../scripts/api';
+    import { track, attribution } from '../scripts/analytics';
+    import { thumbnailFor } from '../scripts/thumbs';
+
+    type Item = { id: string; file: File; el: HTMLLIElement; status: 'uploading' | 'done' | 'error'; uploadId?: string; ctrl: AbortController };
+    const items: Item[] = [];
+    const form = document.getElementById('inquiryForm') as HTMLFormElement;
+    const list = document.getElementById('fileList')!;
+    const input = document.getElementById('fileInput') as HTMLInputElement;
+    const dz = document.getElementById('dropzone')!;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+    const hint = document.getElementById('submitHint')!;
+    const errBox = document.getElementById('formError')!;
+    const emailEl = document.getElementById('email') as HTMLInputElement;
+    const msgEl = document.getElementById('message') as HTMLTextAreaElement;
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    let draftId: string | undefined;
+    let submitted = false;
+
+    // Copy that adapts to what they picked
+    const hints: Record<string, [string, string]> = {
+      file: ['Upload your 3D files. Add photos too if it helps explain how the part is used.', 'What is it for? Strength, colour, finish, anything important.'],
+      sketch: ['Upload your sketch, drawing or photos. Include measurements if you have them. A ruler in the photo is perfect.', 'Describe the part: what it does, key measurements, what it attaches to.'],
+      repair: ['Upload clear photos of the broken part from a few angles, ideally next to a ruler.', 'What is it from (make/model)? Which dimensions matter? Can you drop the original part to us in Coogee?'],
+      idea: ['Got any reference images or rough drawings? Add them here (optional).', 'Describe your idea: what it should do, rough size, and where it will be used.'],
+    };
+    const need = () => (form.querySelector<HTMLInputElement>('input[name=need]:checked')?.value || 'file');
+    function applyNeed() {
+      const [h, p] = hints[need()];
+      document.getElementById('needHint')!.textContent = h;
+      msgEl.placeholder = p;
+      document.getElementById('msgOpt')!.textContent = need() === 'file' ? '(optional with files)' : '(recommended)';
+    }
+    form.querySelectorAll('input[name=need]').forEach(r => r.addEventListener('change', () => { applyNeed(); track('path_chosen', { need: need() }); }));
+    applyNeed();
+
+    // Drag & drop
+    ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+    dz.addEventListener('drop', e => addFiles((e as DragEvent).dataTransfer?.files));
+    input.addEventListener('change', () => { addFiles(input.files); input.value = ''; });
+
+    function addFiles(files?: FileList | null) {
+      if (!files) return;
+      for (const file of Array.from(files)) {
+        if (file.size > 200 * 1048576) { showError(`${file.name} is over 200 MB. Email us and we’ll send a link for big files.`); continue; }
+        const el = document.createElement('li');
+        el.className = 'file-item';
+        const ext = (file.name.split('.').pop() || '').slice(0, 4);
+        el.innerHTML = `<div class="file-thumb">${esc(ext)}</div>
+          <div style="min-width:0"><div class="file-name">${esc(file.name)}</div><div class="file-meta">${fmtBytes(file.size)} · uploading…</div><div class="progress"><i></i></div></div>
+          <button type="button" class="icon-btn" aria-label="Remove ${esc(file.name)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+        list.appendChild(el);
+        const item: Item = { id: crypto.randomUUID(), file, el, status: 'uploading', ctrl: new AbortController() };
+        items.push(item);
+        el.querySelector('button')!.addEventListener('click', () => removeItem(item));
+        thumbnailFor(file).then(node => { if (node) { const t = el.querySelector('.file-thumb')!; t.textContent = ''; t.appendChild(node); } });
+        track('file_added', { ext, mb: +(file.size / 1048576).toFixed(1) });
+        startUpload(item);
+      }
+      clearError();
+      refresh();
+    }
+
+    async function startUpload(item: Item) {
+      const meta = item.el.querySelector('.file-meta')!;
+      const bar = item.el.querySelector<HTMLElement>('.progress i')!;
+      try {
+        const rec = await uploadFile(item.file, 'inquiry', pct => { bar.style.width = pct + '%'; meta.textContent = `${fmtBytes(item.file.size)} · ${pct}%`; }, item.ctrl.signal);
+        item.status = 'done'; item.uploadId = rec.id;
+        meta.textContent = `${fmtBytes(item.file.size)} · uploaded ✓`; meta.className = 'file-meta ok';
+        item.el.querySelector('.progress')!.remove();
+        track('upload_complete', {});
+        saveDraft();
+      } catch (e) {
+        if (item.ctrl.signal.aborted) return;
+        item.status = 'error';
+        meta.innerHTML = `${esc((e as Error).message)} <a href="#" data-retry>Retry</a>`; meta.className = 'file-meta bad';
+        meta.querySelector('[data-retry]')!.addEventListener('click', ev => { ev.preventDefault(); meta.className = 'file-meta'; item.status = 'uploading'; startUpload(item); refresh(); });
+        track('upload_failed', { msg: (e as Error).message });
+      }
+      refresh();
+    }
+
+    function removeItem(item: Item) {
+      item.ctrl.abort();
+      item.el.remove();
+      items.splice(items.indexOf(item), 1);
+      refresh(); saveDraft();
+    }
+
+    function refresh() {
+      const busy = items.some(i => i.status === 'uploading');
+      submitBtn.disabled = busy;
+      hint.textContent = busy ? 'Waiting for uploads to finish…' : 'No payment now. You’ll approve the quote first.';
+    }
+
+    // Capture unfinished requests: once we have an email + files, save a draft so we can follow up.
+    let emailTracked = false;
+    async function saveDraft() {
+      const email = emailEl.value.trim();
+      if (!EMAIL_RE.test(email) || submitted) return;
+      try {
+        const r = await api<{ id: string }>('/api/drafts', { id: draftId, email, kind: 'inquiry', uploadIds: items.filter(i => i.uploadId).map(i => i.uploadId) });
+        draftId = r.id;
+      } catch { /* non-critical */ }
+    }
+    emailEl.addEventListener('blur', () => {
+      const ok = EMAIL_RE.test(emailEl.value.trim());
+      document.getElementById('emailField')!.classList.toggle('invalid', !!emailEl.value && !ok);
+      if (ok) { if (!emailTracked) { track('email_entered', { flow: 'inquiry' }); emailTracked = true; } saveDraft(); }
+    });
+    emailEl.addEventListener('input', () => document.getElementById('emailField')!.classList.remove('invalid'));
+    msgEl.addEventListener('input', () => document.getElementById('msgField')!.classList.remove('invalid'));
+
+    // Warn before leaving with uploaded-but-unsent files: the exact problem with the old Dropbox flow.
+    addEventListener('beforeunload', e => { if (!submitted && items.some(i => i.status === 'done')) { e.preventDefault(); e.returnValue = ''; } });
+
+    function showError(msg: string) { errBox.textContent = msg; errBox.classList.add('show'); }
+    function clearError() { errBox.classList.remove('show'); }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      clearError();
+      const email = emailEl.value.trim();
+      const uploadIds = items.filter(i => i.status === 'done').map(i => i.uploadId);
+      let bad = false;
+      if (!EMAIL_RE.test(email)) { document.getElementById('emailField')!.classList.add('invalid'); bad = true; }
+      if (!uploadIds.length && msgEl.value.trim().length < 10) { document.getElementById('msgField')!.classList.add('invalid'); bad = true; }
+      if (items.some(i => i.status === 'error')) { showError('One of your files didn’t upload. Retry it or remove it.'); bad = true; }
+      if (bad) {
+        track('form_error', { flow: 'inquiry' });
+        form.querySelector<HTMLElement>('.invalid input, .invalid textarea')?.focus();
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      try {
+        const fd = new FormData(form);
+        const res = await api<{ ref: string; statusUrl: string }>('/api/inquiries', {
+          draftId, email, uploadIds,
+          need: need(), message: msgEl.value, material: fd.get('material'), quantity: fd.get('quantity'),
+          deadline: fd.get('deadline'), name: fd.get('name'), phone: fd.get('phone'),
+          attribution: attribution(),
+        });
+        submitted = true;
+        track('inquiry_submitted', { need: need(), files: uploadIds.length });
+        const statusPath = new URL(res.statusUrl, location.href);
+        document.getElementById('formCard')!.innerHTML = `<div class="success">
+          <div class="big-check"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h2>Request sent. Thank you!</h2>
+          <p class="lead" style="margin-inline:auto">We’ve emailed a confirmation to <b>${esc(email)}</b>. Expect a quote within one business day.</p>
+          <div class="ref">${esc(res.ref)}</div>
+          <p><a class="btn btn-primary" href="${esc(statusPath.pathname + statusPath.search)}">Track your request →</a></p></div>`;
+        scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        showError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Send request <span class="arrow">→</span>';
+      }
+    });
+  </script>
+</Base>

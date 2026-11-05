@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Instant 3D printing quote — upload STL, choose settings, pay online"
+  description="Upload STL, 3MF, STEP or OBJ and get an exact 3D printing price in seconds. Choose 0.2 or 0.4 mm nozzle, layer height, infill, walls and material. Your card is only charged after we check your file."
+  hideMobileCta
+>
+  <section class="page-head dark layers" style="padding-bottom:40px">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / Instant quote</div>
+      <h1>Instant quote</h1>
+      <p class="lead">For print-ready files. Pick your settings like you would in a slicer, and our slicing engine prices it from real material use and print time.</p>
+      <div class="hero-proof" style="margin-top:18px">
+        <span><Icon name="sliders" size={16} /> Real slicer pricing</span>
+        <span><Icon name="shield" size={16} /> Charged only after we check your file</span>
+        <span><Icon name="clock" size={16} /> Usually ready in 24–72 h</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight soft">
+    <div class="container">
+      <div class="notice warn" id="cancelNotice" hidden style="margin-bottom:18px"><Icon name="card" /><span>Checkout was cancelled. Nothing was charged. Your parts are still here if you’d like to try again.</span></div>
+
+      <div class="pq">
+        <!-- Viewer + parts -->
+        <div class="viewer-card" id="viewerCard">
+          <div class="viewer" id="viewer">
+            <label class="viewer-empty dropzone" id="emptyDrop" style="border-radius:0;border:0;background:transparent">
+              <input type="file" id="pqInput" multiple accept=".stl,.3mf,.obj,.step,.stp" />
+              <span class="dz-ico"><Icon name="cube" size={26} /></span>
+              <b>Drop your 3D files here</b>
+              <span class="muted">STL · 3MF · STEP · OBJ, up to 200 MB each. Several files make one order.</span>
+              <span class="btn btn-primary" style="margin-top:12px">Choose files</span>
+            </label>
+            <div class="viewer-hud" id="hud"></div>
+            <div class="viewer-tools" id="viewerTools" hidden>
+              <button class="icon-btn" style="background:#fff;border-color:var(--line)" id="resetView" title="Reset view" aria-label="Reset view"><Icon name="reset" size={18} /></button>
+            </div>
+          </div>
+          <div class="parts-bar" id="partsBar" role="tablist" aria-label="Parts" hidden>
+            <label class="part-tab part-add"><input type="file" id="pqInput2" multiple accept=".stl,.3mf,.obj,.step,.stp" />+ Add part</label>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="panel" id="panel">
+          <div class="panel-sec" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+            <div style="min-width:0">
+              <div class="label" style="margin:0">Print settings</div>
+              <div class="muted" id="partName" style="font-size:.88rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Upload a file to start</div>
+            </div>
+            <button class="btn btn-sm" id="applyAll" hidden>Apply to all parts</button>
+          </div>
+          <fieldset id="settings" disabled style="border:0;margin:0;padding:0;min-width:0">
+            <div class="panel-sec">
+              <div class="label">Material</div>
+              <div class="mat-grid" id="matGrid"></div>
+              <p class="help-tip" id="matUse"></p>
+              <div class="label" style="margin-top:14px">Colour <span class="val" id="colourName"></span></div>
+              <div class="swatches" id="swatches"></div>
+            </div>
+            <div class="panel-sec">
+              <div class="label">Nozzle</div>
+              <div class="seg" id="nozzleSeg"></div>
+              <p class="help-tip" id="nozzleTip"></p>
+              <div class="label" style="margin-top:14px">Layer height <span class="val" id="layerVal"></span></div>
+              <div class="seg" id="layerSeg"></div>
+              <p class="help-tip">Lower layers give smoother curves and finer detail, but take longer to print.</p>
+            </div>
+            <div class="panel-sec">
+              <div class="label">Infill <span class="val" id="infillVal"></span></div>
+              <input type="range" id="infill" min="5" max="100" step="5" aria-label="Infill percentage" />
+              <div class="presets" id="infillPresets"></div>
+              <p class="help-tip">15% suits most parts. 40%+ for strong functional parts. 100% is solid.</p>
+            </div>
+            <div class="panel-sec">
+              <div class="row">
+                <div><div class="label" style="margin:0">Wall loops</div><p class="help-tip" style="margin:2px 0 0">Walls add more strength than infill. 3–4 for functional parts.</p></div>
+                <div class="stepper"><button type="button" data-step="walls" data-d="-1" aria-label="Fewer walls">−</button><input id="walls" type="number" min="2" max="6" aria-label="Wall loops" /><button type="button" data-step="walls" data-d="1" aria-label="More walls">+</button></div>
+              </div>
+              <div class="row" style="margin-top:16px">
+                <label class="switch"><input type="checkbox" id="supports" /> Supports where needed</label>
+              </div>
+              <p class="help-tip">Leave on unless your model is designed to print without supports.</p>
+              <div class="row" style="margin-top:16px">
+                <div class="label" style="margin:0">Quantity</div>
+                <div class="stepper"><button type="button" data-step="qty" data-d="-1" aria-label="Fewer">−</button><input id="qty" type="number" min="1" max="500" aria-label="Quantity" /><button type="button" data-step="qty" data-d="1" aria-label="More">+</button></div>
+              </div>
+              <p class="help-tip" id="qtyTip">5+ units: 15% off. 11+ units: 25% off.</p>
+            </div>
+          </fieldset>
+          <div class="price-box" id="priceBox">
+            <div class="muted" style="color:#8d9bbb">Your price appears here as soon as your file is sliced.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout -->
+      <div class="form-shell" style="margin-top:28px" id="checkoutWrap" hidden>
+        <form class="form-card" id="checkoutForm" novalidate>
+          <div class="form-step">
+            <h2><span class="n">1</span>Delivery</h2>
+            <p class="muted">Pick up from Coogee or have it sent to you.</p>
+            <div class="radio-list" id="deliveryList"></div>
+            <label class="switch" style="margin-top:16px"><input type="checkbox" id="rush" /> Rush: next business day <span class="muted" style="font-weight:400">(+35%)</span></label>
+            <div class="field" id="addressField" hidden style="margin-top:16px">
+              <label for="address">Delivery address</label>
+              <textarea id="address" rows="2" autocomplete="street-address" placeholder="Street, suburb, state, postcode"></textarea>
+              <div class="err">Please enter your delivery address.</div>
+            </div>
+          </div>
+          <div class="form-step">
+            <h2><span class="n">2</span>Your details</h2>
+            <p class="muted">For your receipt and order updates.</p>
+            <div class="fields">
+              <div class="field" id="nameField"><label for="cname">Name</label><input id="cname" autocomplete="name" required /><div class="err">Please enter your name.</div></div>
+              <div class="field" id="cemailField"><label for="cemail">Email</label><input id="cemail" type="email" autocomplete="email" required /><div class="err">Please enter a valid email.</div></div>
+              <div class="field"><label for="cphone">Phone <span class="opt">(optional)</span></label><input id="cphone" type="tel" autocomplete="tel" /></div>
+              <div class="field"><label for="cnotes">Notes <span class="opt">(optional)</span></label><input id="cnotes" placeholder="Orientation, critical faces…" /></div>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="notice info" style="margin-bottom:16px"><Icon name="shield" /><span><b>You won’t be charged yet.</b> At checkout we only place a hold on your card. A person checks every file before printing. If yours can’t be printed as submitted, we release the hold and you pay nothing.</span></div>
+            <label class="check-row" id="termsRow"><input type="checkbox" id="terms" /> <span>I understand my parts will be printed with the settings I chose, and I agree to the <a href="/terms/" target="_blank">print terms</a>.</span></label>
+            <div class="form-error" id="checkoutError" role="alert"></div>
+            <div class="form-foot">
+              <button class="btn btn-primary btn-lg" id="payBtn" type="submit">Continue to secure checkout <span class="arrow">→</span></button>
+            </div>
+          </div>
+        </form>
+        <aside class="aside-card">
+          <div class="card">
+            <h3>Order summary</h3>
+            <ul class="summary-lines" id="summaryLines"></ul>
+            <ul class="summary-lines" id="summaryTotals" style="margin-top:8px"></ul>
+            <div class="price-total" style="border-color:var(--line)"><span>Total <span class="muted" style="font-size:.85rem">inc. GST</span></span><span class="amt" id="summaryTotal" style="color:var(--ink);font:700 1.6rem/1 var(--display)">—</span></div>
+          </div>
+          <div class="card">
+            <h3>Not sure about settings?</h3>
+            <p class="muted" style="font-size:.93rem">Send it as a request instead and we’ll choose everything for you.</p>
+            <a class="btn btn-sm" href="/quote/">Design &amp; print request →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="price-dock" id="priceDock" hidden>
+    <div><span class="amt" id="dockAmt">—</span><small id="dockSub">Pricing…</small></div>
+    <a class="btn btn-primary" href="#checkoutWrap">Checkout ↓</a>
+  </div>
+
+  <script>
+    import '../scripts/pro';
+  </script>
+</Base>

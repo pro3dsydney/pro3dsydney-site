@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Your order status" description="Track your Ultimate3D Sydney request or order." noindex hideMobileCta>
+  <section class="page-head dark layers" style="padding-bottom:36px">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / Order status</div>
+      <h1 id="title">Your order</h1>
+      <p class="lead" id="subtitle">Loading…</p>
+    </div>
+  </section>
+  <section class="section tight soft">
+    <div class="container form-shell">
+      <div class="form-card" id="orderMain">
+        <div class="skeleton" style="height:22px;width:40%;margin-bottom:16px"></div>
+        <div class="skeleton" style="height:14px;width:100%;margin-bottom:10px"></div>
+        <div class="skeleton" style="height:14px;width:80%"></div>
+      </div>
+      <aside class="aside-card" id="aside"></aside>
+    </div>
+  </section>
+
+  <script>
+    import { api, apiUrl, money, esc } from '../scripts/api';
+    import { track } from '../scripts/analytics';
+    import { business } from '../config';
+
+    type Status = {
+      ref: string; kind: 'inquiry' | 'order'; status: string; statusLabel: string; statusText: string;
+      flow: { key: string; label: string }[]; timeline: { status: string; label: string; note: string | null; at: string }[];
+      created: string; name: string | null; files: { filename: string }[];
+      items?: { filename: string; quantity: number; settings: any; total: number }[];
+      totals: { total: number } | null; delivery: string | null; quote: { amount: number; note: string } | null;
+      payUrl: string | null; paymentState: string | null; materials: Record<string, string>;
+    };
+
+    const q = new URLSearchParams(location.search);
+    const ref = q.get('ref') || '';
+    const token = q.get('t') || '';
+    const main = document.getElementById("orderMain")!;
+    const fmtDate = (s: string) => new Date(s.replace(' ', 'T') + 'Z').toLocaleString('en-AU', { dateStyle: 'medium', timeStyle: 'short' });
+
+    (async () => {
+      let s: Status;
+      try {
+        s = await api<Status>(`/api/status/${encodeURIComponent(ref)}?t=${encodeURIComponent(token)}`);
+      } catch (e) {
+        document.getElementById('subtitle')!.textContent = 'We couldn’t find that order.';
+        main.innerHTML = `<p>${esc((e as Error).message)}</p><p>Need help? Call <a href="tel:${business.phoneIntl}">${business.phone}</a> or email <a href="mailto:${business.email}">${business.email}</a>.</p>`;
+        return;
+      }
+      if (q.get('paid') === '1') {
+        const key = 'u3d_paid_' + s.ref;
+        try { if (!sessionStorage.getItem(key)) { track('order_paid', { kind: s.kind, value: s.totals?.total ?? s.quote?.amount }); sessionStorage.setItem(key, '1'); } } catch { /* ignore */ }
+      }
+      document.title = `${s.ref} · ${s.statusLabel} | ${business.name}`;
+      document.getElementById('title')!.textContent = `${s.kind === 'order' ? 'Order' : 'Request'} ${s.ref}`;
+      document.getElementById('subtitle')!.textContent = s.statusText;
+
+      const idx = s.flow.findIndex(f => f.key === s.status);
+      const ended = ['rejected', 'closed'].includes(s.status);
+      const banner = q.get('paid') === '1' && s.kind === 'order' && s.status === 'awaiting_review'
+        ? `<div class="notice" style="margin-bottom:20px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><b>Thanks${s.name ? ', ' + esc(s.name.split(' ')[0]) : ''}! Your card is authorised, not charged.</b> We’ll check your files (usually within a few business hours) and email you as soon as printing starts.</span></div>`
+        : q.get('paid') === '1' && s.status === 'paid' ? `<div class="notice" style="margin-bottom:20px"><span><b>Payment received. Thank you!</b> Your job is in the print queue.</span></div>` : '';
+
+      main.innerHTML = `${banner}
+        <div class="row" style="flex-wrap:wrap"><h2 style="margin:0;font-size:1.4rem">${esc(s.statusLabel)}</h2><span class="muted" style="font-size:.9rem">Placed ${fmtDate(s.created)}</span></div>
+        ${ended ? `<div class="notice bad" style="margin-top:16px"><span>${esc(s.statusText)}</span></div>` : `<ol class="track" style="--n:${s.flow.length};padding:0">${s.flow.map((f, i) => `<li class="${i < idx ? 'done' : i === idx ? 'now' : ''}">${esc(f.label)}</li>`).join('')}</ol>`}
+        ${s.payUrl ? `<div class="card" style="margin:22px 0;background:var(--brand-soft);border-color:#c7d7fe">
+            <div class="row" style="flex-wrap:wrap"><div><div class="muted" style="font-size:.85rem">Your quote</div><div style="font:700 2rem/1.1 var(--display)">${money(s.quote!.amount)}</div><div class="muted" style="font-size:.85rem">inc. GST</div></div>
+            <a class="btn btn-primary btn-lg" href="${esc(apiUrl(s.payUrl))}">Approve &amp; pay →</a></div>
+            ${s.quote!.note ? `<p style="white-space:pre-wrap;margin:14px 0 0">${esc(s.quote!.note)}</p>` : ''}</div>` : ''}
+        ${s.items ? `<h3 style="margin-top:26px">Parts</h3><ul class="summary-lines">${s.items.map(i => `<li><span>${esc(i.filename)} × ${i.quantity}<br><small class="muted">${esc(s.materials[i.settings.material])} ${esc(i.settings.colour)} · ${i.settings.nozzle} mm · ${i.settings.layerHeight} mm layers · ${i.settings.infill}% infill · ${i.settings.walls} walls</small></span><span>${money(i.total)}</span></li>`).join('')}</ul>
+          <div class="price-total" style="border-color:var(--line)"><span>Total inc. GST${s.paymentState === 'authorised' ? ' <span class="muted" style="font-size:.85rem">(held, not charged)</span>' : ''}</span><span style="font:700 1.5rem var(--display)">${money(s.totals!.total)}</span></div>` : ''}
+        ${!s.items && s.files.length ? `<h3 style="margin-top:26px">Files</h3><ul class="summary-lines">${s.files.map(f => `<li><span>${esc(f.filename)}</span><span class="muted">received ✓</span></li>`).join('')}</ul>` : ''}`;
+
+      document.getElementById('aside')!.innerHTML = `
+        <div class="card"><h3>Updates</h3><ul class="timeline">${s.timeline.slice().reverse().map(t => `<li><b>${esc(t.label)}</b><time>${fmtDate(t.at)}</time>${t.note ? `<div style="font-size:.92rem;margin-top:4px">${esc(t.note)}</div>` : ''}</li>`).join('')}</ul></div>
+        <div class="card"><h3>Questions?</h3><p class="muted" style="font-size:.93rem;margin-bottom:8px">Quote <b>${esc(s.ref)}</b> and we’ll help.</p>
+          <p style="margin:0;font-weight:600"><a href="tel:${business.phoneIntl}">${business.phone}</a><br><a href="mailto:${business.email}?subject=${encodeURIComponent(s.ref)}">${business.email}</a></p></div>`;
+    })();
+  </script>
+</Base>

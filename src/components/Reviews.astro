@@ -1,0 +1,29 @@
+---
+import { business } from '../config';
+import { reviews } from '../data/reviews';
+---
+<div class="review-card reveal">
+  <div>
+    <div class="score">{business.google.rating.toFixed(1)}</div>
+    <div class="stars" aria-label={`${business.google.rating} out of 5 stars`}>★★★★★</div>
+  </div>
+  <div>
+    <h3 style="margin-bottom:4px">Rated {business.google.rating.toFixed(1)} on Google</h3>
+    <p class="muted" style="margin:0">From {business.google.reviewCount} verified Google reviews of {business.legalName}. Printed something with us? A review is the biggest help to a small Sydney studio.</p>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+    <a class="btn" href={business.google.profileUrl} target="_blank" rel="noopener">Read reviews</a>
+    <a class="btn btn-primary" href={business.google.reviewUrl} target="_blank" rel="noopener">Leave a review</a>
+  </div>
+</div>
+{reviews.length > 0 && (
+  <div class="quotes">
+    {reviews.map(r => (
+      <figure class="quote-card reveal" style="margin:0">
+        <div class="stars">{'★'.repeat(r.stars)}</div>
+        <blockquote style="margin:10px 0"><p>“{r.text}”</p></blockquote>
+        <figcaption class="muted">{r.name} · Google review</figcaption>
+      </figure>
+    ))}
+  </div>
+)}

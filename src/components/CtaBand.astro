@@ -1,0 +1,17 @@
+---
+const { title = 'Got something to make?', text = 'Send a file, a photo or a sketch. We’ll reply with a quote within one business day.' } = Astro.props;
+---
+<section class="section tight">
+  <div class="container">
+    <div class="cta-band dark layers reveal">
+      <div>
+        <h2>{title}</h2>
+        <p class="lead">{text}</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="band_request">Start a request <span class="arrow">→</span></a>
+        <a class="btn btn-ghost-light btn-lg" href="/instant-quote/" data-track="cta_click" data-label="band_instant">Instant quote</a>
+      </div>
+    </div>
+  </div>
+</section>

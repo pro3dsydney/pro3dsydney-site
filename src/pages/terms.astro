@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { business } from '../config';
+---
+<Base title="Print terms" description={`Plain-English print terms for ${business.name}: quotes, payment holds, file checks, settings you choose, and your rights under Australian Consumer Law.`}>
+  <section class="page-head dark layers"><div class="container"><div class="crumbs"><a href="/">Home</a> / Print terms</div><h1>Print terms</h1><p class="lead">Plain English. The short version: we check every file, you’re only charged for what we can print, and your consumer rights always apply.</p></div></section>
+  <section class="section tight">
+    <div class="container prose">
+      <p class="notice warn" style="display:block">Draft for review: have these checked by your advisor before going live.</p>
+      <h2>1. Quotes</h2>
+      <p>Quotes for design &amp; print requests are valid for 14 days. Instant quotes are calculated from your file and the settings you choose, and are confirmed when we review your order.</p>
+      <h2>2. Payment for instant orders</h2>
+      <ul>
+        <li>At checkout we place a <b>hold</b> (authorisation) on your card for the order total. You are not charged at this point.</li>
+        <li>We review every file before printing. If it can be printed as submitted, we capture the payment and start printing.</li>
+        <li>If it can’t be printed as submitted (for example walls too thin, missing geometry, or it won’t fit), we release the hold and you are not charged. We’ll tell you why and, where possible, offer a fix.</li>
+        <li>Card holds expire automatically after about 7 days if not captured.</li>
+      </ul>
+      <h2>3. Settings you choose</h2>
+      <p>On instant orders, parts are printed with the material, nozzle, layer height, infill, walls and support settings you select. Strength, stiffness, surface finish and fit depend on those choices and on your model’s design. If you’re unsure, use the design &amp; print request and we’ll choose for you.</p>
+      <h2>4. Tolerances &amp; appearance</h2>
+      <p>FDM printing produces visible layer lines and small marks where supports are removed. Typical dimensional accuracy is ±0.2–0.3 mm. Tell us about any critical dimensions before printing.</p>
+      <h2>5. Your rights</h2>
+      <p>Our goods and services come with guarantees that cannot be excluded under the Australian Consumer Law. If a part has a defect in our workmanship, contact us within 14 days of receiving it and we’ll reprint or refund it.</p>
+      <h2>6. Your files &amp; designs</h2>
+      <p>You keep ownership of your files and designs. We use them only to make your parts, store them privately, and never share them. You confirm you have the right to reproduce what you send us. We may decline jobs that infringe someone else’s rights or that are unsafe or unlawful (including weapons).</p>
+      <h2>7. Collection &amp; delivery</h2>
+      <p>Orders not collected within 60 days may be disposed of after we’ve tried to contact you. Delivery times are estimates from the courier.</p>
+      <h2>Contact</h2>
+      <p>{business.name} · {business.suburb} {business.region} · <a href={`tel:${business.phoneIntl}`}>{business.phone}</a> · <a href={`mailto:${business.email}`}>{business.email}</a></p>
+    </div>
+  </section>
+</Base>

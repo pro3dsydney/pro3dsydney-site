@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+const site = Astro.site!.origin;
+// Keep in sync with the backend catalog (src/catalog.js) — the instant quote always uses the live values.
+const perGram = [['PLA', 0.10], ['PETG', 0.12], ['ASA', 0.15], ['TPU 95A', 0.20], ['Polycarbonate', 0.22], ['PETG-CF', 0.25]] as const;
+---
+<Base
+  title="3D Printing Prices in Sydney — How Pricing Works"
+  description="Transparent 3D printing pricing at Ultimate3D Sydney: material by the gram plus machine time, quantity discounts from 5 units, free pickup in Coogee. Get an exact instant quote online."
+  schema={[{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Pricing', item: `${site}/pricing/` }] }]}
+>
+  <section class="page-head dark layers">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / Pricing</div>
+      <h1>Simple, transparent pricing.</h1>
+      <p class="lead">You pay for the material your part uses and the time it spends on the printer. No hidden extras. All prices in AUD, including GST.</p>
+      <div class="hero-ctas" style="margin-top:22px"><a class="btn btn-primary btn-lg" href="/instant-quote/">Get an exact price <span class="arrow">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" style="gap:24px;align-items:start">
+      <div class="card reveal">
+        <h2 style="font-size:1.5rem">How a price is built</h2>
+        <ul class="summary-lines">
+          <li><span>Material, by weight (from the slicer)</span><span>$0.10–0.25 / g</span></li>
+          <li><span>Machine time</span><span>$3.50 / hour</span></li>
+          <li><span>Setup, per unique part</span><span>$3.00</span></li>
+          <li><span>Order handling &amp; file check</span><span>$8.00</span></li>
+          <li><span>Minimum order</span><span>$20.00</span></li>
+        </ul>
+        <p class="muted" style="margin-top:14px;font-size:.93rem">Fine-detail 0.2 mm nozzle prints take longer, so they cost more in machine time. Design work for the design &amp; print service is quoted separately, fixed upfront.</p>
+      </div>
+      <div class="card reveal">
+        <h2 style="font-size:1.5rem">Material rates</h2>
+        <ul class="summary-lines">{perGram.map(([m, p]) => <li><span>{m}</span><span>${p.toFixed(2)} / g</span></li>)}</ul>
+        <h3 style="margin-top:22px">Quantity discounts</h3>
+        <ul class="summary-lines"><li><span>5–10 of the same part</span><span>15% off</span></li><li><span>11+ of the same part</span><span>25% off</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Typical examples</span><h2>What things usually cost</h2><p class="lead">Rough guides for PLA/PETG at standard settings. Your exact price depends on size, settings and quantity.</p></div>
+      <div class="grid-3">
+        <div class="card reveal"><h3>Small clip or knob</h3><p class="muted">~10 g · under 1 hour</p><p style="font:700 1.6rem var(--display);margin:0">$5–8 <small class="muted" style="font:500 .85rem var(--font)">per part</small></p></div>
+        <div class="card reveal"><h3>Palm-sized bracket</h3><p class="muted">~40 g · 2–3 hours</p><p style="font:700 1.6rem var(--display);margin:0">$15–25 <small class="muted" style="font:500 .85rem var(--font)">per part</small></p></div>
+        <div class="card reveal"><h3>Electronics enclosure</h3><p class="muted">~150 g · 6–8 hours</p><p style="font:700 1.6rem var(--display);margin:0">$40–60 <small class="muted" style="font:500 .85rem var(--font)">per part</small></p></div>
+      </div>
+      <p class="muted" style="margin-top:16px;font-size:.9rem">Orders under $20 are topped up to the $20 minimum, so combine small parts into one order.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" style="gap:24px">
+      <div class="card reveal"><h3>Delivery</h3><ul class="summary-lines"><li><span>Pickup, Coogee</span><span>Free</span></li><li><span>Courier, Sydney metro</span><span>$15</span></li><li><span>Australia Post Express</span><span>$18</span></li></ul></div>
+      <div class="card reveal"><h3>Need it fast?</h3><p class="muted">Rush jobs are printed next business day for +35%. Choose rush on an instant quote or mention your deadline in a request.</p></div>
+    </div>
+  </section>
+
+  <section class="section soft"><div class="container"><Faq ids={['cost', 'charged', 'turnaround']} /></div></section>
+  <CtaBand />
+</Base>

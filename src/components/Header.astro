@@ -1,0 +1,23 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { business, nav } from '../config';
+const path = Astro.url.pathname;
+---
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a class="brand" href="/" aria-label={`${business.name} — home`}>
+      <Logo />
+      <span>Ultimate3D<small>SYDNEY</small></span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Main">
+      {nav.map(n => <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      <div class="nav-mobile-cta"><a class="btn btn-primary btn-block" href="/quote/" data-track="cta_click" data-label="nav_mobile">Start a request</a></div>
+    </nav>
+    <div class="header-cta">
+      <a class="header-phone" href={`tel:${business.phoneIntl}`} data-track="cta_click" data-label="header_phone"><Icon name="phone" size={16} />{business.phone}</a>
+      <a class="btn btn-primary btn-sm" href="/quote/" data-track="cta_click" data-label="header">Start a request</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Menu"><span></span></button>
+  </div>
+</header>

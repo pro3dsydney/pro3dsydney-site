@@ -1,0 +1,13 @@
+---
+import { faqs } from '../data/faq';
+const { ids } = Astro.props as { ids?: string[] };
+const list = ids ? faqs.filter(f => ids.includes(f.id)) : faqs;
+---
+<div class="faq">
+  {list.map(f => (
+    <details class="reveal" data-faq={f.id}>
+      <summary>{f.q}</summary>
+      <div class="answer" set:html={f.a} />
+    </details>
+  ))}
+</div>

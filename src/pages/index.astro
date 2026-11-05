@@ -1,0 +1,198 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Sketch from '../components/art/Sketch.astro';
+import Cad from '../components/art/Cad.astro';
+import Part from '../components/art/Part.astro';
+import { business } from '../config';
+
+const services = [
+  { icon: 'pencil', t: '3D modelling from sketches', d: 'No CAD file? Send a sketch, photo or measurements and we’ll model it for you.', href: '/3d-design/' },
+  { icon: 'wrench', t: 'Replacement & repair parts', d: 'Broken clip, knob or bracket? We measure it, recreate it, and often make it stronger than the original.', href: '/3d-design/' },
+  { icon: 'cube', t: 'Prototypes', d: 'Fast iterations for product ideas, enclosures and fit checks, with honest advice on design for printing.', href: '/quote/' },
+  { icon: 'layers', t: 'Small-batch production', d: 'Jigs, fixtures and short runs from 5 to 500 units, with consistent quality and quantity pricing.', href: '/pricing/' },
+  { icon: 'ruler', t: 'Precision & fine detail', d: 'Layer heights down to 0.06 mm with a 0.2 mm nozzle for miniatures, text and tight tolerances.', href: '/materials/' },
+  { icon: 'shield', t: 'Engineering materials', d: 'PETG, ASA, TPU, polycarbonate and carbon-fibre blends for parts that have to survive real use.', href: '/materials/' },
+];
+---
+<Base
+  title="3D Printing & 3D Modelling in Sydney | Ultimate3D Sydney"
+  description="Sydney 3D printing studio in Coogee. Send a 3D file, photo or sketch: we design it, print it in PLA, PETG, ASA, TPU or carbon fibre, and have it ready in 24–72 hours. Instant online quotes."
+>
+  <!-- Hero -->
+  <section class="hero dark layers">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">3D printing &amp; design · Coogee, Sydney</span>
+        <h1>From a sketch on a napkin to a <span class="hl">part in your hand.</span></h1>
+        <p class="lead">Send us a 3D file, a photo, or a rough drawing with measurements. We design it, print it in tough engineering materials, and have it ready in 24–72 hours.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="hero_request">Start a request <span class="arrow">→</span></a>
+          <a class="btn btn-ghost-light btn-lg" href="/instant-quote/" data-track="cta_click" data-label="hero_instant">Have a file? Instant price</a>
+        </div>
+        <div class="hero-proof">
+          <a href={business.google.profileUrl} target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><span class="stars">★★★★★</span> <b>{business.google.rating.toFixed(1)}</b> on Google</a>
+          <span><b>{business.clients}</b> clients since {business.since}</span>
+          <span>Reply within <b>1 business day</b></span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-frame">
+          <video data-autoplay muted loop playsinline preload="none" poster="/media/printing-poster.jpg" aria-label="Time-lapse of a part printing on one of our printers">
+            <source src="/media/printing.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="hero-badge b1">
+          <span class="dot" style="background:#e8efff;color:#2563eb"><Icon name="layers" /></span>
+          <span><b>0.06 mm</b>finest layer height</span>
+        </div>
+        <div class="hero-badge b2">
+          <span class="dot" style="background:#e7f8f1;color:#059669"><Icon name="clock" /></span>
+          <span><b>24–72 h</b>typical turnaround</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof strip -->
+  <section class="proof" aria-label="Key facts">
+    <div class="container">
+      <div class="proof-item"><b>{business.since}</b><span>Printing in Sydney since</span></div>
+      <div class="proof-item"><b>{business.clients}</b><span>Makers, startups &amp; businesses</span></div>
+      <div class="proof-item"><b>6</b><span>Engineering materials in stock</span></div>
+      <div class="proof-item"><b>256 mm</b><span>Max size in one piece (bigger? we split it)</span></div>
+    </div>
+  </section>
+  <div class="container brands-line" aria-label="Filament brands we print with">
+    <span>Printing on Bambu Lab machines with filament from</span>
+    <b>Bambu Lab</b><b>Polymaker</b><b>eSUN</b><b>colorFabb</b><b>Sunlu</b>
+  </div>
+
+  <!-- Two paths -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Two ways to get it made</span>
+        <h2>Let us handle it, or take full control.</h2>
+        <p class="lead">Most people start with a request and we do the thinking. Makers with print-ready files can configure and pay online in two minutes.</p>
+      </div>
+      <div class="paths">
+        <article class="path featured reveal">
+          <span class="tag">Most popular · Design &amp; print</span>
+          <h3>Send us anything. We’ll handle the rest.</h3>
+          <p>A 3D file, a photo of a broken part, a sketch on paper, or just an idea. We turn it into a printable model, pick the right material, and quote you.</p>
+          <ul>
+            <li><Icon name="check" size={18} />Upload 3D files, photos, sketches or PDFs</li>
+            <li><Icon name="check" size={18} />We do the 3D modelling if you don’t have a file</li>
+            <li><Icon name="check" size={18} />Advice on strength, material and finish</li>
+            <li><Icon name="check" size={18} />Quote by email within one business day</li>
+          </ul>
+          <a class="btn btn-primary btn-lg" href="/quote/" data-track="path_chosen" data-label="home_request">Start a request <span class="arrow">→</span></a>
+          <p class="fine">No account. No payment until you approve the quote.</p>
+        </article>
+        <article class="path reveal">
+          <span class="tag">For makers · Instant quote</span>
+          <h3>Print-ready file? Price it in seconds.</h3>
+          <p>Upload STL, 3MF or STEP and choose your own settings, just like your slicer. Our real slicing engine prices it from actual material and print time.</p>
+          <ul>
+            <li><Icon name="check" size={18} />0.2 mm or 0.4 mm nozzle, layer heights 0.06–0.24 mm</li>
+            <li><Icon name="check" size={18} />Infill, walls, supports, material and colour</li>
+            <li><Icon name="check" size={18} />3D preview with size and printability checks</li>
+            <li><Icon name="check" size={18} />Card only charged after we’ve checked your file</li>
+          </ul>
+          <a class="btn btn-lg" href="/instant-quote/" data-track="path_chosen" data-label="home_instant">Get an instant price <span class="arrow">→</span></a>
+          <p class="fine">If your file can’t be printed, the hold is released. You pay nothing.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sketch to part -->
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">No CAD? No problem</span>
+        <h2>We design parts from sketches, photos and broken pieces.</h2>
+        <p class="lead">You don’t need to know 3D modelling. Give us measurements, even rough ones, and we’ll model it properly, send you a preview, then print it.</p>
+      </div>
+      <div class="journey">
+        <figure class="reveal"><div class="art"><Sketch /></div><figcaption><span class="step-n">01 · You send</span><b>A sketch, photo or old part</b><span class="muted">Phone photos next to a ruler work great. Add rough measurements if you can.</span></figcaption></figure>
+        <figure class="reveal"><div class="art"><Cad /></div><figcaption><span class="step-n">02 · We model</span><b>A precise 3D model</b><span class="muted">Designed in CAD with real tolerances. We send you a preview before printing.</span></figcaption></figure>
+        <figure class="reveal"><div class="art"><Part /></div><figcaption><span class="step-n">03 · You get</span><b>A finished, functional part</b><span class="muted">Printed in the right material for the job. Pick it up in Coogee or we’ll ship it.</span></figcaption></figure>
+      </div>
+      <p style="margin-top:28px"><a class="btn" href="/3d-design/">How our 3D design service works <span class="arrow">→</span></a></p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What we make</span>
+        <h2>One studio for design, prototyping and production.</h2>
+      </div>
+      <div class="grid-3">
+        {services.map(s => (
+          <a class="card reveal" href={s.href} style="text-decoration:none;color:inherit">
+            <div class="ico"><Icon name={s.icon} size={22} /></div>
+            <h3>{s.t}</h3>
+            <p class="muted">{s.d}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Recent work</span>
+        <h2>From prototypes to finished pieces.</h2>
+      </div>
+      <div class="gallery">
+        <figure class="reveal"><img src="/img/prototypes.jpg" alt="Assorted functional prototype parts printed in PLA and PETG" loading="lazy" width="581" height="775" /><figcaption>Functional prototypes</figcaption></figure>
+        <figure class="reveal"><img src="/img/temple.jpg" alt="Detailed architectural temple model printed at fine layer height" loading="lazy" width="516" height="516" /><figcaption>Architectural model</figcaption></figure>
+        <figure class="reveal"><img src="/img/vase.webp" alt="Decorative spiral vase printed in silk PLA" loading="lazy" width="850" height="500" /><figcaption>Decor &amp; gifts</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section dark layers">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>Four steps. Usually done within three days.</h2>
+      </div>
+      <ol class="steps" style="padding:0;margin:0">
+        <li><h3>Send it over</h3><p>Upload files, photos or a description. Takes about two minutes and no account is needed.</p></li>
+        <li><h3>We check &amp; quote</h3><p>A real person reviews printability, suggests improvements and confirms the price.</p></li>
+        <li><h3>Print &amp; inspect</h3><p>Printed on calibrated Bambu Lab machines, then cleaned up and quality-checked.</p></li>
+        <li><h3>Pickup or delivery</h3><p>Collect in Coogee, Sydney courier, or Australia Post Express nationwide.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Reviews</span><h2>Trusted by Sydney makers and teams.</h2></div>
+      <Reviews />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head center"><span class="eyebrow">Questions</span><h2>Good to know</h2></div>
+      <Faq ids={['no-file', 'two-ways', 'charged', 'cost', 'turnaround']} />
+      <p class="center" style="margin-top:24px"><a href="/faq/">All questions →</a></p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

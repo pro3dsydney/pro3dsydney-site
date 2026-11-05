@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { business } from '../config';
+---
+<Base title="Privacy" description={`How ${business.name} collects, uses and protects your information and files.`}>
+  <section class="page-head dark layers"><div class="container"><div class="crumbs"><a href="/">Home</a> / Privacy</div><h1>Privacy</h1></div></section>
+  <section class="section tight">
+    <div class="container prose">
+      <p class="notice warn" style="display:block">Draft for review: have this checked by your advisor before going live.</p>
+      <h2>What we collect</h2>
+      <ul>
+        <li><b>Details you give us</b>: name, email, phone, delivery address, and notes.</li>
+        <li><b>Files you upload</b>: 3D models, photos, sketches and documents.</li>
+        <li><b>Payment</b>: handled by our payment provider (Stripe). We never see or store your full card number.</li>
+        <li><b>Website usage</b>: pages visited, how you arrived (e.g. Google or Instagram), device type and approximate location. We use our own analytics plus Google Analytics and Microsoft Clarity, which may record anonymised interactions such as clicks and scrolling to help us improve the site. Form inputs are masked.</li>
+      </ul>
+      <h2>How we use it</h2>
+      <p>To quote, make and deliver your parts, contact you about your order, and improve our service. We don’t sell your information. If you type your email and upload files but don’t send the form, we may contact you once to see if you need help.</p>
+      <h2>Your files</h2>
+      <p>Stored privately with access limited to us. Used only for your job. Ask us and we’ll delete them.</p>
+      <h2>Your choices</h2>
+      <p>You can ask to see, correct or delete your information at any time. You can block analytics with your browser’s privacy settings or a content blocker.</p>
+      <h2>Contact</h2>
+      <p><a href={`mailto:${business.email}`}>{business.email}</a> · <a href={`tel:${business.phoneIntl}`}>{business.phone}</a></p>
+    </div>
+  </section>
+</Base>

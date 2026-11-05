@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Sketch from '../components/art/Sketch.astro';
+import Cad from '../components/art/Cad.astro';
+import Part from '../components/art/Part.astro';
+
+const site = Astro.site!.origin;
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: '3D modelling and CAD design from sketches, photos and broken parts',
+    serviceType: '3D modelling',
+    provider: { '@id': `${site}/#business` },
+    areaServed: { '@type': 'City', name: 'Sydney' },
+    description: 'We turn hand sketches, photos, measurements and broken parts into accurate 3D CAD models, then 3D print them.',
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+      { '@type': 'ListItem', position: 2, name: '3D design', item: `${site}/3d-design/` },
+    ],
+  },
+];
+const examples = [
+  ['wrench', 'Replacement parts', 'Broken clips, knobs, hinges, brackets, appliance and car interior trim, often stronger than the original.'],
+  ['box', 'Enclosures & mounts', 'Cases for electronics, wall mounts, holders and organisers designed to your exact gear.'],
+  ['bulb', 'Product prototypes', 'Turn a napkin idea into something you can hold, test and show investors.'],
+  ['ruler', 'Jigs & fixtures', 'Workshop jigs, drill guides and assembly fixtures for tradies and small manufacturers.'],
+  ['star', 'Gifts & custom pieces', 'Name plates, keepsakes, cosplay props and one-off decorative pieces.'],
+  ['layers', 'Fixing files', 'Have a 3D file that won’t print or doesn’t fit? We repair and adapt it.'],
+];
+---
+<Base
+  title="3D Modelling & CAD Design from Sketches — Sydney"
+  description="No 3D file? Ultimate3D Sydney designs parts from your sketches, photos, measurements or broken pieces, then 3D prints them. Replacement parts, prototypes, enclosures and more. Quote in one business day."
+  schema={schema}
+>
+  <section class="page-head dark layers">
+    <div class="container hero-grid">
+      <div>
+        <div class="crumbs"><a href="/">Home</a> / 3D design</div>
+        <h1>3D modelling from your sketch, photo or broken part.</h1>
+        <p class="lead">No CAD skills needed. Send us what you’ve got, even a rough drawing on paper, and we’ll design a precise 3D model, show it to you, and print it.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="design_hero">Send your sketch or photo <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="hero-frame" style="aspect-ratio:4/3;background:#fff;display:grid;place-items:center;padding:24px"><Sketch /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">How it works</span><h2>From idea to part in four steps.</h2></div>
+      <ol class="steps light" style="padding:0;margin:0">
+        <li><h3>Send what you have</h3><p>Photos (with a ruler in shot), a sketch with measurements, the old part, or a description.</p></li>
+        <li><h3>We quote the design</h3><p>You get a fixed quote for modelling + printing. No surprises, no hourly meter running.</p></li>
+        <li><h3>Approve the 3D preview</h3><p>We send screenshots of the model. Tweaks at this stage are included.</p></li>
+        <li><h3>We print it</h3><p>In the right material for the job, then pickup in Coogee or delivery.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">What we design</span><h2>If you can describe it, we can usually make it.</h2></div>
+      <div class="grid-3">
+        {examples.map(([i, t, d]) => (
+          <div class="card reveal"><div class="ico"><Icon name={i} size={22} /></div><h3>{t}</h3><p class="muted">{d}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" style="align-items:center;gap:40px">
+      <div>
+        <span class="eyebrow">Getting good measurements</span>
+        <h2>Tips for photos and sketches</h2>
+        <ul class="checklist" style="font-size:1rem;gap:14px">
+          <li><Icon name="camera" size={20} /><span><b>Photograph straight-on</b> from the front, side and top, with a ruler or tape measure in the shot.</span></li>
+          <li><Icon name="ruler" size={20} /><span><b>Measure what matters</b>: overall size, hole positions and diameters, wall thickness.</span></li>
+          <li><Icon name="wrench" size={20} /><span><b>Tell us what it fits</b>: the make and model, or what it screws or clips onto.</span></li>
+          <li><Icon name="pin" size={20} /><span><b>Local?</b> Drop the original part to us in Coogee and we’ll measure it precisely.</span></li>
+        </ul>
+      </div>
+      <div class="grid-2" style="gap:12px">
+        <div class="card" style="padding:12px"><Cad /></div>
+        <div class="card" style="padding:12px"><Part /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head center"><span class="eyebrow">Questions</span><h2>3D design FAQ</h2></div>
+      <Faq ids={['no-file', 'formats', 'accuracy', 'size', 'confidential']} />
+    </div>
+  </section>
+
+  <CtaBand title="Send us your sketch." text="Upload a photo or drawing and describe what you need. We’ll reply with a quote within one business day." />
+</Base>

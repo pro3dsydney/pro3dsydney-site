@@ -1,0 +1,121 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { business, GA_ID, CLARITY_ID } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD objects for this page (Service, FAQPage, BreadcrumbList…). */
+  schema?: object[];
+  noindex?: boolean;
+  /** Hide the floating mobile "Get a quote" bar (e.g. on the request pages themselves). */
+  hideMobileCta?: boolean;
+  ogImage?: string;
+}
+const { title, description, schema = [], noindex = false, hideMobileCta = false, ogImage = '/og.png' } = Astro.props;
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const fullTitle = title.includes('Ultimate3D') ? title : `${title} | ${business.name}`;
+
+// Organisation / local business entity — on every page so Google can tie the site
+// to the Google Business Profile (same name, phone and suburb).
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${site.origin}/#business`,
+  name: business.name,
+  alternateName: [business.legalName, 'Ultimate3D', 'Pro3D Sydney'],
+  description: 'Sydney 3D printing and 3D modelling studio. FDM printing in PLA, PETG, ASA, TPU, polycarbonate and carbon-fibre blends, plus CAD design from sketches and photos.',
+  url: site.origin + '/',
+  logo: `${site.origin}/icon-512.png`,
+  image: `${site.origin}/og.png`,
+  telephone: business.phoneIntl,
+  email: business.email,
+  priceRange: '$$',
+  foundingDate: String(business.since),
+  address: {
+    '@type': 'PostalAddress',
+    ...(business.showStreet ? { streetAddress: business.street } : {}),
+    addressLocality: business.suburb,
+    addressRegion: business.region,
+    postalCode: business.postcode,
+    addressCountry: business.country,
+  },
+  areaServed: [{ '@type': 'City', name: 'Sydney' }, { '@type': 'Country', name: 'Australia' }],
+  knowsAbout: ['3D printing', 'FDM printing', '3D modelling', 'CAD design', 'Rapid prototyping', 'Reverse engineering'],
+  hasMap: business.google.profileUrl,
+  sameAs: business.sameAs,
+};
+const ld = [localBusiness, ...schema];
+---
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#0a1630" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={business.name} />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, site).href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="geo.region" content="AU-NSW" />
+  <meta name="geo.placename" content="Coogee, Sydney" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <script is:inline>document.documentElement.classList.add('js');</script>
+
+  {GA_ID && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+      <script is:inline define:vars={{ GA_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+      </script>
+    </>
+  )}
+  {CLARITY_ID && (
+    <script is:inline define:vars={{ CLARITY_ID }}>
+      (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CLARITY_ID);
+    </script>
+  )}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <Header />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+  {!hideMobileCta && (
+    <div class="mobile-cta" id="mobileCta">
+      <a class="btn btn-primary" href="/quote/" data-track="cta_click" data-label="mobile_sticky">Start a request</a>
+      <a class="btn" href="/instant-quote/" data-track="cta_click" data-label="mobile_sticky_instant">Instant quote</a>
+    </div>
+  )}
+  <script>
+    import '../scripts/site';
+  </script>
+</body>
+</html>

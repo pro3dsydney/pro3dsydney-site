@@ -1,0 +1,47 @@
+---
+import Logo from './Logo.astro';
+import { business } from '../config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="/"><Logo /><span>Ultimate3D<small>SYDNEY</small></span></a>
+        <p>3D printing and 3D modelling in {business.suburb}, Sydney. From a sketch, a photo or a CAD file to a finished part, since {business.since}.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/quote/">Design &amp; print request</a></li>
+          <li><a href="/instant-quote/">Instant quote</a></li>
+          <li><a href="/3d-design/">3D modelling from sketches</a></li>
+          <li><a href="/materials/">Materials</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/terms/">Print terms</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href={business.google.reviewUrl} rel="noopener" target="_blank">Leave a Google review</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href={`tel:${business.phoneIntl}`}>{business.phone}</a></li>
+          <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
+          <li>{business.showStreet ? `${business.street}, ` : ''}{business.suburb} {business.region} {business.postcode}</li>
+          <li><a href={business.google.profileUrl} rel="noopener" target="_blank">Find us on Google Maps</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {year} {business.name}. All prices in AUD and include GST.</span>
+      <span>Printed in Sydney, Australia.</span>
+    </div>
+  </div>
+</footer>

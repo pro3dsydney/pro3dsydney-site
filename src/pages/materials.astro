@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+
+// Ratings out of 5. Marketing summary; the live price list comes from the API.
+const mats = [
+  { k: 'PLA', use: 'Display models, prototypes, décor, everyday parts', strength: 3, heat: 1, flex: 1, outdoor: 1, detail: 5, maxC: '~55 °C',
+    pros: 'Crisp detail, huge colour range, lowest cost', cons: 'Softens in a hot car; not for outdoors' },
+  { k: 'PETG', use: 'Functional parts, brackets, containers, mechanical parts', strength: 4, heat: 2, flex: 2, outdoor: 3, detail: 4, maxC: '~70 °C',
+    pros: 'Tough, slightly flexible, chemical resistant', cons: 'Slightly glossy; finer detail than PLA is harder' },
+  { k: 'ASA', use: 'Car parts, outdoor fixtures, anything in the sun', strength: 4, heat: 4, flex: 2, outdoor: 5, detail: 3, maxC: '~95 °C',
+    pros: 'UV-stable and heat resistant: the outdoor choice', cons: 'Limited colours' },
+  { k: 'TPU 95A', use: 'Gaskets, bumpers, grips, phone cases, seals', strength: 3, heat: 2, flex: 5, outdoor: 3, detail: 2, maxC: '~60 °C',
+    pros: 'Rubber-like and nearly indestructible', cons: 'Prints slowly; costs more' },
+  { k: 'Polycarbonate', use: 'Enclosures, jigs, high-load or high-heat parts', strength: 5, heat: 5, flex: 2, outdoor: 3, detail: 3, maxC: '~110 °C',
+    pros: 'Extremely tough and heat resistant', cons: 'Higher cost; larger parts can warp' },
+  { k: 'PETG-CF', use: 'Stiff lightweight parts, drone frames, tooling', strength: 4, heat: 3, flex: 1, outdoor: 3, detail: 3, maxC: '~75 °C',
+    pros: 'Very stiff, matte carbon-fibre look', cons: 'Black only; slightly more brittle' },
+];
+const meter = (n: number) => Array.from({ length: 5 }, (_, i) => i < n);
+const site = Astro.site!.origin;
+---
+<Base
+  title="3D Printing Materials — PLA, PETG, ASA, TPU, Polycarbonate, Carbon Fibre"
+  description="Compare 3D printing materials available at Ultimate3D Sydney: PLA, PETG, ASA, TPU 95A, polycarbonate and PETG-CF. Strength, heat resistance, flexibility and outdoor use explained."
+  schema={[{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Materials', item: `${site}/materials/` }] }]}
+>
+  <section class="page-head dark layers">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / Materials</div>
+      <h1>Choose the right material.</h1>
+      <p class="lead">Six materials cover almost every job. Not sure? Choose “recommend one” on your request and we’ll pick for you.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="table-wrap reveal">
+        <table class="data">
+          <thead><tr><th>Material</th><th>Strength</th><th>Heat</th><th>Flexible</th><th>Outdoor / UV</th><th>Detail</th><th>Softens at</th></tr></thead>
+          <tbody>
+            {mats.map(m => (
+              <tr>
+                <td><b>{m.k}</b></td>
+                {[m.strength, m.heat, m.flex, m.outdoor, m.detail].map(v => (
+                  <td><span class="meter" aria-label={`${v} out of 5`}>{meter(v).map(on => <i class={on ? 'on' : ''}></i>)}</span></td>
+                ))}
+                <td>{m.maxC}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-3" style="margin-top:28px">
+        {mats.map(m => (
+          <article class="card reveal">
+            <h3>{m.k}</h3>
+            <p class="muted" style="font-size:.93rem">{m.use}</p>
+            <p style="font-size:.93rem;margin-bottom:6px"><b style="color:var(--ok)">+</b> {m.pros}</p>
+            <p style="font-size:.93rem"><b style="color:var(--warn)">–</b> {m.cons}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head center"><h2>Material questions</h2></div>
+      <Faq ids={['materials', 'accuracy', 'resin']} />
+    </div>
+  </section>
+
+  <CtaBand title="Know what you need?" text="Upload your file and pick a material for an instant price, or send a request and we’ll recommend one." />
+</Base>

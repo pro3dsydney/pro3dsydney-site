@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqs } from '../data/faq';
+const strip = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: strip(f.a) } })),
+}];
+---
+<Base
+  title="3D Printing FAQ — files, materials, pricing, turnaround"
+  description="Answers to common questions about 3D printing and 3D modelling at Ultimate3D Sydney: file formats, no-CAD design, materials, sizes, accuracy, pricing, payment, turnaround and delivery."
+  schema={schema}
+>
+  <section class="page-head dark layers">
+    <div class="container">
+      <div class="crumbs"><a href="/">Home</a> / FAQ</div>
+      <h1>Frequently asked questions</h1>
+      <p class="lead">Can’t find your answer? Call, text or email and we’ll get back to you quickly.</p>
+    </div>
+  </section>
+  <section class="section tight"><div class="container"><Faq /></div></section>
+  <CtaBand />
+</Base>
