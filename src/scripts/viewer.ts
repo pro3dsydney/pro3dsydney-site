@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { COLOURS } from './colours';
 
 
-/** 3D preview of a part sitting on a 256 × 256 mm build plate. */
+/** 3D preview of a part sitting on the build plate (size comes from the API catalog). */
 export class Viewer {
   private renderer: THREE.WebGLRenderer;
   private scene = new THREE.Scene();
@@ -32,11 +32,11 @@ export class Viewer {
     // Build plate
     const plate = new THREE.Mesh(
       new THREE.PlaneGeometry(bed.x, bed.y),
-      new THREE.MeshStandardMaterial({ color: 0x1f2937, roughness: 0.9, metalness: 0.1 }),
+      new THREE.MeshStandardMaterial({ color: 0xd5dce6, roughness: 0.95, metalness: 0 }),
     );
     plate.position.z = -0.6;
     this.scene.add(plate);
-    const grid = new THREE.GridHelper(bed.x, bed.x / 16, 0x475569, 0x334155);
+    const grid = new THREE.GridHelper(bed.x, Math.round(bed.x / 16), 0x94a3b8, 0xb8c2cf);
     grid.rotation.x = Math.PI / 2;
     grid.position.z = -0.4;
     this.scene.add(grid);

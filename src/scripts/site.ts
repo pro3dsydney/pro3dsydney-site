@@ -1,11 +1,11 @@
 import { track } from './analytics';
 
-// Header border on scroll + mobile sticky CTA
+// Header border on scroll + floating "Get a quote" button
 const header = document.getElementById('siteHeader');
-const mobileCta = document.getElementById('mobileCta');
+const floatCta = document.getElementById('floatCta');
 const onScroll = () => {
   header?.classList.toggle('scrolled', scrollY > 8);
-  mobileCta?.classList.toggle('show', scrollY > 600);
+  floatCta?.classList.toggle('show', scrollY > 420);
 };
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
@@ -50,3 +50,29 @@ if (video) {
     new IntersectionObserver(([e]) => { if (e.isIntersecting) video.play().catch(() => {}); else video.pause(); }, { threshold: 0.25 }).observe(video);
   }
 }
+
+// "Call us": fetch the number only on a real click, then show it / start the call on phones.
+let phone: { display: string; tel: string } | null = null;
+document.addEventListener('click', async e => {
+  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-call]');
+  if (!btn) return;
+  e.preventDefault();
+  track('cta_click', { label: 'call_reveal' });
+  try {
+    if (!phone) {
+      const { api } = await import('./api');
+      phone = await api<{ display: string; tel: string }>('/api/contact/phone', { human: true });
+    }
+    document.querySelectorAll<HTMLElement>('[data-call]').forEach(b => {
+      const a = document.createElement('a');
+      a.href = `tel:${phone!.tel}`;
+      a.className = b.className;
+      a.innerHTML = b.querySelector('svg')?.outerHTML || '';
+      a.append(phone!.display);
+      b.replaceWith(a);
+    });
+    if (matchMedia('(pointer: coarse)').matches) location.href = `tel:${phone.tel}`;
+  } catch {
+    btn.querySelector('span')!.textContent = 'Please email us';
+  }
+});

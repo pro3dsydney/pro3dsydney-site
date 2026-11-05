@@ -20,7 +20,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
 const fullTitle = title.includes('Ultimate3D') ? title : `${title} | ${business.name}`;
 
 // Organisation / local business entity — on every page so Google can tie the site
-// to the Google Business Profile (same name, phone and suburb).
+// to the Google Business Profile (same name and suburb).
 const localBusiness = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
@@ -31,7 +31,6 @@ const localBusiness = {
   url: site.origin + '/',
   logo: `${site.origin}/icon-512.png`,
   image: `${site.origin}/og.png`,
-  telephone: business.phoneIntl,
   email: business.email,
   priceRange: '$$',
   foundingDate: String(business.since),
@@ -109,10 +108,7 @@ const ld = [localBusiness, ...schema];
   </main>
   <Footer />
   {!hideMobileCta && (
-    <div class="mobile-cta" id="mobileCta">
-      <a class="btn btn-primary" href="/quote/" data-track="cta_click" data-label="mobile_sticky">Start a request</a>
-      <a class="btn" href="/instant-quote/" data-track="cta_click" data-label="mobile_sticky_instant">Instant quote</a>
-    </div>
+    <a class="btn btn-primary float-cta" id="floatCta" href="/quote/" data-track="cta_click" data-label="float_quote">Get a quote <span class="arrow">→</span></a>
   )}
   <script>
     import '../scripts/site';

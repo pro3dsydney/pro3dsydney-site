@@ -2,7 +2,10 @@ const BASE = (import.meta.env.PUBLIC_API_URL || '').replace(/\/$/, '');
 
 export const apiUrl = (path: string) => (/^https?:/.test(path) ? path : BASE + path);
 
-export class ApiError extends Error {}
+export class ApiError extends Error {
+  constructor(message: string, public status = 0, public data: any = {}) { super(message); }
+  get code(): string | undefined { return this.data?.code; }
+}
 
 export async function api<T = any>(path: string, body?: unknown, method = body === undefined ? 'GET' : 'POST'): Promise<T> {
   let res: Response;
@@ -16,12 +19,12 @@ export async function api<T = any>(path: string, body?: unknown, method = body =
     throw new ApiError('Can’t reach our server. Check your connection and try again.');
   }
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(data.error || `Something went wrong (${res.status}). Please try again.`);
+  if (!res.ok) throw new ApiError(data.error || `Something went wrong (${res.status}). Please try again.`, res.status, data);
   return data as T;
 }
 
 export type Analysis = {
-  size?: { x: number; y: number; z: number }; volume?: number; manifold?: boolean;
+  size?: { x: number; y: number; z: number }; volume?: number; manifold?: boolean; oversize?: boolean;
   printable: boolean; errors: string[]; warnings: string[];
 };
 export type UploadRecord = { id: string; filename: string; size: number; ext: string; status: string; analysis: Analysis | null };

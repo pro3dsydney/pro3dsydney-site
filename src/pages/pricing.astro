@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
+import Estimator from '../components/Estimator.astro';
 const site = Astro.site!.origin;
 // Keep in sync with the backend catalog (src/catalog.js) — the instant quote always uses the live values.
 const perGram = [['PLA', 0.10], ['PETG', 0.12], ['ASA', 0.15], ['TPU 95A', 0.20], ['Polycarbonate', 0.22], ['PETG-CF', 0.25]] as const;
@@ -19,6 +20,13 @@ const perGram = [['PLA', 0.10], ['PETG', 0.12], ['ASA', 0.15], ['TPU 95A', 0.20]
       <h1>Simple, transparent pricing.</h1>
       <p class="lead">You pay for the material your part uses and the time it spends on the printer. No hidden extras. All prices in AUD, including GST.</p>
       <div class="hero-ctas" style="margin-top:22px"><a class="btn btn-primary btn-lg" href="/instant-quote/">Get an exact price <span class="arrow">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="section soft" id="estimate">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Ballpark estimator</span><h2>Get a rough number in seconds</h2></div>
+      <Estimator />
     </div>
   </section>
 

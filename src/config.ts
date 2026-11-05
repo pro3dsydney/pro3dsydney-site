@@ -1,6 +1,6 @@
 /**
  * Business details used across the whole site, structured data and footer.
- * Keep name / phone / suburb IDENTICAL to the Google Business Profile — Google
+ * Keep name / suburb IDENTICAL to the Google Business Profile — Google
  * matches them to link the website and the map listing.
  */
 export const business = {
@@ -8,8 +8,8 @@ export const business = {
   // Exact name on the Google Business Profile.
   legalName: 'Ultimate 3d Printing & Modeling',
   tagline: '3D printing & 3D modelling studio in Coogee, Sydney',
-  phone: '0410 937 558',
-  phoneIntl: '+61410937558',
+  // Phone number deliberately NOT here: it's served by the API only when someone
+  // clicks "Call us", so it never appears in the HTML or JS for scrapers.
   email: 'pro3dsydney@gmail.com',
   suburb: 'Coogee',
   city: 'Sydney',
@@ -22,7 +22,7 @@ export const business = {
   showStreet: false,
   since: 2017,
   clients: '600+',
-  turnaround: '24–72 h',
+  turnaround: '24–48 h',
   google: {
     rating: 5.0,
     reviewCount: 5,

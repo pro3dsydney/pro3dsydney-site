@@ -23,7 +23,7 @@ export const faqs: { id: string; q: string; a: string }[] = [
   {
     id: 'turnaround',
     q: 'How fast can you print?',
-    a: '<p>Most jobs are ready in 24–72 hours. Larger batches or long prints take longer, and we’ll tell you upfront. Need it tomorrow? Choose <b>rush</b> on an instant quote, or mention your deadline in a request.</p>',
+    a: '<p>Typical turnaround is 24–48 hours. Larger batches or very long prints take longer, and we’ll tell you upfront. Need it tomorrow? Choose <b>rush</b> on an instant quote, or mention your deadline in a request.</p>',
   },
   {
     id: 'cost',
@@ -38,7 +38,7 @@ export const faqs: { id: string; q: string; a: string }[] = [
   {
     id: 'size',
     q: 'How big can you print?',
-    a: '<p>Up to 256 × 256 × 256 mm in one piece. Bigger objects can be split into sections that join with pins, glue or screws, and we design the joints for you.</p>',
+    a: '<p>Our large-format machines handle big parts in one piece. Anything bigger can be split into sections that join with pins, glue or screws, and we design the joints for you. Upload it and we’ll tell you the best way to print it.</p>',
   },
   {
     id: 'accuracy',

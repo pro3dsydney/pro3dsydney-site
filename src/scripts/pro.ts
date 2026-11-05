@@ -1,5 +1,6 @@
 import { api, apiUrl, uploadFile, waitForAnalysis, fmtBytes, fmtDuration, money, esc, ApiError, type Analysis } from './api';
 import { track, attribution } from './analytics';
+import { solveCaptcha } from './captcha';
 import { colourHex } from './colours';
 import type { BufferGeometry } from 'three';
 
@@ -35,6 +36,7 @@ let rush = false;
 let draftId: string | undefined;
 let orderPrice: OrderPrice | null = null;
 let viewer: import('./viewer').Viewer | null = null;
+let checkoutInView = false;
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -56,6 +58,9 @@ const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getEleme
   $('resetView').addEventListener('click', () => viewer?.reset());
   $('applyAll').addEventListener('click', applyToAll);
   setupCheckout();
+  // Hide the phone price bar once the checkout form (with its own total) is on screen.
+  new IntersectionObserver(([e]) => { checkoutInView = e.isIntersecting; $('priceDock').hidden = !parts.length || checkoutInView; }, { rootMargin: '0px 0px -30% 0px' })
+    .observe($('checkoutWrap'));
 })();
 
 /* ---------------- settings controls ---------------- */
@@ -277,7 +282,8 @@ function renderHud() {
   if (a?.volume) chips.push(`<span class="chip">${(a.volume / 1000).toFixed(1)} cm³</span>`);
   if (p.status === 'error') chips.push(`<span class="chip bad">✕ ${esc(p.error)}</span>`);
   else if (a && p.status === 'ready') {
-    chips.push(a.errors.length ? `<span class="chip bad">✕ ${esc(a.errors[0])}</span>` : `<span class="chip ok">✓ Fits our printers</span>`);
+    if (a.errors.length) chips.push(`<span class="chip bad">✕ ${esc(a.errors[0])}</span>`);
+    else if (!a.oversize) chips.push(`<span class="chip ok">✓ Fits our printers</span>`);
     for (const w of a.warnings || []) chips.push(`<span class="chip warn">! ${esc(w)}</span>`);
   }
   if (!p.geo && p.status !== 'error') chips.push(`<span class="chip">${/\.(step|stp)$/i.test(p.file.name) ? 'STEP files are previewed after slicing in our system' : 'Preview loading…'}</span>`);
@@ -299,7 +305,20 @@ function requestSlice(part: Part) {
   timers.set(part, window.setTimeout(async () => {
     try {
       track('slice_requested', { material: part.settings.material, nozzle: part.settings.nozzle });
-      let s = await api<Slice>('/api/slices', { uploadId: part.uploadId, settings: part.settings });
+      let s: Slice;
+      for (;;) {
+        try { s = await api<Slice>('/api/slices', { uploadId: part.uploadId, settings: part.settings }); break; }
+        catch (e) {
+          // After a few free slices the server asks for a quick human check.
+          if (e instanceof ApiError && e.code === 'captcha_required') {
+            part.slice = { id: '', status: 'queued', error: null, result: null };
+            await solveCaptcha(e.data.captcha);
+            if (seq !== part.sliceSeq) return;
+            continue;
+          }
+          throw e;
+        }
+      }
       while (s.status === 'queued' || s.status === 'running') {
         if (seq !== part.sliceSeq) return; // settings changed meanwhile
         await new Promise(r => setTimeout(r, 700));
@@ -310,7 +329,8 @@ function requestSlice(part: Part) {
       if (s.status === 'done') track('slice_done', { grams: s.result?.grams });
     } catch (e) {
       if (seq !== part.sliceSeq) return;
-      part.slice = { id: '', status: 'failed', error: (e as Error).message, result: null };
+      const limited = e instanceof ApiError && e.code === 'slice_limit';
+      part.slice = { id: '', status: 'failed', error: limited ? (e as Error).message : `Couldn’t slice this model: ${(e as Error).message}`, result: null };
     }
     renderTabs(); if (part === selected) renderPrice();
     refreshOrder();
@@ -339,7 +359,7 @@ function renderPrice() {
     box.innerHTML = `<span class="slicing"><i class="spinner"></i> Slicing with your settings…</span><div class="stats-row" style="margin-top:12px">${['Material', 'Print time', 'Per part'].map(l => `<div class="stat"><b class="skeleton" style="height:18px;width:60%;opacity:.25">&nbsp;</b><span>${l}</span></div>`).join('')}</div>`;
     return;
   }
-  if (s.status === 'failed') { box.innerHTML = `<div style="color:#fca5a5">Couldn’t slice this model: ${esc(s.error)}</div><p style="margin:10px 0 0;font-size:.9rem;color:#a9b6d3">Try different settings, or <a href="/quote/" style="color:#b9cdff">send it to us</a> and we’ll take a look.</p>`; return; }
+  if (s.status === 'failed') { box.innerHTML = `<div style="color:#fca5a5">${esc(s.error)}</div><p style="margin:10px 0 0;font-size:.9rem;color:#a9b6d3">Try different settings, or <a href="/quote/" style="color:#b9cdff">send it to us</a> and we’ll take a look.</p>`; return; }
   const r = s.result!;
   const line = orderPrice?.items.find(i => i.sliceId === s.id && i.quantity === p.quantity);
   box.innerHTML = `<div class="stats-row">
@@ -385,7 +405,7 @@ function renderSummary(pending: boolean) {
     [o.deliveryLabel.split(' — ')[0], o.totals.delivery],
   ].filter(Boolean).map(x => `<li><span>${esc((x as any)[0])}</span><span>${(x as any)[1] ? money((x as any)[1]) : 'Free'}</span></li>`).join('') : '';
   $('summaryTotal').textContent = o ? money(o.totals.total) : '—';
-  $('priceDock').hidden = !parts.length;
+  $('priceDock').hidden = !parts.length || checkoutInView;
   $('dockAmt').textContent = o ? money(o.totals.total) : '—';
   $('dockSub').textContent = pending ? 'Slicing…' : o ? `${o.items.reduce((n, i) => n + i.quantity, 0)} part(s) · inc. GST & delivery` : 'Add a printable file';
   $<HTMLButtonElement>('payBtn').disabled = !o || pending;

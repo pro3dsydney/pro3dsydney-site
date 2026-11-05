@@ -12,10 +12,10 @@ export const GET: APIRoute = ({ site }) => {
 > ${business.name} (Google Business Profile: "${business.legalName}") is a 3D printing and 3D modelling studio in ${business.suburb}, Sydney, NSW, Australia, operating since ${business.since} with ${business.clients} clients. Rated ${business.google.rating.toFixed(1)}/5 on Google.
 
 ## Services
-- FDM 3D printing in PLA, PETG, ASA, TPU 95A, polycarbonate and PETG-CF (carbon fibre). Layer heights 0.06–0.24 mm (0.2 mm and 0.4 mm nozzles). Max single piece 256 × 256 × 256 mm; larger objects are split and joined.
+- FDM 3D printing in PLA, PETG, ASA, TPU 95A, polycarbonate and PETG-CF (carbon fibre). Layer heights 0.06–0.24 mm (0.2 mm and 0.4 mm nozzles). Large parts printed in one piece; oversize objects are split and joined.
 - 3D modelling / CAD design from hand sketches, photos, measurements or broken parts (no 3D file needed).
 - Replacement and repair parts, prototypes, enclosures, jigs and fixtures, small-batch production (5–500 units).
-- Typical turnaround 24–72 hours; next-business-day rush available.
+- Typical turnaround 24–48 hours; next-business-day rush available.
 - Pickup in Coogee (free), Sydney metro courier ($15), Australia Post Express Australia-wide ($18).
 
 ## How to order
@@ -26,7 +26,7 @@ export const GET: APIRoute = ({ site }) => {
 Material $0.10–0.25 per gram (PLA lowest, PETG-CF highest) + machine time $3.50/hour + $3 setup per unique part + $8 order fee; $20 minimum order. 15% off 5–10 units, 25% off 11+. Details: ${u('/pricing/')}
 
 ## Contact
-Phone ${business.phone} · Email ${business.email} · ${business.suburb} ${business.region} ${business.postcode}
+Email ${business.email} (phone available on our website and Google Business Profile) · ${business.suburb} ${business.region} ${business.postcode}
 
 ## Pages
 - [3D design from sketches](${u('/3d-design/')})

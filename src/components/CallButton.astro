@@ -1,0 +1,10 @@
+---
+/**
+ * "Call us" button. The phone number is NOT in the page: it's fetched from the
+ * API only when a person clicks, so scrapers and spam diallers never see it.
+ */
+import Icon from './Icon.astro';
+interface Props { class?: string; label?: string; icon?: boolean }
+const { class: cls = 'btn', label = 'Call us', icon = true } = Astro.props;
+---
+<button type="button" class={cls} data-call>{icon && <Icon name="phone" size={16} />}<span>{label}</span></button>

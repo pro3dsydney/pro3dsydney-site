@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import CallButton from './CallButton.astro';
 import { business } from '../config';
 const year = new Date().getFullYear();
 ---
@@ -32,7 +33,7 @@ const year = new Date().getFullYear();
       <div>
         <h4>Contact</h4>
         <ul>
-          <li><a href={`tel:${business.phoneIntl}`}>{business.phone}</a></li>
+          <li><CallButton class="link-btn" label="Call us" icon={false} /></li>
           <li><a href={`mailto:${business.email}`}>{business.email}</a></li>
           <li>{business.showStreet ? `${business.street}, ` : ''}{business.suburb} {business.region} {business.postcode}</li>
           <li><a href={business.google.profileUrl} rel="noopener" target="_blank">Find us on Google Maps</a></li>

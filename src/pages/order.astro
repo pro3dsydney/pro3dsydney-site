@@ -46,7 +46,7 @@ import Base from '../layouts/Base.astro';
         s = await api<Status>(`/api/status/${encodeURIComponent(ref)}?t=${encodeURIComponent(token)}`);
       } catch (e) {
         document.getElementById('subtitle')!.textContent = 'We couldn’t find that order.';
-        main.innerHTML = `<p>${esc((e as Error).message)}</p><p>Need help? Call <a href="tel:${business.phoneIntl}">${business.phone}</a> or email <a href="mailto:${business.email}">${business.email}</a>.</p>`;
+        main.innerHTML = `<p>${esc((e as Error).message)}</p><p>Need help? Email <a href="mailto:${business.email}">${business.email}</a> or <button type="button" class="link-btn" data-call>call us</button>.</p>`;
         return;
       }
       if (q.get('paid') === '1') {
@@ -77,7 +77,8 @@ import Base from '../layouts/Base.astro';
       document.getElementById('aside')!.innerHTML = `
         <div class="card"><h3>Updates</h3><ul class="timeline">${s.timeline.slice().reverse().map(t => `<li><b>${esc(t.label)}</b><time>${fmtDate(t.at)}</time>${t.note ? `<div style="font-size:.92rem;margin-top:4px">${esc(t.note)}</div>` : ''}</li>`).join('')}</ul></div>
         <div class="card"><h3>Questions?</h3><p class="muted" style="font-size:.93rem;margin-bottom:8px">Quote <b>${esc(s.ref)}</b> and we’ll help.</p>
-          <p style="margin:0;font-weight:600"><a href="tel:${business.phoneIntl}">${business.phone}</a><br><a href="mailto:${business.email}?subject=${encodeURIComponent(s.ref)}">${business.email}</a></p></div>`;
+          <p style="margin:0 0 12px;font-weight:600"><a href="mailto:${business.email}?subject=${encodeURIComponent(s.ref)}">${business.email}</a></p>
+          <button type="button" class="btn btn-sm" data-call><span>Call us</span></button></div>`;
     })();
   </script>
 </Base>

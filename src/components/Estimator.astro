@@ -1,0 +1,99 @@
+---
+/**
+ * Ballpark estimator: no file needed. Estimates weight and print time from the
+ * part's size, then prices it with the same rates as the instant quote
+ * (fetched live from /api/catalog, with these defaults as a fallback).
+ */
+import Icon from './Icon.astro';
+---
+<div class="estimator" id="estimator">
+  <div class="est-controls">
+    <div class="est-row">
+      <label for="estSize">Longest side of the part <span class="val"><output id="estSizeOut">80</output> mm</span></label>
+      <input type="range" id="estSize" min="10" max="400" value="80" step="5" />
+      <div class="est-scale"><span>Coin</span><span>Phone</span><span>Shoebox</span></div>
+    </div>
+    <div class="est-row">
+      <label for="estQty">Quantity <span class="val"><output id="estQtyOut">1</output></span></label>
+      <input type="range" id="estQty" min="1" max="50" value="1" />
+    </div>
+    <div class="est-grid">
+      <div class="est-row">
+        <label for="estMat">Material</label>
+        <select id="estMat" class="input">
+          <option value="pla">PLA</option><option value="petg">PETG</option><option value="asa">ASA</option>
+          <option value="tpu">TPU 95A</option><option value="pc">Polycarbonate</option><option value="petgcf">PETG-CF</option>
+        </select>
+      </div>
+      <div class="est-row">
+        <label>How solid?</label>
+        <div class="seg" id="estSolid" role="group" aria-label="How solid">
+          <button type="button" data-v="0.22" aria-pressed="false">Light</button>
+          <button type="button" data-v="0.32" aria-pressed="true">Standard</button>
+          <button type="button" data-v="0.5" aria-pressed="false">Strong</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="est-result" aria-live="polite">
+    <span class="muted">Ballpark per part</span>
+    <div class="est-price" id="estPer">$—</div>
+    <div class="est-total"><span>Order of <b id="estQtyLabel">1</b></span><b id="estTotal">$—</b></div>
+    <p class="est-note">Inc. GST. Rough guide based on a typical part this size. Shape changes the real number a lot.</p>
+    <a class="btn btn-primary btn-block" href="/instant-quote/" data-track="cta_click" data-label="estimator_exact"><Icon name="cube" size={18} />Upload a file for the exact price</a>
+    <a class="btn btn-block" style="margin-top:8px" href="/quote/" data-track="cta_click" data-label="estimator_request">No file? Send a request</a>
+  </div>
+</div>
+
+<script>
+  import { api, money } from '../scripts/api';
+
+  let rates = {
+    materials: { pla: { perGram: 0.10, density: 1.24 }, petg: { perGram: 0.12, density: 1.27 }, asa: { perGram: 0.15, density: 1.07 },
+      tpu: { perGram: 0.20, density: 1.21 }, pc: { perGram: 0.22, density: 1.20 }, petgcf: { perGram: 0.25, density: 1.30 } } as Record<string, { perGram: number; density: number }>,
+    pricing: { orderFee: 8, perPartSetup: 3, machinePerHour: 3.5, minimumOrder: 20, quantityBreaks: [{ minQty: 11, discount: 0.25 }, { minQty: 5, discount: 0.15 }] },
+  };
+  // Relative print speed vs PLA (grams per hour)
+  const SPEED: Record<string, number> = { pla: 1, petg: 0.8, asa: 0.85, tpu: 0.3, pc: 0.75, petgcf: 0.8 };
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const size = $<HTMLInputElement>('estSize'), qty = $<HTMLInputElement>('estQty'), mat = $<HTMLSelectElement>('estMat');
+  let solid = 0.32;
+
+  function estimate(L: number, m: string, fill: number) {
+    // Typical part: bounding box ≈ L × 0.6L × 0.45L, occupying ~45% of it.
+    const volCm3 = (L * 0.6 * L * 0.45 * L * 0.45) / 1000;
+    const grams = Math.max(1.5, volCm3 * fill * rates.materials[m].density);
+    const hours = 0.15 + grams / (16 * SPEED[m]) + (L > 150 ? L / 400 : 0);
+    const unit = grams * rates.materials[m].perGram + hours * rates.pricing.machinePerHour;
+    return { grams, hours, unit };
+  }
+
+  function calc() {
+    const L = +size.value, Q = +qty.value, m = mat.value;
+    $('estSizeOut').textContent = String(L);
+    $('estQtyOut').textContent = String(Q);
+    $('estQtyLabel').textContent = String(Q);
+    const { unit } = estimate(L, m, solid);
+    const brk = rates.pricing.quantityBreaks.find(b => Q >= b.minQty);
+    const each = unit * (1 - (brk?.discount ?? 0));
+    const per = each + rates.pricing.perPartSetup / Q;
+    const total = Math.max(rates.pricing.minimumOrder, rates.pricing.perPartSetup + each * Q + rates.pricing.orderFee);
+    const lo = (n: number) => Math.max(1, Math.floor((n * 0.75) / 1)), hi = (n: number) => Math.ceil(n * 1.3);
+    $('estPer').textContent = `${money(lo(per)).replace('.00', '')} – ${money(hi(per)).replace('.00', '')}`;
+    $('estTotal').textContent = `≈ ${money(Math.round(total))}`.replace('.00', '');
+  }
+
+  $('estSolid').addEventListener('click', e => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-v]');
+    if (!b) return;
+    solid = +b.dataset.v!;
+    $('estSolid').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    calc();
+  });
+  [size, qty, mat].forEach(el => el.addEventListener('input', calc));
+  calc();
+
+  // Use live rates if the API is reachable.
+  api('/api/catalog').then(c => { rates = { materials: c.materials, pricing: c.pricing }; calc(); }).catch(() => {});
+</script>

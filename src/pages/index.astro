@@ -7,6 +7,7 @@ import CtaBand from '../components/CtaBand.astro';
 import Sketch from '../components/art/Sketch.astro';
 import Cad from '../components/art/Cad.astro';
 import Part from '../components/art/Part.astro';
+import Estimator from '../components/Estimator.astro';
 import { business } from '../config';
 
 const services = [
@@ -20,56 +21,121 @@ const services = [
 ---
 <Base
   title="3D Printing & 3D Modelling in Sydney | Ultimate3D Sydney"
-  description="Sydney 3D printing studio in Coogee. Send a 3D file, photo or sketch: we design it, print it in PLA, PETG, ASA, TPU or carbon fibre, and have it ready in 24–72 hours. Instant online quotes."
+  description="Sydney 3D printing studio in Coogee. Send a 3D file, photo or sketch: we design it, print it in PLA, PETG, ASA, TPU or carbon fibre, with a typical 24–48 h turnaround. Instant online quotes."
 >
-  <!-- Hero -->
-  <section class="hero dark layers">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">3D printing &amp; design · Coogee, Sydney</span>
-        <h1>From a sketch on a napkin to a <span class="hl">part in your hand.</span></h1>
-        <p class="lead">Send us a 3D file, a photo, or a rough drawing with measurements. We design it, print it in tough engineering materials, and have it ready in 24–72 hours.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="hero_request">Start a request <span class="arrow">→</span></a>
-          <a class="btn btn-ghost-light btn-lg" href="/instant-quote/" data-track="cta_click" data-label="hero_instant">Have a file? Instant price</a>
+  <!-- Hero: three slides that cycle slowly -->
+  <section class="hero dark layers" aria-roledescription="carousel" aria-label="Highlights">
+    <div class="container">
+      <div class="hero-slides" id="heroSlides">
+        <!-- 1: premium FDM -->
+        <div class="hero-slide active hero-grid" data-slide="0" role="group" aria-roledescription="slide" aria-label="1 of 3">
+          <div>
+            <span class="eyebrow">3D printing &amp; design · Coogee, Sydney</span>
+            <h1>Premium FDM printing with <span class="hl">0.06&nbsp;mm</span> layers.</h1>
+            <p class="lead">Since {business.since}, Ultimate3D has helped Sydney makers, startups and engineers turn CAD into production-ready parts. Expert design-for-print feedback and consistent results, <b style="color:#fff">fast</b>.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="hero1_quote">Get a same-day quote <span class="arrow">→</span></a>
+              <a class="btn btn-ghost-light btn-lg" href="/instant-quote/" data-track="cta_click" data-label="hero1_instant">Have a file? Instant price</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-frame">
+              <video id="heroVideo" muted loop playsinline preload="none" poster="/media/printing-poster.jpg" aria-label="Time-lapse of a part printing in our studio">
+                <source src="/media/printing.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="hero-badge b1"><span class="dot" style="background:#e8efff;color:#2563eb"><Icon name="layers" /></span><span><b>0.06 mm</b>finest layer height</span></div>
+          </div>
         </div>
-        <div class="hero-proof">
-          <a href={business.google.profileUrl} target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><span class="stars">★★★★★</span> <b>{business.google.rating.toFixed(1)}</b> on Google</a>
-          <span><b>{business.clients}</b> clients since {business.since}</span>
-          <span>Reply within <b>1 business day</b></span>
+
+        <!-- 2: sketch to part -->
+        <div class="hero-slide hero-grid" data-slide="1" role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+          <div>
+            <span class="eyebrow">No 3D file? No problem</span>
+            <p class="hero-title">From a sketch on a napkin to a <span class="hl">part in your hand.</span></p>
+            <p class="lead">Send us a photo, a rough drawing with measurements, or the broken part. We model it in CAD, show you a preview, and print it in the right material.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="hero2_sketch" tabindex="-1">Send a sketch or photo <span class="arrow">→</span></a>
+              <a class="btn btn-ghost-light btn-lg" href="/3d-design/" data-track="cta_click" data-label="hero2_design" tabindex="-1">How 3D design works</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-frame hero-art duo"><Sketch /><span class="arrow-big" aria-hidden="true">→</span><Part /></div>
+            <div class="hero-badge b1"><span class="dot" style="background:#fff3e8;color:#ea580c"><Icon name="pencil" /></span><span><b>We design it</b>from your sketch</span></div>
+          </div>
+        </div>
+
+        <!-- 3: can it be made? -->
+        <div class="hero-slide hero-grid" data-slide="2" role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+          <div>
+            <span class="eyebrow">Free printability check</span>
+            <p class="hero-title">Not sure if your part can be made? <span class="hl">We’ll let you know today.</span></p>
+            <p class="lead">Send it over and a real person checks it: strength, wall thickness, tolerances, the best material and orientation. Free, with no obligation.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary btn-lg" href="/quote/" data-track="cta_click" data-label="hero3_check" tabindex="-1">Check my part <span class="arrow">→</span></a>
+              <a class="btn btn-ghost-light btn-lg" href="/faq/" data-track="cta_click" data-label="hero3_faq" tabindex="-1">Common questions</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-frame hero-art"><div class="check-card"><Cad />
+              <div class="check-list">
+                <span class="chip ok">✓ Walls 1.6 mm, strong enough</span>
+                <span class="chip ok">✓ Fits in one piece</span>
+                <span class="chip warn">! Hole: print 0.2 mm larger</span>
+                <span class="chip ok">✓ Best in PETG</span>
+              </div>
+            </div></div>
+            <div class="hero-badge b1"><span class="dot" style="background:#e7f8f1;color:#059669"><Icon name="check" /></span><span><b>Same-day</b>printability check</span></div>
+          </div>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-frame">
-          <video data-autoplay muted loop playsinline preload="none" poster="/media/printing-poster.jpg" aria-label="Time-lapse of a part printing on one of our printers">
-            <source src="/media/printing.mp4" type="video/mp4" />
-          </video>
+
+      <ul class="hero-stats" aria-label="Key facts">
+        <li><b>{business.clients} clients</b><span>Individuals &amp; businesses</span></li>
+        <li><b>{business.turnaround}</b><span>Typical turnaround</span></li>
+        <li><a href={business.google.profileUrl} target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><b><span class="stars" style="font-size:.95rem">★★★★★</span> {business.google.rating.toFixed(1)}</b><span>On Google</span></a></li>
+      </ul>
+      <div class="hero-controls">
+        <div class="hero-dots" id="heroDots" role="tablist" aria-label="Choose slide">
+          <button type="button" role="tab" aria-label="Slide 1: premium FDM printing" aria-current="true"></button>
+          <button type="button" role="tab" aria-label="Slide 2: from a sketch to a part"></button>
+          <button type="button" role="tab" aria-label="Slide 3: free printability check"></button>
         </div>
-        <div class="hero-badge b1">
-          <span class="dot" style="background:#e8efff;color:#2563eb"><Icon name="layers" /></span>
-          <span><b>0.06 mm</b>finest layer height</span>
-        </div>
-        <div class="hero-badge b2">
-          <span class="dot" style="background:#e7f8f1;color:#059669"><Icon name="clock" /></span>
-          <span><b>24–72 h</b>typical turnaround</span>
-        </div>
+        <button type="button" class="hero-pause" id="heroPause" aria-label="Pause slideshow">❚❚</button>
       </div>
     </div>
   </section>
 
   <!-- Proof strip -->
-  <section class="proof" aria-label="Key facts">
+  <section class="proof" aria-label="About us">
     <div class="container">
       <div class="proof-item"><b>{business.since}</b><span>Printing in Sydney since</span></div>
-      <div class="proof-item"><b>{business.clients}</b><span>Makers, startups &amp; businesses</span></div>
+      <div class="proof-item"><b>0.06 mm</b><span>Finest layer height</span></div>
       <div class="proof-item"><b>6</b><span>Engineering materials in stock</span></div>
-      <div class="proof-item"><b>256 mm</b><span>Max size in one piece (bigger? we split it)</span></div>
+      <div class="proof-item"><b>Same day</b><span>Printability check, usually</span></div>
     </div>
   </section>
-  <div class="container brands-line" aria-label="Filament brands we print with">
-    <span>Printing on Bambu Lab machines with filament from</span>
-    <b>Bambu Lab</b><b>Polymaker</b><b>eSUN</b><b>colorFabb</b><b>Sunlu</b>
-  </div>
+
+  <!-- Filament brands -->
+  <section class="marquee" aria-label="Filament brands we print with">
+    <div class="marquee-label">Premium filament from</div>
+    <div class="marquee-track">
+      {[0, 1].map(dup => (
+        <>
+          <img src="/img/brands/bambu-lab.webp" alt={dup ? '' : 'Bambu Lab'} aria-hidden={dup ? 'true' : undefined} style="--h:44px" width="142" height="96" />
+          <img src="/img/brands/polymaker.webp" alt={dup ? '' : 'Polymaker'} aria-hidden={dup ? 'true' : undefined} style="--h:44px" width="171" height="96" />
+          <img src="/img/brands/esun.webp" alt={dup ? '' : 'eSUN'} aria-hidden={dup ? 'true' : undefined} style="--h:30px" width="393" height="96" />
+          <img src="/img/brands/colorfabb.webp" alt={dup ? '' : 'colorFabb'} aria-hidden={dup ? 'true' : undefined} style="--h:44px" width="164" height="96" />
+          <img src="/img/brands/sunlu.webp" alt={dup ? '' : 'Sunlu'} aria-hidden={dup ? 'true' : undefined} style="--h:26px" width="420" height="96" />
+          <img src="/img/brands/bambu-lab.webp" alt="" aria-hidden="true" style="--h:44px" width="142" height="96" />
+          <img src="/img/brands/polymaker.webp" alt="" aria-hidden="true" style="--h:44px" width="171" height="96" />
+          <img src="/img/brands/esun.webp" alt="" aria-hidden="true" style="--h:30px" width="393" height="96" />
+          <img src="/img/brands/colorfabb.webp" alt="" aria-hidden="true" style="--h:44px" width="164" height="96" />
+          <img src="/img/brands/sunlu.webp" alt="" aria-hidden="true" style="--h:26px" width="420" height="96" />
+        </>
+      ))}
+    </div>
+  </section>
 
   <!-- Two paths -->
   <section class="section">
@@ -110,8 +176,20 @@ const services = [
     </div>
   </section>
 
+  <!-- Ballpark estimator -->
+  <section class="section soft" id="estimate">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Ballpark estimator</span>
+        <h2>Roughly how much will it cost?</h2>
+        <p class="lead">Slide to your part’s size for a quick, non-binding estimate. For an exact price, upload the file.</p>
+      </div>
+      <Estimator />
+    </div>
+  </section>
+
   <!-- Sketch to part -->
-  <section class="section soft">
+  <section class="section">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">No CAD? No problem</span>
@@ -124,6 +202,21 @@ const services = [
         <figure class="reveal"><div class="art"><Part /></div><figcaption><span class="step-n">03 · You get</span><b>A finished, functional part</b><span class="muted">Printed in the right material for the job. Pick it up in Coogee or we’ll ship it.</span></figcaption></figure>
       </div>
       <p style="margin-top:28px"><a class="btn" href="/3d-design/">How our 3D design service works <span class="arrow">→</span></a></p>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Recent work</span>
+        <h2>From prototypes to finished pieces.</h2>
+      </div>
+      <div class="gallery">
+        <figure class="reveal"><img src="/img/gearbox.webp" alt="Multi-stage 3D-printed gearbox with printed gears, shafts and bearing housings" loading="lazy" width="1200" height="900" /><figcaption>Functional gearbox</figcaption></figure>
+        <figure class="reveal"><img src="/img/temple.jpg" alt="Detailed architectural temple model printed at fine layer height" loading="lazy" width="516" height="516" /><figcaption>Architectural model</figcaption></figure>
+        <figure class="reveal"><img src="/img/vase.webp" alt="Decorative spiral vase printed in silk PLA" loading="lazy" width="850" height="500" /><figcaption>Decor &amp; gifts</figcaption></figure>
+      </div>
     </div>
   </section>
 
@@ -146,21 +239,6 @@ const services = [
     </div>
   </section>
 
-  <!-- Gallery -->
-  <section class="section soft">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Recent work</span>
-        <h2>From prototypes to finished pieces.</h2>
-      </div>
-      <div class="gallery">
-        <figure class="reveal"><img src="/img/prototypes.jpg" alt="Assorted functional prototype parts printed in PLA and PETG" loading="lazy" width="581" height="775" /><figcaption>Functional prototypes</figcaption></figure>
-        <figure class="reveal"><img src="/img/temple.jpg" alt="Detailed architectural temple model printed at fine layer height" loading="lazy" width="516" height="516" /><figcaption>Architectural model</figcaption></figure>
-        <figure class="reveal"><img src="/img/vase.webp" alt="Decorative spiral vase printed in silk PLA" loading="lazy" width="850" height="500" /><figcaption>Decor &amp; gifts</figcaption></figure>
-      </div>
-    </div>
-  </section>
-
   <!-- How it works -->
   <section class="section dark layers">
     <div class="container">
@@ -171,7 +249,7 @@ const services = [
       <ol class="steps" style="padding:0;margin:0">
         <li><h3>Send it over</h3><p>Upload files, photos or a description. Takes about two minutes and no account is needed.</p></li>
         <li><h3>We check &amp; quote</h3><p>A real person reviews printability, suggests improvements and confirms the price.</p></li>
-        <li><h3>Print &amp; inspect</h3><p>Printed on calibrated Bambu Lab machines, then cleaned up and quality-checked.</p></li>
+        <li><h3>Print &amp; inspect</h3><p>Printed on calibrated, high-precision machines, then cleaned up and quality-checked.</p></li>
         <li><h3>Pickup or delivery</h3><p>Collect in Coogee, Sydney courier, or Australia Post Express nationwide.</p></li>
       </ol>
     </div>
@@ -195,4 +273,70 @@ const services = [
   </section>
 
   <CtaBand />
+  <script>
+    // Hero slideshow
+    const SLIDE_MS = 8000;
+    const slides = [...document.querySelectorAll<HTMLElement>('.hero-slide')];
+    const dots = [...document.querySelectorAll<HTMLButtonElement>('#heroDots button')];
+    const dotsWrap = document.getElementById('heroDots')!;
+    const pauseBtn = document.getElementById('heroPause')!;
+    const hero = document.querySelector<HTMLElement>('.hero')!;
+    const video = document.getElementById('heroVideo') as HTMLVideoElement;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = (navigator as any).connection?.saveData;
+    hero.style.setProperty('--slide-ms', SLIDE_MS + 'ms');
+    let i = 0, timer = 0, userPaused = reduce, hoverPaused = false, heroVisible = true;
+
+    function show(n: number) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => {
+        const on = k === i;
+        s.classList.toggle('active', on);
+        s.setAttribute('aria-hidden', String(!on));
+        s.querySelectorAll<HTMLElement>('a, button').forEach(el => on ? el.removeAttribute('tabindex') : el.setAttribute('tabindex', '-1'));
+      });
+      dots.forEach((d, k) => {
+        d.removeAttribute('aria-current'); d.classList.toggle('done', false);
+        void d.offsetWidth; // restart the progress animation
+        if (k === i) d.setAttribute('aria-current', 'true');
+      });
+      syncVideo();
+      schedule();
+    }
+    function running() { return !userPaused && !hoverPaused && heroVisible && document.visibilityState === 'visible'; }
+    function schedule() {
+      clearTimeout(timer);
+      dotsWrap.classList.toggle('paused', !running());
+      if (running()) timer = window.setTimeout(() => show(i + 1), SLIDE_MS);
+    }
+    function syncVideo() {
+      if (!video || reduce || saveData) return;
+      if (i === 0 && heroVisible) video.play().catch(() => {}); else video.pause();
+    }
+
+    dots.forEach((d, k) => d.addEventListener('click', () => show(k)));
+    pauseBtn.addEventListener('click', () => {
+      userPaused = !userPaused;
+      pauseBtn.textContent = userPaused ? '▶' : '❚❚';
+      pauseBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+      schedule();
+    });
+    if (reduce) { pauseBtn.textContent = '▶'; pauseBtn.setAttribute('aria-label', 'Play slideshow'); }
+    const slideBox = document.getElementById('heroSlides')!;
+    slideBox.addEventListener('mouseenter', () => { hoverPaused = true; schedule(); });
+    slideBox.addEventListener('mouseleave', () => { hoverPaused = false; schedule(); });
+    slideBox.addEventListener('focusin', () => { hoverPaused = true; schedule(); });
+    slideBox.addEventListener('focusout', () => { hoverPaused = false; schedule(); });
+    document.addEventListener('visibilitychange', schedule);
+    // Swipe on phones
+    let x0: number | null = null;
+    slideBox.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    slideBox.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+    });
+    new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; syncVideo(); schedule(); }, { threshold: 0.2 }).observe(hero);
+    show(0);
+  </script>
 </Base>
